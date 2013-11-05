@@ -11,8 +11,21 @@ using namespace std;
 //using namespace d20Characters;
 #include "character.h"
 #include "Fighter.h"
+#include "Observable.h"
+#include "Observer.h"
 
 int main() {
+
+
+	//
+	d20Characters::Observable myobs;
+
+	//faking passing the GUI class:
+	// later will be fake_GUi.registerToCharacter // or even done in constructor
+	myobs.registerObserver(new d20Characters::Observer(345));
+
+	//fake some modifs:
+	myobs.notifyAllObservers();
 
 	cout
 			<< "ASSIGNMENT 2 !!! " << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"

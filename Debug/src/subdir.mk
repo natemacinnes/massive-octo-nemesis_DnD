@@ -5,16 +5,22 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Fighter.cpp \
+../src/Observable.cpp \
+../src/Observer.cpp \
 ../src/character.cpp \
 ../src/comp345_driver_for_character.cpp 
 
 OBJS += \
 ./src/Fighter.o \
+./src/Observable.o \
+./src/Observer.o \
 ./src/character.o \
 ./src/comp345_driver_for_character.o 
 
 CPP_DEPS += \
 ./src/Fighter.d \
+./src/Observable.d \
+./src/Observer.d \
 ./src/character.d \
 ./src/comp345_driver_for_character.d 
 

@@ -12,6 +12,7 @@
 #include <iostream>
 using namespace std;
 
+
 namespace d20Characters {
 
 character::character(int thelevel) {
