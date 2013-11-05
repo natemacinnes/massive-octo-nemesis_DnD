@@ -13,6 +13,7 @@ using namespace std;
 #include "Fighter.h"
 #include "Observable.h"
 #include "Observer.h"
+#include "GUIclass.h"
 
 int main() {
 
@@ -22,13 +23,13 @@ int main() {
 
 	//faking passing the GUI class:
 	// later will be fake_GUi.registerToCharacter // or even done in constructor
-	myobs.registerObserver(new d20Characters::Observer(345));
+	myobs.registerObserver(new d20Characters::GUIclass());//(new d20Characters::Observer(345));
 
-	//fake some modifs:
+	//fake some modifs: (TODO: that method should be private in the future)
 	myobs.notifyAllObservers();
 
 	cout
-			<< "ASSIGNMENT 2 !!! " << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"
+			<< "ASSIGNMENT 2 !!! " << endl << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"
 			<< endl;
 	//==================creating a fighter:
 	//d20Characters::character myFighter(1); // passing the level, assuming one for now.

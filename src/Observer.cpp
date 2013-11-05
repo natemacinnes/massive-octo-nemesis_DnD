@@ -29,7 +29,7 @@ Observer::~Observer() {
 }
 
 void Observer::onEvent() {
-	cout << "onEvent triggered!" << endl;
+	cout << " default Observer.onEvent() triggered!" << endl;
 }
 
 } /* namespace d20Characters */

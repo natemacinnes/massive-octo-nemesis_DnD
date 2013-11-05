@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Fighter.cpp \
+../src/GUIclass.cpp \
 ../src/Observable.cpp \
 ../src/Observer.cpp \
 ../src/character.cpp \
@@ -12,6 +13,7 @@ CPP_SRCS += \
 
 OBJS += \
 ./src/Fighter.o \
+./src/GUIclass.o \
 ./src/Observable.o \
 ./src/Observer.o \
 ./src/character.o \
@@ -19,6 +21,7 @@ OBJS += \
 
 CPP_DEPS += \
 ./src/Fighter.d \
+./src/GUIclass.d \
 ./src/Observable.d \
 ./src/Observer.d \
 ./src/character.d \
