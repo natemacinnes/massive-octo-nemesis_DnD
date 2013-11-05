@@ -14,8 +14,7 @@ using namespace std;
 
 namespace d20Characters {
 
-Observable::Observable() :
-		listOfObservers() {
+Observable::Observable() { //:	listOfObservers() {
 	// TODO Auto-generated constructor stub
 
 //	//listOfObservers = {Observer1 myobs(42), Observer2 myobs(41)};
@@ -70,14 +69,14 @@ void Observable::notifyAllObservers() {
 //	    (*listMyClassIter)->PrintMeOut();
 //	}
 
-	Observer *obs1 = new Observer(90);
-	Observer *obs2 = new Observer(91);
-	Observer *obs3 = new Observer(92);
-	Observer *obs4 = new Observer(93);
-	listOfObservers_vector.push_back(obs1);
-	listOfObservers_vector.push_back(obs2);
-	listOfObservers_vector.push_back(obs3);
-	listOfObservers_vector.push_back(obs4);
+//	Observer *obs1 = new Observer(90);
+//	Observer *obs2 = new Observer(91);
+//	Observer *obs3 = new Observer(92);
+//	Observer *obs4 = new Observer(93);
+//	listOfObservers_vector.push_back(obs1);
+//	listOfObservers_vector.push_back(obs2);
+//	listOfObservers_vector.push_back(obs3);
+//	listOfObservers_vector.push_back(obs4);
 	//cout << "adding to vector ... ?";
 
 //	for (vector<Observer*>::const_iterator i = listOfObservers_vector.begin();
@@ -86,7 +85,7 @@ void Observable::notifyAllObservers() {
 //		cout  << " vector??? "; // this will print all the contents of *features*
 //		//(*i).index <<
 //	}
-	for (int i=0; i<listOfObservers_vector.size(); i++) {
+	for (int i = 0; i < listOfObservers_vector.size(); i++) {
 		cout << " vector? ... " << listOfObservers_vector[i]->index;
 		listOfObservers_vector[i]->onEvent();
 	}
@@ -98,8 +97,8 @@ void Observable::notifyAllObservers() {
 //
 //	}
 
-	for (int i = 0; i < MAX_SIZE; i++)
-		cout << " HELLO " << listOfObservers[i].index;
+//	for (int i = 0; i < MAX_SIZE; i++)
+//		cout << " HELLO " << listOfObservers[i].index;
 }
 
 } /* namespace d20Characters */

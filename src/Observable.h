@@ -26,8 +26,8 @@ private:
     std::vector<Observer*> listOfObservers_vector;
     std::vector<Observer*>::iterator iter;
 
-	static const unsigned MAX_SIZE = 2;
-	Observer listOfObservers[MAX_SIZE];
+//	static const unsigned MAX_SIZE = 2;
+//	Observer listOfObservers[MAX_SIZE];
 
 public:
 	//Observable(): listOfObservers() {};

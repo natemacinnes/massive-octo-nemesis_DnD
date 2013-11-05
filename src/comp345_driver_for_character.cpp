@@ -17,8 +17,8 @@ using namespace std;
 int main() {
 
 
-	//
-	d20Characters::Observable myobs;
+	//create fighter to observe:
+	d20Characters::Fighter myobs(2);
 
 	//faking passing the GUI class:
 	// later will be fake_GUi.registerToCharacter // or even done in constructor

@@ -9,10 +9,11 @@
 #define FIGHTER_H_
 
 #include "character.h"
+#include "Observable.h"
 
 namespace d20Characters {
 
-class Fighter: public d20Characters::character {
+class Fighter: public d20Characters::character, public d20Characters::Observable {
 public:
 	Fighter(int level);
 	virtual ~Fighter();
