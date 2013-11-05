@@ -19,17 +19,8 @@ namespace d20Characters {
 class Observable {
 
 private:
-	//std::list<int> integer_list;
-	//std::list<Observer*> listOfObservers;
-	//typedef list<int> IntegerList;
-	//listOfObservers = list();
-
-    std::vector<Observer*> listOfObservers_vector; // object slicing problem
-    //std::vector<boost::shared_ptr<Observer>> listOfObservers_vector; //boost::shared_ptr<A>
-    std::vector<Observer*>::iterator iter;
-
-//	static const unsigned MAX_SIZE = 2;
-//	Observer listOfObservers[MAX_SIZE];
+	std::vector<Observer*> listOfObservers_vector;
+	std::vector<Observer*>::iterator iter;
 
 public:
 	//Observable(): listOfObservers() {};
@@ -37,8 +28,8 @@ public:
 	~Observable();
 	//2 methods essential to observer pattern:
 	void registerObserver(Observer *obs);
+protected:
 	void notifyAllObservers();
-
 
 };
 

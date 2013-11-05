@@ -12,7 +12,6 @@
 #include <iostream>
 using namespace std;
 
-
 namespace d20Characters {
 
 character::character(int thelevel) {
@@ -62,45 +61,63 @@ int character::getAttackBonus() {
 // items:
 void character::setHelmet(bool h) {
 	helmet = h;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void character::addRing() {
-	if (rings < 2)
+	if (rings < 2) {
 		rings += 1;
-	else
+		// notify GUI or MAP
+		notifyAllObservers();
+	} else
 		cout << endl << "CANNOT addRing(): already 2 rings" << endl;
 }
 void character::removeRing() {
-	if (rings > 0)
+	if (rings > 0) {
 		rings -= 1;
-	else
+		// notify GUI or MAP
+		notifyAllObservers();
+	} else
 		cout << endl << "CANNOT removeRing(): already 0 rings" << endl;
 }
 void character::setRings(int number) { // max of 2
-	if (number >= 0 && number < 2)
+	if (number >= 0 && number < 2) {
 		rings = number;
-	else
+		// notify GUI or MAP
+		notifyAllObservers();
+	} else
 		cout << endl
 				<< "CANNOT setRings: invalid number of rings (range is 0-2 inclusive)"
 				<< endl;
 }
 void character::setWeapon(bool w) {
 	weapon = w;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void character::setShield(bool s) {
 	shield = s;
 	//dependents:
 	setArmorClass();
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void character::setArmor(bool a) {
 	armor = a;
 	//dependents:
 	setArmorClass();
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void character::setBelt(bool b) {
 	belt = b;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void character::setBoots(bool b) {
 	boots = b;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 //print:

@@ -17,88 +17,47 @@ using namespace std;
 
 int main() {
 
+	cout << endl
+			<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"
+			<< endl << endl;
 
-	//create fighter to observe:
-	d20Characters::Fighter myobs(2);
+	//create fighter that we will observe / watch for changes:
+	d20Characters::Fighter myFighter(2);
 
-	//faking passing the GUI class:
-	// later will be fake_GUi.registerToCharacter // or even done in constructor
+	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
 	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
-	//myobs.registerObserver(new d20Characters::GUIclass());//(new d20Characters::Observer(345));
-	gui->registerToObservable(&myobs);
 
-	//fake some modifs: (TODO: that method should be private in the future)
-	myobs.notifyAllObservers();
+	//plug the two together -- the observer (GUI object) and observable (Fighter object):
+	gui->registerToObservable(&myFighter);
 
-	cout
-			<< endl << "ASSIGNMENT 2 !!! " << endl << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"
-			<< endl;
-	//==================creating a fighter:
-	//d20Characters::character myFighter(1); // passing the level, assuming one for now.
-	d20Characters::Fighter myFighter(1);
-
-	//logging all the variables to observe:
-	cout << endl << "Simple initialization of Fighter object: " << endl;
-	myFighter.printCharacterStats();
-
-	//==================testing all the items setters: and logging after modifications:
+	//now any modifications on myFighter should trigger a re-print of myFighter:
+	cout << endl << "myFighter.addRing(); SHOULD TRIGGER A RE-PRINT";
+	myFighter.addRing();
+	cout << endl << "myFighter.removeRing(); SHOULD TRIGGER A RE-PRINT";
+	myFighter.removeRing();
+	cout << endl << "myFighter.setArmor(true);; SHOULD TRIGGER A RE-PRINT";
 	myFighter.setArmor(true);
+	cout << endl << "myFighter.setBelt(true); SHOULD TRIGGER A RE-PRINT";
 	myFighter.setBelt(true);
+	cout << endl << "myFighter.setBoots(true); SHOULD TRIGGER A RE-PRINT";
 	myFighter.setBoots(true);
+	cout << endl << "myFighter.setHelmet(true); SHOULD TRIGGER A RE-PRINT";
 	myFighter.setHelmet(true);
+	cout << endl << "myFighter.setShield(true); SHOULD TRIGGER A RE-PRINT";
 	myFighter.setShield(true);
+	cout << endl << "myFighter.setWeapon(true); SHOULD TRIGGER A RE-PRINT";
 	myFighter.setWeapon(true);
 
-	cout << endl << "Modified fighter items. " << endl;
-
-	cout << endl << "modifying armor and shield should modify setArmorClass()."
-			<< endl;
-	//
-	//myFighter.setArmorClass(); // this one not, it's entirely dependent on other variables.
-	//should be protected, user cannot set them directly:
-	//myFighter.setAttackBonus(20);
-	//myFighter.setCharisma(); // all those should be inaccessible to the user
-
-	myFighter.printCharacterStats();
-
-	//==================testing setting the number of rings different ways:
-	cout << endl << "adding some rings several times, in different ways: "
-			<< endl;
-	myFighter.setRings(32); //should fail with error msg
-	myFighter.addRing();
-	myFighter.addRing();
-	myFighter.addRing();
-	myFighter.addRing();
-	//myFighter.removeRing();
+	//those should not work because out of bounds:
 	cout << endl
-			<< "setStrength(18) should affect setAttackBonus(); setDamageBonus(); since those depend on it."
-			<< endl;
-	myFighter.setStrength(18); // this can really be used by a "user" of the class
-
-	myFighter.printCharacterStats();
-
-	//==================testing removing a ring
-	cout << endl << "removing some rings several times, in different ways: "
-			<< endl;
-	myFighter.removeRing();
-	myFighter.removeRing();
-	myFighter.removeRing();
-	myFighter.removeRing();
-	myFighter.removeRing();
-
-	cout << endl
-			<< "setDexterity(10) should affect 	setArmorClass(); and setAttackBonus(); since those depend on it."
-			<< endl;
-	myFighter.setDexterity(10); // this can really be used by a "user" of the class
-
-	myFighter.printCharacterStats();
-
-	//====================testing adding a wrong dice result:
+			<< "myFighter.setHitPoints(124); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setHitPoints(124);
+	cout << endl
+			<< "myFighter.setDamageBonus(1064); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setDamageBonus(1064);
+	cout << endl
+			<< "myFighter.setAttackBonus(-1); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setAttackBonus(-1);
-
-	myFighter.printCharacterStats();
 
 	return 0;
 }

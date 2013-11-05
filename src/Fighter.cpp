@@ -64,6 +64,8 @@ void Fighter::setLevel(int thelevel) {
 		//dependents:
 		srand(time(NULL));
 		setHitPoints(rand() % 11 + 7);
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
 }
 int Fighter::getLevel() {
@@ -82,6 +84,8 @@ void Fighter::setStrength(int diceResult) {
 	//dependents:
 	setAttackBonus();
 	setDamageBonus();
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setCharisma(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -91,6 +95,8 @@ void Fighter::setCharisma(int diceResult) {
 	}
 	charisma = diceResult;
 	charismaModifier = floor((double) (charisma / 2) - 5);
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setConstitution(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -100,6 +106,8 @@ void Fighter::setConstitution(int diceResult) {
 	}
 	constitution = diceResult;
 	constitutionModifier = floor((double) (constitution / 2) - 5);
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setDexterity(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -112,6 +120,8 @@ void Fighter::setDexterity(int diceResult) {
 	//dependents, to be recalculated:
 	setArmorClass();
 	setAttackBonus();
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setIntelligence(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -121,6 +131,8 @@ void Fighter::setIntelligence(int diceResult) {
 	}
 	intelligence = diceResult;
 	intelligenceModifier = floor((double) (intelligence / 2) - 5);
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setWisdom(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -130,6 +142,8 @@ void Fighter::setWisdom(int diceResult) {
 	}
 	wisdom = diceResult;
 	wisdomModifier = floor((double) (wisdom / 2) - 5);
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 //hit points:
@@ -145,6 +159,8 @@ void Fighter::setHitPoints(int diceResult) { //(int constitution, int currentLev
 		srand(time(NULL)); // init random seed
 		hitPoints = diceResult + constitution + rand() % 11 + 7;
 	}
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 //armor class
@@ -152,7 +168,8 @@ void Fighter::setArmorClass() {
 	// http://paizo.com/prd/combat.html#_armor-class
 	//10 + armor bonus + shield bonus + Dexterity modifier + other modifiers
 	armorClass = 10 + armor + shield + dexterityModifier;
-
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 //attack bonus
@@ -164,9 +181,13 @@ void Fighter::setAttackBonus(int diceResult) { //(int level, int strength, int d
 	}
 	attackBonusDiceResult = diceResult;
 	attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setAttackBonus() { //(int level, int strength, int dexterity) {
 	attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 //damage bonus
@@ -178,9 +199,13 @@ void Fighter::setDamageBonus(int diceResult) { //(int strength) {
 	}
 	damageBonusDiceResult = diceResult;
 	damageBonus = damageBonusDiceResult + strengthModifier;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 void Fighter::setDamageBonus() { //(int strength) {
 	damageBonus = damageBonusDiceResult + strengthModifier;
+	// notify GUI or MAP
+	notifyAllObservers();
 }
 
 } /* namespace d20Characters */
