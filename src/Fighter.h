@@ -13,7 +13,7 @@
 
 namespace d20Characters {
 
-class Fighter: public d20Characters::character, public d20Characters::Observable {
+class Fighter: public d20Characters::character {
 public:
 	Fighter(int level);
 	virtual ~Fighter();

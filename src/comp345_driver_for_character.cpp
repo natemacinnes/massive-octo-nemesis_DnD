@@ -23,13 +23,15 @@ int main() {
 
 	//faking passing the GUI class:
 	// later will be fake_GUi.registerToCharacter // or even done in constructor
-	myobs.registerObserver(new d20Characters::GUIclass());//(new d20Characters::Observer(345));
+	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
+	//myobs.registerObserver(new d20Characters::GUIclass());//(new d20Characters::Observer(345));
+	gui->registerToObservable(&myobs);
 
 	//fake some modifs: (TODO: that method should be private in the future)
 	myobs.notifyAllObservers();
 
 	cout
-			<< "ASSIGNMENT 2 !!! " << endl << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"
+			<< endl << "ASSIGNMENT 2 !!! " << endl << "Starting comp345_driver_for_character.cpp by Nicolas Chausseau 643 1526"
 			<< endl;
 	//==================creating a fighter:
 	//d20Characters::character myFighter(1); // passing the level, assuming one for now.

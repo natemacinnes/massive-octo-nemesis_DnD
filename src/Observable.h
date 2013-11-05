@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include "Observer.h"
+//#include <boost/shared_ptr.hpp>
 
 namespace d20Characters {
 
@@ -23,7 +24,8 @@ private:
 	//typedef list<int> IntegerList;
 	//listOfObservers = list();
 
-    std::vector<Observer*> listOfObservers_vector;
+    std::vector<Observer*> listOfObservers_vector; // object slicing problem
+    //std::vector<boost::shared_ptr<Observer>> listOfObservers_vector; //boost::shared_ptr<A>
     std::vector<Observer*>::iterator iter;
 
 //	static const unsigned MAX_SIZE = 2;

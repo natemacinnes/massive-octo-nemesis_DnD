@@ -14,9 +14,9 @@ class Observer {
 public:
 	Observer();
 	Observer(int index);
-	 ~Observer();
+	~Observer();
 	int index;
-	void onEvent();
+	virtual void onEvent(); // = 0;
 };
 
 } /* namespace d20Characters */

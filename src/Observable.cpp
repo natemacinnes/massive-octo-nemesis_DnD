@@ -11,6 +11,7 @@
 using namespace std;
 #include <iostream>
 #include "Observer.h"
+#include "GUIclass.h"
 
 namespace d20Characters {
 
@@ -33,7 +34,7 @@ Observable::~Observable() {
 
 void Observable::registerObserver(Observer *obs) {
 
-	this->listOfObservers_vector.push_back(obs);
+	this->listOfObservers_vector.push_back(obs);//(new GUIclass());//(obs); // TODO put obs back in!
 
 }
 
@@ -87,6 +88,9 @@ void Observable::notifyAllObservers() {
 //	}
 	for (int i = 0; i < listOfObservers_vector.size(); i++) {
 		cout << " vector? ... " << listOfObservers_vector[i]->index;
+		//listOfObservers_vector[i]->onEvent(); // object slicing problem
+		//listOfObservers_vector.at(i)->onEvent(); // still object slicing
+		//(*listOfObservers_vector[i]).onEvent();
 		listOfObservers_vector[i]->onEvent();
 	}
 

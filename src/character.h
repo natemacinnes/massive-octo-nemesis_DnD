@@ -7,10 +7,11 @@
 
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
+#include "Observable.h"
 
 namespace d20Characters {
 
-class character {
+class character: public d20Characters::Observable {
 public:
 	character(int level);
 	virtual ~character();

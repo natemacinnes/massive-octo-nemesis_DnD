@@ -9,7 +9,6 @@
 #include <iostream>
 using namespace std;
 
-
 namespace d20Characters {
 
 Observer::Observer() {
