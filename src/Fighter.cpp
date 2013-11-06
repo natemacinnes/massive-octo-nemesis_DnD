@@ -121,7 +121,7 @@ void Fighter::setDexterity(int diceResult) {
 	setArmorClass();
 	setAttackBonus();
 	// notify GUI or MAP
-	notifyAllObservers();
+	notifyAllObservers(); //comment out because call done in dependents anyways
 }
 void Fighter::setIntelligence(int diceResult) {
 	if (!(diceResult > 6 && diceResult < 19)) {
@@ -160,7 +160,7 @@ void Fighter::setHitPoints(int diceResult) { //(int constitution, int currentLev
 		hitPoints = diceResult + constitution + rand() % 11 + 7;
 	}
 	// notify GUI or MAP
-	notifyAllObservers();
+	//notifyAllObservers(); // since this method is a dependent (called by others)
 }
 
 //armor class
@@ -169,7 +169,7 @@ void Fighter::setArmorClass() {
 	//10 + armor bonus + shield bonus + Dexterity modifier + other modifiers
 	armorClass = 10 + armor + shield + dexterityModifier;
 	// notify GUI or MAP
-	notifyAllObservers();
+	//notifyAllObservers(); //this method is a dependent
 }
 
 //attack bonus
@@ -205,7 +205,7 @@ void Fighter::setDamageBonus(int diceResult) { //(int strength) {
 void Fighter::setDamageBonus() { //(int strength) {
 	damageBonus = damageBonusDiceResult + strengthModifier;
 	// notify GUI or MAP
-	notifyAllObservers();
+	//notifyAllObservers(); // this method is a dependent
 }
 
 } /* namespace d20Characters */
