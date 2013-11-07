@@ -14,6 +14,7 @@
     <ProjectGuid>{C271C68A-E234-4023-989C-B755C9E9A671}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>massiveoctonemesis_DnD</RootNamespace>
+    <ProjectName>Character</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
