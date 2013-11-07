@@ -21,9 +21,12 @@ public:
 
 	void setName(string);
 
+	virtual Enchantment getEnchantment() const;
+
 	virtual string toString(void) const;
 
 private:
 	string name;
+	Enchantment enchantment;
 };
 

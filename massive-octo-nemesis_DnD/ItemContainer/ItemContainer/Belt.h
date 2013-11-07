@@ -14,6 +14,8 @@ public:
 
 	virtual ~Belt(void);
 
+	virtual Enchantment getEnchantment() const;
+
 	virtual string toString() const;
 
 private:

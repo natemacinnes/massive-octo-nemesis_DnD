@@ -15,7 +15,7 @@ public:
 
 	virtual string toString() const;
 
-	//bool equal(Item*) const;
+	virtual Enchantment getEnchantment() const;
 
 private:
 	Enchantment enchantment;

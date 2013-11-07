@@ -24,6 +24,12 @@ Armor::~Armor(void)
 
 }
 
+Enchantment Armor::getEnchantment() const 
+{
+	return this->enchantment;
+}
+
+
 string Armor::toString() const {
 	return this->getName() + " " + enchantment.toString();
 }

@@ -23,6 +23,11 @@ Belt::~Belt(void)
 
 }
 
+Enchantment Belt::getEnchantment() const 
+{
+	return this->enchantment;
+}
+
 string Belt::toString() const {
 	return this->getName() + " " + enchantment.toString();
 }

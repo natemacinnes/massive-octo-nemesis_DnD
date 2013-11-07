@@ -31,6 +31,10 @@ string Item::getName(void) const {
 	return name;
 }
 
+Enchantment Item::getEnchantment() const 
+{
+	return enchantment;
+}
 
 string Item::toString(void) const {
 	return name;// + " " + enchantment.toString();
