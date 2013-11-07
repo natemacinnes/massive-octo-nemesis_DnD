@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Comment CommentText="IItemContainer.notify()&#xD;&#xA;informs ConsoleOut.update()&#xD;&#xA;that a change has been made">
+    <Position X="7.302" Y="4.802" Height="0.646" Width="1.856" />
+  </Comment>
+  <Class Name="Observer">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAECAA=</HashCode>
+      <FileName>Observer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemContainer">
+    <Position X="5.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAJAAIAAGAAgAAAAAAAAAAAAAgAAAAAACAAA=</HashCode>
+      <FileName>ItemContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleOut">
+    <Position X="8.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAASBAAAAAAAQAAAAAEAAA=</HashCode>
+      <FileName>ConsoleOut.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IItemContainer">
+    <Position X="5.25" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAABAACAAAAAQEQAAAA=</HashCode>
+      <FileName>IItemContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
