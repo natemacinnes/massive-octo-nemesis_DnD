@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "MapObserver.h"
+
 using namespace std;
 
 namespace d20Maps {
