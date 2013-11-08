@@ -16,6 +16,9 @@
     <Filter Include="Header Files\characterHs">
       <UniqueIdentifier>{14e3bd91-fc7a-480d-ab11-10d0c6f290ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\character">
+      <UniqueIdentifier>{f94fbda1-a2fa-4e5d-9cc4-888d8ba9328e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,19 +57,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="character.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="Fighter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="GUIclass.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="Observable.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="Observer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

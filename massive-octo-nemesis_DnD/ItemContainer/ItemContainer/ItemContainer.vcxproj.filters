@@ -25,6 +25,24 @@
     <Filter Include="Source Files\Items\Children">
       <UniqueIdentifier>{4abd1481-6994-419c-9f55-ebc38485e613}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Observer">
+      <UniqueIdentifier>{53fbdc5e-2369-42f8-9297-3d775d45a15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observable">
+      <UniqueIdentifier>{a2b495b8-40b7-4cf6-ba20-16dfed6c65be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enchantment">
+      <UniqueIdentifier>{8ddcea3c-1784-4433-8a14-438f2070f92b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enchantment">
+      <UniqueIdentifier>{31bafdf1-d28c-40a9-ab3b-76824ce82853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Observer">
+      <UniqueIdentifier>{700f430f-533f-440b-aa7f-8004aeed2265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Observable">
+      <UniqueIdentifier>{64a4ed38-04a2-483a-ba81-1aa2886cc003}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -34,21 +52,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enchantment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IItemContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleOut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -75,27 +78,27 @@
     <ClInclude Include="Weapon.h">
       <Filter>Header Files\Items\Children</Filter>
     </ClInclude>
+    <ClInclude Include="ConsoleOut.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="IItemContainer.h">
+      <Filter>Header Files\Observable</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemContainer.h">
+      <Filter>Header Files\Observable</Filter>
+    </ClInclude>
+    <ClInclude Include="Enchantment.h">
+      <Filter>Header Files\Enchantment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Echantment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ItemContainerDriver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IItemContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleOut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Armor.cpp">
@@ -121,6 +124,21 @@
     </ClCompile>
     <ClCompile Include="Shield.cpp">
       <Filter>Source Files\Items\Children</Filter>
+    </ClCompile>
+    <ClCompile Include="Echantment.cpp">
+      <Filter>Source Files\Enchantment</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleOut.cpp">
+      <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="IItemContainer.cpp">
+      <Filter>Source Files\Observable</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemContainer.cpp">
+      <Filter>Source Files\Observable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
