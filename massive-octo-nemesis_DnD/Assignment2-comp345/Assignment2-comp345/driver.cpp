@@ -11,7 +11,7 @@ using std::numeric_limits;
 using std::streamsize;
 using namespace std;
 
-namespace d20Maps {
+//namespace d20Maps {
 
 
 int main(int argc, char* argv[])
@@ -27,13 +27,13 @@ int main(int argc, char* argv[])
 	cout << "Please enter the size of your map!" << endl;
 	cout << "Enter the number of rows: \n";
 	cin >> numRows; 
-	int temRow =  Map::Validation::validateRowInput(numRows);
+	int temRow =  d20Maps::Map::Validation::validateRowInput(numRows);
 	numRows = temRow;
 	
 	
 	cout << "Enter the number of Columns: \n";
 	cin >> numCols;
-	int temCol = Map::Validation::validateColInput(numCols);
+	int temCol = d20Maps::Map::Validation::validateColInput(numCols);
 	numCols = temCol;
 
 	//filling up msp with empty spaces
@@ -46,13 +46,13 @@ int main(int argc, char* argv[])
 		}
 
 	//displays the empty map
-	Map emptyMap(zeroMap, numRows, numCols);
+	d20Maps::Map emptyMap(zeroMap, numRows, numCols);
 	cout<<"Empty Map"<<endl;
 	emptyMap.mapDesign(zeroMap, numRows, numCols);
 
 	//Creates a 2D vector with the specifications (Row and Col) given
-	vector< vector <int> > used = Map::fillUpMap(vMap, numRows, numCols);
-	Map map(used,numRows,numCols);
+	vector< vector <int> > used = d20Maps::Map::fillUpMap(vMap, numRows, numCols);
+	d20Maps::Map map(used,numRows,numCols);
 
 	cout << "Validating Map...." << endl;
 	cout << "The validation was...."<< endl;
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 	cout<<"Controls"<<endl;
 	cout<<"  e  "<<endl;
 	cout<<"s d f"<<endl;
-	display v(map,used, numRows, numCols);
+	d20Maps::display v(map,used, numRows, numCols);
 	map.move(used, numRows, numCols);
 
 	char end;
@@ -96,4 +96,4 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-} /* namespace d20Maps */
+//} /* namespace d20Maps */
