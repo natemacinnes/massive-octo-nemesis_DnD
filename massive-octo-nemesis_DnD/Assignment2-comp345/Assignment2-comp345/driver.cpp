@@ -1,6 +1,8 @@
 #include "MapObservable.h"
 #include "MapObserver.h"
 #include "view.h"
+#include "Item.h"
+#include "Weapon.h"
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -16,15 +18,16 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-
-	
     vector< vector <int> > vMap;
 	vector< vector <int> > zeroMap;
 	int numRows =0, numCols=0;
 	
+	d20Items::Item* weapon1 = new d20Items::Weapon("Sword of Ice Storm");
+
 	//Prompts the user to enter the size of the map he/she wants
 	//Take the input enterd and set as arguments of the function mapGenerator();
 	cout << "Please enter the size of your map!" << endl;
+	cout << "But before we get to business!" << endl << "	Here is a random weapon: " << weapon1->toString() << endl;
 	cout << "Enter the number of rows: \n";
 	cin >> numRows; 
 	int temRow =  d20Maps::Map::Validation::validateRowInput(numRows);
