@@ -19,6 +19,9 @@
     <Filter Include="Source Files\character">
       <UniqueIdentifier>{f94fbda1-a2fa-4e5d-9cc4-888d8ba9328e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ItemDep">
+      <UniqueIdentifier>{3b5806d4-ccd2-4aab-bdbd-55209c658f7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -70,6 +73,48 @@
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Source Files\character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Helmet.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Echantment.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\ConsoleOut.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Boots.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Belt.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Armor.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Weapon.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp">
+      <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 
 #include "Fighter.h"
 #include "character.h"
+#include "Item.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stddef.h>

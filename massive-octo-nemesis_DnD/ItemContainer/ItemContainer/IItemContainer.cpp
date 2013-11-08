@@ -12,12 +12,12 @@ IItemContainer::~IItemContainer(void)
 {
 }
 
-void IItemContainer::attach(Observer* o)
+void IItemContainer::attach(ItemObserver* o)
 {
 	_observers.push_back(o);
 }
 
-void IItemContainer::detach(Observer* o)
+void IItemContainer::detach(ItemObserver* o)
 {
 	//_observers.remove(o);
 }

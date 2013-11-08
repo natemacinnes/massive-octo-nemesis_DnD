@@ -7,14 +7,14 @@ class IItemContainer;
 
 // Observer Interface a pure virtual class allowing the concrete observers to receive notifications from the observable subjects in the observer pattern
 
-class Observer
+class ItemObserver
 {
 public:
-	virtual ~Observer(void);
+	virtual ~ItemObserver(void);
 	
 	virtual void update(IItemContainer*) = 0;
 
 protected:
-	Observer(void);
+	ItemObserver(void);
 };
 } // namespace d20Items 

@@ -1,12 +1,50 @@
-﻿Build started 11/7/2013 6:56:57 PM.
-     1>Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" on node 2 (ClCompile target(s)).
+﻿Build started 11/8/2013 4:05:23 PM.
+     1>Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "massive-octo-nemesis_DnD.cpp"
-         massive-octo-nemesis_DnD.cpp
-     1>Done Building Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" (ClCompile target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\ItemContainer\ItemContainer" /I"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Assignment2-comp345\Assignment2-comp345" /AI"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\ItemContainer\ItemContainer" /AI"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Assignment2-comp345\Assignment2-comp345" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\ItemContainer\ItemContainer\ItemContainerDriver.cpp Fighter.cpp character.cpp
+         character.cpp
+         Fighter.cpp
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(32): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(67): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(85): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(99): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(110): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(121): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(135): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(146): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(161): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         ItemContainerDriver.cpp
+     1>g:\my documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\itemcontainer\itemcontainer\itemcontainerdriver.cpp(38): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         Generating Code...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\Character.res" Character.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.lib" /MACHINE:X86 Debug\Character.res
+         Debug\Armor.obj
+         Debug\Belt.obj
+         Debug\Boots.obj
+         Debug\ConsoleOut.obj
+         Debug\Echantment.obj
+         Debug\Helmet.obj
+         Debug\IItemContainer.obj
+         Debug\Item.obj
+         Debug\ItemContainer.obj
+         Debug\ItemContainerDriver.obj
+         Debug\ItemObserver.obj
+         Debug\Ring.obj
+         Debug\Shield.obj
+         Debug\Weapon.obj
+         Debug\character.obj
+         Debug\Fighter.obj
+         Debug\GUIclass.obj
+         "Debug\massive-octo-nemesis_DnD.obj"
+         Debug\Observable.obj
+         Debug\Observer.obj
+         Debug\stdafx.obj
+     1>LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
+         massive-octo-nemesis_DnD.vcxproj -> G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.exe
+     1>Done Building Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.94
+Time Elapsed 00:00:05.41

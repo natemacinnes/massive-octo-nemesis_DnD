@@ -53,6 +53,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,6 +92,20 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Armor.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Belt.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Boots.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ConsoleOut.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Echantment.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Helmet.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Weapon.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="GUIclass.cpp" />

@@ -1,10 +1,10 @@
 #pragma once
-#include "Observer.h"
+#include "ItemObserver.h"
 #include <vector>
 
 namespace d20Items {
 
-class Observer;
+class ItemObserver;
 
 // Interface for the ItemContainer and equivalent to "Subject" or "Observable" in the observer pattern
 
@@ -14,10 +14,10 @@ public:
 	virtual ~IItemContainer(void);
 
 	// Attaches an observer to the ItemContainer
-	virtual void attach(Observer*);
+	virtual void attach(ItemObserver*);
 
 	// Detaches an observer currently attached to the observer
-	virtual void detach(Observer*);
+	virtual void detach(ItemObserver*);
 
 	// notifies the observer that the ItemContainer has changed
 	virtual void notify();
@@ -28,6 +28,6 @@ protected:
 
 private:
 	// vector that holds the observers
-	std::vector<Observer*> _observers;
+	std::vector<ItemObserver*> _observers;
 };
 } // namespace d20Items 

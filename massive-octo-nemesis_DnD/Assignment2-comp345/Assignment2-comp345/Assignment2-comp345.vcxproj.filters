@@ -16,6 +16,12 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{e6daf4ee-eb2f-4b31-9530-1a40f0dd638c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ItemDep">
+      <UniqueIdentifier>{53deefbe-ea3d-448d-b2c3-7b2f395d9e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CharacterDep">
+      <UniqueIdentifier>{544170c0-e4a5-481a-8325-7c2dd68b33a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MapObserver.h">
@@ -25,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,5 +50,67 @@
     <ClCompile Include="view.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Echantment.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Item.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Weapon.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Armor.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Belt.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Boots.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ConsoleOut.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Helmet.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\IItemContainer.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemContainer.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemContainerDriver.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Observer.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Ring.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Fighter.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp">
+      <Filter>Source Files\CharacterDep</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Map.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

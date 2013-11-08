@@ -2,7 +2,7 @@
 #include <vector>
 #include "IItemContainer.h"
 #include "Item.h"
-#include "Observer.h"
+#include "ItemObserver.h"
 
 // ItemContainer class using the IItemContainer interface, equivalent to the "Concrete Subject" or "Concrete Observable" in the observer pattern 
 

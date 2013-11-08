@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "IItemContainer.h"
 #include "ItemContainer.h"
-#include "Observer.h"
+#include "ItemObserver.h"
 #include "ConsoleOut.h"
 #include "Item.h"
 #include "Weapon.h"
