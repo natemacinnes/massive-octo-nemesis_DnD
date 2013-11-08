@@ -3,7 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 
-
+namespace d20Items {
 
 Enchantment::Enchantment(void)
 {
@@ -46,9 +46,9 @@ int Enchantment::getEnchantmentType() const
 	return eType;
 }\
 
-	string Enchantment::toString() const 
+	std::string Enchantment::toString() const 
 {
-	string eV = to_string(eValue);
+	std::string eV = std::to_string(eValue);
 	switch(eType) 
 	{
 	case 0: 
@@ -87,3 +87,4 @@ bool Enchantment::equal(Enchantment e) const
 {
 	return (this->eType == e.getEnchantmentType() && this->eValue == e.eValue);
 }
+} // namespace d20Items 

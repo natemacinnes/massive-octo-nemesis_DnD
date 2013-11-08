@@ -3,6 +3,7 @@
 #include "Enchantment.h"
 
 // Boots class
+namespace d20Items {
 
 class Boots :
 	public Item
@@ -10,17 +11,20 @@ class Boots :
 public:
 	Boots(void);
 
-	Boots(string);
+	Boots(std::string);
 
 	virtual ~Boots(void);
 
-	virtual string toString() const;
+	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual std::string toString() const;
+
 private:
 	Enchantment enchantment;
-	int enchantmentValue;
+	std::string name; 
 	static const int SIZE;
 	static const int ENCHANTMENTS[2];
 };
+} // namespace d20Items 

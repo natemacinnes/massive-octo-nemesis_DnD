@@ -2,7 +2,7 @@
 #include "Observer.h"
 #include <vector>
 
-using namespace std;
+namespace d20Items {
 
 class Observer;
 
@@ -28,5 +28,6 @@ protected:
 
 private:
 	// vector that holds the observers
-	vector<Observer*> _observers;
+	std::vector<Observer*> _observers;
 };
+} // namespace d20Items 

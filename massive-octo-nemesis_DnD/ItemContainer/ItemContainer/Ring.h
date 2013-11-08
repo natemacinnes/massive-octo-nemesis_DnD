@@ -3,6 +3,7 @@
 #include "Enchantment.h"
 
 // Ring class
+namespace d20Items {
 
 class Ring :
 	public Item
@@ -10,17 +11,20 @@ class Ring :
 public:
 	Ring(void);
 	
-	Ring(string);
+	Ring(std::string);
 
 	virtual ~Ring(void);
 
-	virtual string toString() const;
+	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual std::string toString() const;
+
 private:
 	Enchantment enchantment;
-	int enchantmentValue;
+	std::string name;
 	static const int SIZE;
 	static const int ENCHANTMENTS[5];
 };
+} // namespace d20Items {

@@ -1,10 +1,8 @@
 #pragma once
-#include "Item.h"
 #include <string>
 #include <iostream>
 
-using namespace std;
-
+namespace d20Items {
 //enum EnchantmentType {STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA, ARMOR_CLASS, ATTACK_BONUS, DAMAGE_BONUS, _NULL};
 
 // Maximum allowable enchantment value
@@ -32,7 +30,7 @@ public:
 
 	int getEnchantmentType(void) const;
 
-	string toString(void) const;
+	std::string toString(void) const;
 
 	bool equal(Enchantment) const;
 
@@ -40,4 +38,5 @@ private:
 	int eValue;
 	int eType;
 };
+} // namespace d20Items 
 

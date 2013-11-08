@@ -3,6 +3,7 @@
 #include "Enchantment.h"
 
 // Weapon class
+namespace d20Items {
 
 class Weapon :
 	public Item
@@ -10,18 +11,20 @@ class Weapon :
 public:
 	Weapon(void);
 	
-	Weapon(string);
+	Weapon(std::string);
 
 	virtual ~Weapon(void);
 
-	virtual string toString() const;
+	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual std::string toString() const;
+
 private:
 	Enchantment enchantment;
-	int enchantmentValue;
+	std::string name;
 	static const int SIZE;
 	static const int ENCHANTMENTS[2];
 };
-
+} // namespace d20Items 

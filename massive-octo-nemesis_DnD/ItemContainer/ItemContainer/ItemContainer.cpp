@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ItemContainer.h"
 
+namespace d20Items {
+
 ItemContainer::ItemContainer(void) 
 {
 	this->items;
@@ -31,7 +33,7 @@ void ItemContainer::remove(Item* item)
 {
 	iter = items.begin();
 
-	while (iter != end(items)) 
+	while (iter != std::end(items)) 
 	{
 		if (item->getName() == (*iter)->getName())
 		{
@@ -45,3 +47,4 @@ void ItemContainer::remove(Item* item)
 
 	notify();
 }
+} // namespace d20Items 

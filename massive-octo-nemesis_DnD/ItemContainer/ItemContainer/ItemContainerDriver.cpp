@@ -24,6 +24,8 @@
 
 using namespace std;
 
+using namespace d20Items;
+
 // receive user input to remove an item from the container
 void removeItem(ItemContainer*&);
 
