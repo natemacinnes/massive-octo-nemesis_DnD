@@ -1,5 +1,7 @@
 #pragma once
 
+namespace d20Maps {
+
 class Map;
 
 
@@ -12,5 +14,7 @@ public:
 public:
     ~MapObserver(void);
 };
+
+} /* namespace d20Maps */ 
 
 

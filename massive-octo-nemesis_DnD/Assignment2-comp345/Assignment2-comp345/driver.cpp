@@ -11,6 +11,7 @@ using std::numeric_limits;
 using std::streamsize;
 using namespace std;
 
+namespace d20Maps {
 
 
 int main(int argc, char* argv[])
@@ -95,3 +96,4 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+} /* namespace d20Maps */

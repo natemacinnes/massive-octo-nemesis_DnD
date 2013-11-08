@@ -2,6 +2,8 @@
 #include "view.h"
 #include "MapObservable.h" 
 
+namespace d20Maps {
+
 display::display(Map &myMap, vector<vector<int>> mapV , int row, int col)
 {
 	mapV = myMap.getMapVector();
@@ -177,3 +179,5 @@ void display::update (Map &myMap)
 //}
 
 }
+
+} /*namespace d20Maps */

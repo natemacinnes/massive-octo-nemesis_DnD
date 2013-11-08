@@ -5,6 +5,8 @@
 #include <limits>
 #include <ctype.h>
 
+namespace d20Maps {
+
 using namespace std;
 
 int static rowStart;
@@ -1024,3 +1026,4 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
     }
 }
 
+} /* namespace d20Maps */

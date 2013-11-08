@@ -2,6 +2,8 @@
 #include "MapObserver.h"
 #include "MapObservable.h"
 
+namespace d20Maps {
+
 class display : public MapObserver
 {
 public:
@@ -10,3 +12,5 @@ public:
 public:
     ~display(void);
 };
+
+} /* namespace d20Maps */

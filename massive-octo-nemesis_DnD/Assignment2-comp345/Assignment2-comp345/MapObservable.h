@@ -4,6 +4,8 @@
 #include "MapObserver.h"
 using namespace std;
 
+namespace d20Maps {
+
 class Map
 {
 
@@ -48,3 +50,5 @@ private:
 
     
 };
+
+} /* namespace d20Maps */

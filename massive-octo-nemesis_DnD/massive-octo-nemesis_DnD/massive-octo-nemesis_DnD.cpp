@@ -24,6 +24,7 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 
+
 	
 	cout << endl
 			<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"

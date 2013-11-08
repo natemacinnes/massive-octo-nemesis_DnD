@@ -1,38 +1,12 @@
-﻿Build started 11/7/2013 5:56:46 PM.
-     1>Project "C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/7/2013 6:56:57 PM.
+     1>Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" on node 2 (ClCompile target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt character.cpp Fighter.cpp GUIclass.cpp "massive-octo-nemesis_DnD.cpp" Observable.cpp Observer.cpp
-         Observer.cpp
-         Observable.cpp
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\observable.cpp(33): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Character.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "massive-octo-nemesis_DnD.cpp"
          massive-octo-nemesis_DnD.cpp
-         GUIclass.cpp
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\guiclass.cpp(25): warning C4018: '<' : signed/unsigned mismatch
-         Fighter.cpp
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(31): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(66): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(84): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(98): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(109): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(120): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(134): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(145): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nate\documents\github\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\massive-octo-nemesis_dnd\fighter.cpp(160): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-         character.cpp
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.lib" /MACHINE:X86 Debug\character.obj
-         Debug\Fighter.obj
-         Debug\GUIclass.obj
-         "Debug\massive-octo-nemesis_DnD.obj"
-         Debug\Observable.obj
-         Debug\Observer.obj
-         Debug\stdafx.obj
-         massive-octo-nemesis_DnD.vcxproj -> C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\Debug\Character.exe
-     1>Done Building Project "C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" (Build target(s)).
+     1>Done Building Project "G:\My Documents\GitHub\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.vcxproj" (ClCompile target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.19
+Time Elapsed 00:00:03.94
