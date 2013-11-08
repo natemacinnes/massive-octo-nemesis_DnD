@@ -1,6 +1,8 @@
 #pragma once
 #include "IItemContainer.h"
 
+namespace d20Items {
+
 class IItemContainer;
 
 // Observer Interface a pure virtual class allowing the concrete observers to receive notifications from the observable subjects in the observer pattern
@@ -15,3 +17,4 @@ public:
 protected:
 	Observer(void);
 };
+} // namespace d20Items 

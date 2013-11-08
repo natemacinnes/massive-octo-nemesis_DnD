@@ -2,6 +2,7 @@
 #include "ConsoleOut.h"
 #include <iostream>
 
+namespace d20Items {
 
 ConsoleOut::ConsoleOut(ItemContainer* items)
 {
@@ -20,7 +21,7 @@ void ConsoleOut::update(IItemContainer* modifiedIC)
 {
 	if(modifiedIC == _items)
 	{
-		cout << "ItemContainer updated: " << endl;
+		std::cout << "ItemContainer updated: " << std::endl;
 		output();
 	}	
 }
@@ -29,8 +30,8 @@ void ConsoleOut::output(void)
 {
 	for( int i = 0; i < _items->getSize(); i++)
 	{
-		cout << i + 1 << ". " << (_items->at(i)->toString()) << endl;
+		std::cout << i + 1 << ". " << (_items->at(i)->toString()) << std::endl;
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
-
+} // namespace d20Items 

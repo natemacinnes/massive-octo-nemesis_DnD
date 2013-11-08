@@ -2,6 +2,7 @@
 #include "IItemContainer.h"
 #include <iostream>
 
+namespace d20Items {
 
 IItemContainer::IItemContainer(void)
 {
@@ -26,3 +27,4 @@ void IItemContainer::notify()
 	for(unsigned int i = 0; i < _observers.size(); i++ )
 		_observers[i]->update(this);
 }
+} // namespace d20Items 

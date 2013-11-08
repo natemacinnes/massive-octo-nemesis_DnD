@@ -3,23 +3,28 @@
 
 // Armor class
 
+namespace d20Items {
+
 class Armor :
 	public Item
 {
 public:
 	Armor(void);
 	
-	Armor(string);
+	Armor(std::string);
 
 	virtual ~Armor(void);
 
-	virtual string toString() const;
+	std::string getName(void) const;
 
-	//bool equal(Item*) const;
+	virtual Enchantment getEnchantment() const;
+
+	virtual std::string toString() const;
 
 private:
 	Enchantment enchantment;
-	string name;
+	std::string name;
 	static const int SIZE;
 	static const int ENCHANTMENTS[1];
 };
+} // namespace d20Items {

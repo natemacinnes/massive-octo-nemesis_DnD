@@ -24,6 +24,8 @@
 
 using namespace std;
 
+using namespace d20Items;
+
 // receive user input to remove an item from the container
 void removeItem(ItemContainer*&);
 
@@ -62,6 +64,8 @@ int main()
 	cout << "Adding " << boots1->toString() << " to the contianer" << endl << endl;
 	chest->add(boots1);
 	
+	cout << armor1->getEnchantment().toString() << endl;
+
 	// allow user to remove an item or items if they wish
 	removeItem(chest);
 	

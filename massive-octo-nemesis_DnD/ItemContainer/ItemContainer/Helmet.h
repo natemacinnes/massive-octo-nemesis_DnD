@@ -3,6 +3,7 @@
 #include "Enchantment.h"
 
 // Helmet class
+namespace d20Items {
 
 class Helmet :
 	public Item
@@ -10,18 +11,20 @@ class Helmet :
 public:
 	Helmet(void);
 	
-	Helmet(string);
+	Helmet(std::string);
 
 	virtual ~Helmet(void);
 
-	virtual string toString() const;
+	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual std::string toString() const;
+
 private:
 	Enchantment enchantment;
-	int enchantmentValue;
+	std::string name;
 	static const int SIZE;
 	static const int ENCHANTMENTS[3];
 };
-
+} // namespace d20Items 

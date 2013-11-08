@@ -4,26 +4,28 @@
 #include <string>
 #include <vector>
 
-using  namespace std;
-
 // Item class, parent to all items
 
+namespace d20Items {
 class Item	
 {
 public:
 	Item(void);
 
-	Item(string);
+	Item(std::string);
 	
 	virtual ~Item(void);
 
-	string getName(void) const;
+	virtual std::string getName(void) const;
 
-	void setName(string);
+	void setName(std::string);
 
-	virtual string toString(void) const;
+	virtual Enchantment getEnchantment() const;
+
+	virtual std::string toString(void) const;
 
 private:
-	string name;
+	std::string name;
+	Enchantment enchantment;
 };
-
+} // namespace d20Items 

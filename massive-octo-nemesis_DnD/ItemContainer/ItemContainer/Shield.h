@@ -3,6 +3,7 @@
 #include "Enchantment.h"
 
 // Shield class
+namespace d20Items {
 
 class Shield :
 	public Item
@@ -10,17 +11,20 @@ class Shield :
 public:
 	Shield(void);
 	
-	Shield(string);
+	Shield(std::string);
 
 	virtual ~Shield(void);
-
-	virtual string toString() const;
+	
+	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual std::string toString() const;
+
 private:
 	Enchantment enchantment;
-	int enchantmentValue;
+	std::string name;
 	static const int SIZE;
 	static const int ENCHANTMENTS[1];
 };
+} // namespace d20Items 

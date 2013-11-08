@@ -2,7 +2,7 @@
 #include "Item.h"
 
 
-
+namespace d20Items {
 
 Item::Item(void)
 {
@@ -10,7 +10,7 @@ Item::Item(void)
 	name = "";
 }
 
-Item::Item(string newName) {
+Item::Item(std::string newName) {
 
 	name = newName;
 }
@@ -27,12 +27,16 @@ void Item::setEnchantment(int i, const int j)
 }
 */
 
-string Item::getName(void) const {
+std::string Item::getName(void) const {
 	return name;
 }
 
+Enchantment Item::getEnchantment() const 
+{
+	return enchantment;
+}
 
-string Item::toString(void) const {
+std::string Item::toString(void) const {
 	return name;// + " " + enchantment.toString();
 }
 
@@ -45,3 +49,4 @@ bool Item::equals(Item* item)
 	}
 }
 */
+}

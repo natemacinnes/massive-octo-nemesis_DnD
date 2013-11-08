@@ -6,13 +6,15 @@
 
 // ItemContainer class using the IItemContainer interface, equivalent to the "Concrete Subject" or "Concrete Observable" in the observer pattern 
 
+namespace d20Items {
+
 class ItemContainer : 
 	public IItemContainer
 {
 private:
 	//Vector to hold items in the container
-	vector<Item*> items;
-	vector<Item*>::iterator iter;
+	std::vector<Item*> items;
+	std::vector<Item*>::iterator iter;
 
 public:
 
@@ -33,4 +35,4 @@ public:
 	void remove(Item*);
 
 };
-
+} // namespace d20Items 
