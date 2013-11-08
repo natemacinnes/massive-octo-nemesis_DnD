@@ -80,9 +80,6 @@
     <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp">
       <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp">
       <Filter>Source Files\ItemDep</Filter>
     </ClCompile>

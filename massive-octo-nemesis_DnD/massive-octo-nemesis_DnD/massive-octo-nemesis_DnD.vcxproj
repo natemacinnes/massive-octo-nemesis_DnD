@@ -101,7 +101,6 @@
     <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp" />
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp" />

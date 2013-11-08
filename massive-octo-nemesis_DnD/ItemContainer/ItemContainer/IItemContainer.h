@@ -23,6 +23,8 @@ public:
 	virtual void notify();
 
 
+
+
 protected:
 	IItemContainer(void);
 

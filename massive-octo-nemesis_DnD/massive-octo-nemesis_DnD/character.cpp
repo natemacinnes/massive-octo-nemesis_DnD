@@ -8,6 +8,7 @@
 #include "character.h"
 #include "Item.h"
 #include "Weapon.h"
+#include "Armor.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -129,9 +130,7 @@ void character::printCharacterStats() {
 			<< endl;
 	cout << "PRINTING CHARACTER STATS: " << endl << endl;
 
-	d20Items::Item* item = new d20Items::Weapon("Bob's Sword");
 
-	cout << item->toString() << endl;
 
 	cout << "strength: " << strength << endl;
 	cout << "intelligence: " << intelligence << endl;

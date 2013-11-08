@@ -47,4 +47,22 @@ void ItemContainer::remove(Item* item)
 
 	notify();
 }
+/*
+void ItemContainer::printBag() const {
+
+	//test:
+	Item* item = new Weapon("Bob's Sword");
+	//cout << item->toString() << endl;
+
+	//printing the bag's content:
+	bag->add(item);
+	bag->add(new Armor("Chest Plate"));
+
+	std::cout << bag->at(0)->toString() << std::endl;
+	std::cout << bag->at(1)->toString() << std::endl;
+
+}*/
 } // namespace d20Items 
+
+
+/*	*/

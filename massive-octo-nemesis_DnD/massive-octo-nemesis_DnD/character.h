@@ -7,6 +7,7 @@
  */
 
 #include "Observable.h"
+#include "ItemContainer.h"
 
 namespace d20Characters {
 
@@ -14,6 +15,9 @@ class character: public d20Characters::Observable {
 public:
 	character(int level);
 	virtual ~character();
+
+	//item container for the BAG:
+	d20Items::ItemContainer* bag; 
 
 	//to string for logging:
 	virtual void printCharacterStats();
