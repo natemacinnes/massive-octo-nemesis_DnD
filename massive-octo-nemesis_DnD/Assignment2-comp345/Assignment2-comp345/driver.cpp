@@ -21,8 +21,6 @@ int main(int argc, char* argv[])
     vector< vector <int> > vMap;
 	vector< vector <int> > zeroMap;
 	int numRows =0, numCols=0;
-	
-	d20Items::Item* weapon1 = new d20Items::Weapon("Sword of Ice Storm");
 
 	//Prompts the user to enter the size of the map he/she wants
 	//Take the input enterd and set as arguments of the function mapGenerator();
@@ -32,7 +30,6 @@ int main(int argc, char* argv[])
 	cin >> numRows; 
 	int temRow =  d20Maps::Map::Validation::validateRowInput(numRows);
 	numRows = temRow;
-	
 	
 	cout << "Enter the number of Columns: \n";
 	cin >> numCols;

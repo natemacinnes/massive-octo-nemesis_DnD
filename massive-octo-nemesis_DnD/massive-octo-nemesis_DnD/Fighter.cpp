@@ -21,6 +21,9 @@ namespace d20Characters {
 Fighter::Fighter(int level) :
 		character(level) {
 
+			//init bag:
+			bag = new d20Items::ItemContainer();
+
 	// setting the level
 	setLevel(level);
 

@@ -34,5 +34,8 @@ public:
 	// removes a specified item from the container
 	void remove(Item*);
 
+	//print stuff on every update of items in the bag:
+	void printBag() const;
+
 };
 } // namespace d20Items 
