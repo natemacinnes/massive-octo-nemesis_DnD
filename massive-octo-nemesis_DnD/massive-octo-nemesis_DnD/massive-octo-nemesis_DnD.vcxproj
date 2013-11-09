@@ -53,8 +53,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,11 +101,15 @@
     <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp" />
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp" />
     <ClCompile Include="..\ItemContainer\ItemContainer\Weapon.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\chracPosition.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\Display.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\Map.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObservable.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObserver.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="GUIclass.cpp" />

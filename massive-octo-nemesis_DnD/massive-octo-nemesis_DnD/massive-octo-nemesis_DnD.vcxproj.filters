@@ -22,6 +22,9 @@
     <Filter Include="Source Files\ItemDep">
       <UniqueIdentifier>{3b5806d4-ccd2-4aab-bdbd-55209c658f7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MapDep">
+      <UniqueIdentifier>{16b5b8fc-e1b9-4691-b1ff-929e4be1b9c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -80,9 +83,6 @@
     <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp">
       <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainerDriver.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp">
       <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
@@ -115,6 +115,21 @@
     </ClCompile>
     <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp">
       <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObserver.cpp">
+      <Filter>Source Files\MapDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObservable.cpp">
+      <Filter>Source Files\MapDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MapGeneration\MapGeneration\Map.cpp">
+      <Filter>Source Files\MapDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MapGeneration\MapGeneration\chracPosition.cpp">
+      <Filter>Source Files\MapDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MapGeneration\MapGeneration\Display.cpp">
+      <Filter>Source Files\MapDep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
