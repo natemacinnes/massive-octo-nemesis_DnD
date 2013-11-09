@@ -14,6 +14,7 @@ Helmet::Helmet(void)
 Helmet::Helmet(std::string newName)
 		: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 

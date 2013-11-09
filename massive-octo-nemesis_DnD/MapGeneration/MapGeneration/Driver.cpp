@@ -4,6 +4,7 @@
 #include "Item.h"
 #include "ItemContainer.h"
 #include "Helmet.h"
+#include "ConsoleOut.h"
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -22,11 +23,13 @@ int main(int argc, char* argv[])
 	
 	cout << "ITEM CONTAINER CREATION" << endl;
 
-	d20Items::ItemContainer items;
+	d20Items::ItemContainer *items = new d20Items::ItemContainer();
+	
+	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
 
 	d20Items::Item *item = new d20Items::Helmet("Name");
 
-	items.add(item);
+	items->add(item);
 
     vector< vector <int> > vMap;
 	vector< vector <int> > zeroMap;

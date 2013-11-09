@@ -14,6 +14,7 @@ Shield::Shield(void)
 Shield::Shield(std::string newName) 
 	: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 }

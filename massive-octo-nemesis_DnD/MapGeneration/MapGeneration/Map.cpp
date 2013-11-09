@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include <vector>
 #include <iostream>
@@ -9,6 +10,7 @@
 #include "Map.h"
 #include "MapObservable.h"
 #include "chracPosition.h"
+
 
 using namespace std;
 
@@ -200,7 +202,10 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 			}else if (myMap[i][j] == 2) {
 				cout << "|" << " ";
 			}else if (myMap[i][j] == 3){
-				cout << "*" << " ";
+				chracPosition pos;
+				pos.setChracterPosition(i,j);
+				//const d20Items::Item *tempItem = 
+				itemLocation.insert(ItemLocation::value_type(addItem2Map(), pos));
 			}else if(myMap[i][j] == 0) {
 				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
 			}else if(myMap[i][j] == 4){
@@ -931,6 +936,10 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
 					}else{
+						// Item creation TO-DO (random generation via builder)
+						d20Items::Item* ring = new d20Items::Ring("Ruby ring");
+						
+
 						previousValRow = currentRowPosition;
 						previousValCol = currentColPosition;
 						val = mapTracker[previousValRow][previousValCol]; //previous position
@@ -1138,4 +1147,46 @@ int Map::getCharRowLocation(string name,chracPosition p){
 map<string,chracPosition> Map::getLocation(){
 
 	return location;
+}
+
+
+d20Items::Item* Map::addItem2Map() const
+{
+	int rNumber;
+	rNumber = 1 + rand() % 7;
+	
+	switch(rNumber) 
+	{
+	case 0: 
+		std::cout << "A";
+		return new d20Items::Armor("Dragonmail Armor");
+		break;
+	case 1: 
+		std::cout << "O";
+		return new d20Items::Belt("Dragonmail Belt");
+	case 2: 
+		std::cout << "B";
+		return new d20Items::Boots("Dragonmail Boots");
+		break;
+	case 3:
+		std::cout << "H";
+		return new d20Items::Helmet("Dragonmail Helmet");
+		break;
+	case 4:
+		std::cout << "R";
+		return new d20Items::Ring("Dragonmail Ring");
+		break;
+	case 5:
+		std::cout << "S";
+		return new d20Items::Shield("Dragonmail Shield");
+		break;
+	case 6:
+		std::cout << "W";
+		return new d20Items::Weapon("Dragonmail Weapon");
+		break;
+	default: 
+		cout << "*";
+		return new d20Items::Item();
+		break;
+	}
 }

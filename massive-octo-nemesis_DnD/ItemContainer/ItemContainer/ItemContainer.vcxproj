@@ -52,8 +52,10 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)Assignment2-comp345\Assignment2-comp345;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -98,12 +100,6 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp" />
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Fighter.cpp" />
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp" />
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.cpp" />
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp" />
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp" />
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Belt.cpp" />
     <ClCompile Include="Boots.cpp" />

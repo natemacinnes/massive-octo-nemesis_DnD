@@ -16,6 +16,7 @@ Weapon::Weapon(void)
 Weapon::Weapon(std::string newName) 
 	: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 }

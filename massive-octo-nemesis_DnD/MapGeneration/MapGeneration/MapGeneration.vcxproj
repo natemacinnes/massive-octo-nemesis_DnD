@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemContainer.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemObserver.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Ring.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Shield.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Weapon.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Fighter.cpp" />

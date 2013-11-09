@@ -43,9 +43,6 @@
     <Filter Include="Source Files\Observable">
       <UniqueIdentifier>{64a4ed38-04a2-483a-ba81-1aa2886cc003}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\CharacterDep">
-      <UniqueIdentifier>{494120ed-2a23-4386-b4a9-5c095acd9080}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -139,24 +136,6 @@
     </ClCompile>
     <ClCompile Include="ItemContainer.cpp">
       <Filter>Source Files\Observable</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Fighter.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp">
-      <Filter>Source Files\CharacterDep</Filter>
     </ClCompile>
     <ClCompile Include="ItemObserver.cpp">
       <Filter>Source Files\Observer</Filter>

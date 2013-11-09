@@ -14,6 +14,7 @@ Boots::Boots(void)
 Boots::Boots(std::string newName) 
 	: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 

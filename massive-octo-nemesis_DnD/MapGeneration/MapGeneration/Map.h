@@ -6,6 +6,15 @@
 #include <map>
 #include "MapObserver.h"
 #include "chracPosition.h"
+#include "Weapon.h"
+#include "Helmet.h"
+#include "Armor.h"
+#include "Shield.h"
+#include "Ring.h"
+#include "Belt.h"
+#include "Boots.h"
+#include "Item.h"
+#include "Shield.h"
 
 
 using namespace std;
@@ -21,7 +30,7 @@ public:
 	
 	virtual ~Map(void);
 
-	
+	//Map constructor
 	Map(vector <vector<int> >&,int, int);
 	
 
@@ -30,7 +39,7 @@ public:
 
 	//map desing--print
 	void static displayMap (vector < vector <int> >, int, int);
-	void static  mapDesign (vector < vector <int> >, int, int);
+	void  mapDesign (vector < vector <int> >, int, int);
 	
 	//map validation
 	bool validatingMap(vector < vector <int> >&, int, int);
@@ -56,6 +65,7 @@ public:
 	map<string,chracPosition> getLocation();
 	chracPosition getPosition();
 
+	d20Items::Item* addItem2Map() const;
 
 	//charcater location map
 	//void characterPosition(string name, chracPosition p);
@@ -84,11 +94,25 @@ public:
 
 	
 protected:
+	// Current character position
 	chracPosition currentPosition;
+	
+	// hash map of all character's positions on map
 	map<string,chracPosition>  location;
+	
+	// hash map of all item positions on the map, key = item, value = position
+	typedef std::map<d20Items::Item*, chracPosition> ItemLocation;
+	ItemLocation itemLocation;
+	//map<const d20Items::Item*, chracPosition> itemLocation;
+
+	// vector containing the map
 	vector< vector <int> > myMap;
+
+	// Map row & column
 	int row;
 	int col;
-    vector<Map *> myObs; //vector containing mapObserver pointer 
+    
+	// Vector of map observers
+	vector<Map *> myObs; //vector containing mapObserver pointer 
 
 };

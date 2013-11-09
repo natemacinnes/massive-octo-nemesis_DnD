@@ -14,6 +14,7 @@ Ring::Ring(void)
 Ring::Ring(std::string newName) 
 	: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 

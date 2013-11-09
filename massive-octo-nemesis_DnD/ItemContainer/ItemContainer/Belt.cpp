@@ -14,6 +14,7 @@ Belt::Belt(void)
 Belt::Belt(std::string newName) 
 	: Item(newName) 
 {
+	name = newName;
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 
