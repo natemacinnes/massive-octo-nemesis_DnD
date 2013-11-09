@@ -213,4 +213,22 @@ void Fighter::setDamageBonus() { //(int strength) {
 	//notifyAllObservers(); // this method is a dependent
 }
 
+bool Fighter::pickUp(d20Items::Item* item) 
+{
+	char input = ' ';
+	cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
+	do{ 
+		cin >> input;
+		cout <<endl;
+		if(input == 'Y' || input == 'y') {
+			return true;
+		} else if(input == 'N' || input == 'n') {
+			return false;
+		} else {
+			cout << "Please enter 'Y' for yes or 'N' for no." << endl;
+		}
+	}while(input != 'Y' || input != 'N');
+	
+}
+
 } /* namespace d20Characters */

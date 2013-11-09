@@ -11,8 +11,9 @@
 
 namespace d20Characters {
 
-class Fighter: public d20Characters::character {
+class Fighter: public character {
 public:
+	
 	Fighter(int level);
 	virtual ~Fighter();
 
@@ -51,6 +52,9 @@ public:
 	using character::setDamageBonus;
 	virtual void setDamageBonus(int d); //(int strength);
 	virtual void setDamageBonus();
+
+	//pickup items
+	bool pickUp(d20Items::Item*);
 
 };
 

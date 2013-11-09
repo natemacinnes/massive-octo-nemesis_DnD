@@ -33,6 +33,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 	this->col = c;
 	this->myMap = v;
 	this->myObs;
+	bob = new d20Characters::Fighter(1);
 }
 
 int Map::getRowStart(){
@@ -72,7 +73,8 @@ vector<vector<int>> Map::getMapVector(){
 vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col){
 
 	vector<int> columns;
-	
+	//chracPosition* pos = new chracPosition();
+
 		cout << "Let's build up your map!" <<endl;
 		cout << "Enter \'1\' to fill your map with empty space (free path)" << endl;
 		cout << "Enter \'2\' to fill your map with wall" << endl;
@@ -95,7 +97,12 @@ vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col
 					cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 					
 				}
-				
+				/*
+				if(pathChoice==3){
+					pos->setChracterPosition(i,j);
+					//const d20Items::Item *tempItem = 
+					itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
+				}*/
 				m[i].push_back(pathChoice);
 			}
 		}
@@ -112,7 +119,7 @@ vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col
 
 
 		//displayMap(m, row, col);
-		mapDesign(m,row,col);
+		//mapDesign(m,row,col);
 		return m;
 	
 }
@@ -193,7 +200,7 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 	cout << "+";
 	cout << endl;
 	//delimitation of the map
-	
+	//chracPosition* pos = new chracPosition();
 	for (int i = 0 ; i < row; i++) {
 			cout << "+ ";
 		for (int j = 0 ; j <  col; j++) {
@@ -202,10 +209,11 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 			}else if (myMap[i][j] == 2) {
 				cout << "|" << " ";
 			}else if (myMap[i][j] == 3){
-				chracPosition pos;
-				pos.setChracterPosition(i,j);
+				//pos->setChracterPosition(i,j);
+				//itemLocation.find(pos)->second;
+				cout << "B" << " ";
 				//const d20Items::Item *tempItem = 
-				itemLocation.insert(ItemLocation::value_type(addItem2Map(), pos));
+				//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
 			}else if(myMap[i][j] == 0) {
 				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
 			}else if(myMap[i][j] == 4){
@@ -890,19 +898,21 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 	int  val; // value on the preivous cell entered
 	int previousValRow;
 	int previousValCol;
-
+	chracPosition *tempItemLoc = new chracPosition();
+	bool tempBool;
+	
 	//Map nMap(tempMap,currentRowPosition,currentColPosition);
 
 	tempMap[currentRowPosition][currentColPosition] = 5; //start point with player
 
 	//character name test
-	string player ="player";
+	//string player ="player";
 
 	//position object holding row and collumn value
 	currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 
 	//saving charcater current position on map
-	location.insert(std::pair<string,chracPosition>(player,currentPosition));
+	characterLocation.insert(CharacterLocation::value_type(bob, currentPosition));
 
 	notify();
 	//mapDesign(tempMap,row,col);
@@ -913,47 +923,83 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 
 	while(!(cin >> key) || (key != 101)||(key != 115)||(key != 100)||(key != 102))
         {
-			if(key=='e'){ //tries to move up
+		if(key=='e'){ //tries to move up
 				if((currentRowPosition-1)>=0){//you can move up
-					if(tempMap[currentRowPosition-1][currentColPosition] == 2){
-						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
-						//notify();
+					if(tempMap[currentRowPosition-1][currentColPosition] == 1){
+						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
+						previousValRow = currentRowPosition;
+						previousValCol = currentColPosition;
+						
+						val = mapTracker[previousValRow][previousValCol]; //previous position
+						tempMap[previousValRow][previousValCol] = val; //set previous row with old value
+
+						//walk in the new cell
+						currentRowPosition = currentRowPosition-1;
+						currentColPosition = currentColPosition;
+
+						//set to player
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+	
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						notify();
+
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+
 					}else if(tempMap[currentRowPosition-1][currentColPosition] == 4){
+						
 						val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
 						tempMap[currentRowPosition][currentColPosition] = val;
 
 						tempMap[currentRowPosition-1][currentColPosition] = 5;
 						
 						currentPosition.setChracterPosition(currentRowPosition-1,currentColPosition);
-						location.at(player) = currentPosition; //update player position
+						characterLocation.at(bob) = currentPosition; //update player position
 						
-						currentPosition.print();						
-					//	mapDesign(tempMap,row,col);
 						notify();
 
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
-					}else{
-						// Item creation TO-DO (random generation via builder)
-						d20Items::Item* ring = new d20Items::Ring("Ruby ring");
-						
-
-						previousValRow = currentRowPosition;
+					}else if(tempMap[currentRowPosition-1][currentColPosition] == 3){ //found something position =3
+						system("pause");
+						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
+						previousValRow = currentRowPosition-1; //save value on cell into
 						previousValCol = currentColPosition;
-						val = mapTracker[previousValRow][previousValCol]; //previous position
-						tempMap[previousValRow][previousValCol] = val;
+						val = mapTracker[previousValRow][previousValCol];
+						tempMap[currentRowPosition-1][currentColPosition] =5;
+						notify();
 
+						system("pause");
+						// if true pick up item
+						
+						
+						//cout << "We made it!" << endl;
+						//map<chracPosition,d20Items::Item*>::iterator it = itemLocation.find(tempItemLoc);
+		
+						tempItemLoc->setChracterPosition(previousValRow, previousValCol);
+						tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+						if(tempBool)
+						{
+							
+							//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
+							//val =1;
+							tempMap[currentRowPosition-1][currentColPosition] = 1;
+
+
+						} else {
+							val = mapTracker[previousValRow][previousValCol]; //previous position
+							tempMap[previousValRow][previousValCol] = val;
+						}
+						
+						
 						currentRowPosition = currentRowPosition-1;
 						currentColPosition = currentColPosition;
 						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
-
-						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
-						location.at(player) = currentPosition; //update player position
 						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						
 						notify();
 						
 						cin.clear();
@@ -961,64 +1007,119 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						
 						//system("cls");
 						
+					}else{
+					cout<<"here"<<endl;
 					}
 				}else{
-					cout<<"You cannot move up!"<<endl;
+					cout<<"You cannot move up! There is a wall"<<endl;
 				}
-			}else if(key=='s'){ //tries to move left
-				if((currentColPosition-1)>=0){//you can move left
-					if(tempMap[currentRowPosition][currentColPosition-1] == 2){
-						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
-						//notify();
+		else if(key=='s'){ //tries to move left
+					//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
+			if(tempMap[currentRowPosition][currentColPosition-1]==1){
+						previousValRow = currentRowPosition;
+						previousValCol = currentColPosition;
+						
+						val = mapTracker[previousValRow][previousValCol]; //previous position
+						tempMap[previousValRow][previousValCol] = val; //set previous row with old value
+
+						//walk in the new cell
+						currentRowPosition = currentRowPosition-1;
+						currentColPosition = currentColPosition;
+
+						//set to player
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+	
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						notify();
+
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+
 					}else if(tempMap[currentRowPosition][currentColPosition-1] == 4){
-						val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
-						tempMap[currentRowPosition][currentColPosition]=val;
 						
+						val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
+						tempMap[currentRowPosition][currentColPosition] = val;
+
 						tempMap[currentRowPosition][currentColPosition-1] = 5;
 						
 						currentPosition.setChracterPosition(currentRowPosition,currentColPosition-1);
-						location.at(player) = currentPosition; //update player position
+						characterLocation.at(bob) = currentPosition; //update player position
 						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
 						notify();
 
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
-					}else{
-						previousValRow = currentRowPosition;
-						previousValCol = currentColPosition;
-						val = mapTracker[previousValRow][previousValCol]; //preivous position
-						tempMap[currentRowPosition][currentColPosition] = val;
-
-						currentRowPosition = currentRowPosition;
-						currentColPosition = currentColPosition-1;
-						tempMap[currentRowPosition][currentColPosition] = 5; //moving player left
-
-						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
-						location.at(player) = currentPosition; //update player position
-						
-						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
+					
+					}else if(tempMap[currentRowPosition][currentColPosition-1] == 3){ //found something position =3
+						system("pause");
+						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
+						previousValRow = currentRowPosition; //save value on cell into
+						previousValCol = currentColPosition-1;
+						val = mapTracker[previousValRow][previousValCol];
+						tempMap[currentRowPosition][currentColPosition-1] =5;
 						notify();
 
+						system("pause");
+						// if true pick up item
+						
+						
+						//cout << "We made it!" << endl;
+						//map<chracPosition,d20Items::Item*>::iterator it = itemLocation.find(tempItemLoc);
+		
+						tempItemLoc->setChracterPosition(previousValRow, previousValCol);
+						tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+						if(tempBool)
+						{
+							
+							//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
+							//val =1;
+							tempMap[currentRowPosition][currentColPosition-1] = 1;
+
+
+						} else {
+							val = mapTracker[previousValRow][previousValCol]; //previous position
+							tempMap[previousValRow][previousValCol] = val;
+						}
+						
+						
+						currentRowPosition = currentRowPosition;
+						currentColPosition = currentColPosition-1;
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+						
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						
+						notify();
+						
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						
 						//system("cls");
 						
+					}else{
+					cout<<"here"<<endl;
 					}
 				}else{
-					cout<<"You cannot move left!"<<endl;
+					cout<<"You cannot move up! There is a wall"<<endl;
 				}
 			}else if(key=='f'){ //checks if can move right
 				if((currentColPosition+1)<col){//you can move right
-					if(tempMap[currentRowPosition][currentColPosition+1] == 2){
-						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
-						//notify();
+					if(tempMap[currentRowPosition][currentColPosition+1] == 1){
+						//tempItemLoc->setChracterPosition(currentRowPosition, currentColPosition+1);
+						previousValRow = currentRowPosition;
+						previousValCol = currentColPosition;
+						val = mapTracker[previousValRow][previousValCol]; //preivous position
+						tempMap[previousValRow][previousValCol]=val;
+
+						currentRowPosition = currentRowPosition;
+						currentColPosition = currentColPosition+1;
+						tempMap[currentRowPosition][currentColPosition] = 5;
+
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						notify();
+
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 					}else if(tempMap[currentRowPosition][currentColPosition+1] == 4){
@@ -1028,47 +1129,83 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						tempMap[currentRowPosition][currentColPosition+1] = 5;
 
 						currentPosition.setChracterPosition(currentRowPosition,currentColPosition+1);
-						location.at(player) = currentPosition; //update player position
-						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
+						characterLocation.at(bob) = currentPosition; //update player position
+	
 						notify();
 
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
-					}else{
-						previousValRow = currentRowPosition;
-						previousValCol = currentColPosition;
+					} else if(tempMap[currentRowPosition][currentColPosition+1]==3){ //tempMap[currentRowPosition][currentColPosition+1] == 3) {
+
+					previousValRow = currentRowPosition; //save value on cell into
+						previousValCol = currentColPosition+1;
+						val = mapTracker[previousValRow][previousValCol];
+						tempMap[currentRowPosition][currentColPosition+1] =5;
+						notify();
+
+						system("pause");
+						// if true pick up item
 						
-						val = mapTracker[previousValRow][previousValCol]; //preivous position
-						tempMap[currentRowPosition][currentColPosition] = val;
+						
+						//cout << "We made it!" << endl;
+						//map<chracPosition,d20Items::Item*>::iterator it = itemLocation.find(tempItemLoc);
+		
+						tempItemLoc->setChracterPosition(previousValRow, previousValCol);
+						tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+						if(tempBool)
+						{
+							
+							//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
+							//val =1;
+							tempMap[currentRowPosition][currentColPosition+1] = 1;
+
+
+						} else {
+							val = mapTracker[previousValRow][previousValCol]; //previous position
+							tempMap[previousValRow][previousValCol] = val;
+						}
+						
 						
 						currentRowPosition = currentRowPosition;
 						currentColPosition = currentColPosition+1;
-						tempMap[currentRowPosition][currentColPosition] = 5; //moving player right
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
 						
 						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
-						location.at(player) = currentPosition; //update player position
+						characterLocation.at(bob) = currentPosition; //update player position
 						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
 						notify();
-
-						cin.clear();
-						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-
 						
-						//system("cls");
-					}
+					cin.clear();	
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 				}else{
-					cout<<"You cannot move right!"<<endl;
+					cout<<"here t"<<endl;
+					
 				}
+	
+			}else{
+				cout<<"You cannot move right!There is a wall"<<endl;
+			}
 			
 			}else if(key=='d'){ //checks if can go down
 				if((currentRowPosition+1)<row){//you can move down
-					if(tempMap[currentRowPosition+1][currentColPosition] == 2){
-						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
-						//notify();
+					if(tempMap[currentRowPosition+1][currentColPosition] == 1){
+						//tempItemLoc->setChracterPosition(currentRowPosition+1, currentColPosition);
+						
+						previousValRow = currentRowPosition;
+						previousValCol = currentColPosition;
+
+						val = mapTracker[previousValRow][previousValCol]; //preivous position
+						tempMap[previousValRow][previousValCol]=val;
+
+						currentRowPosition = currentRowPosition+1;
+						currentColPosition = currentColPosition;
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player down
+					
+					
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						notify();
+
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 					}else if(tempMap[currentRowPosition+1][currentColPosition] == 4){
@@ -1078,48 +1215,69 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						tempMap[currentRowPosition+1][currentColPosition] = 5;
 					
 						currentPosition.setChracterPosition(currentRowPosition+1,currentColPosition);
-						location.at(player) = currentPosition; //update player position
+						characterLocation.at(bob) = currentPosition; //update player position
 
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
 						notify();
 
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
-					}else{
-						previousValRow = currentRowPosition;
+					}else if (tempMap[currentRowPosition+1][currentColPosition]==3){
+						previousValRow = currentRowPosition+1; //save value on cell into
 						previousValCol = currentColPosition;
-						val = mapTracker[previousValRow][previousValCol]; //preivous position
-						tempMap[currentRowPosition][currentColPosition] = val;
-
-						currentRowPosition = currentRowPosition+1;
-						currentColPosition = currentColPosition;
-						tempMap[currentRowPosition][currentColPosition] = 5; //moving player down
-
-						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
-						location.at(player) = currentPosition; //update player position
-						
-						currentPosition.print();
-						//mapDesign(tempMap,row,col);
+						val = mapTracker[previousValRow][previousValCol];
+						tempMap[currentRowPosition+1][currentColPosition] =5;
 						notify();
 
-						cin.clear();
+						system("pause");
+						// if true pick up item
+						
+						
+						//cout << "We made it!" << endl;
+						//map<chracPosition,d20Items::Item*>::iterator it = itemLocation.find(tempItemLoc);
+		
+						tempItemLoc->setChracterPosition(previousValRow, previousValCol);
+						tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+						if(tempBool)
+						{
+							
+							//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
+							//val =1;
+							tempMap[currentRowPosition+1][currentColPosition] = 1;
+
+
+						} else {
+							val = mapTracker[previousValRow][previousValCol]; //previous position
+							tempMap[previousValRow][previousValCol] = val;
+						}
+						
+						
+						currentRowPosition = currentRowPosition+1;
+						currentColPosition = currentColPosition;
+						tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+						
+						currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
+						characterLocation.at(bob) = currentPosition; //update player position
+						
+						notify();
+						
+					cin.clear();	
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						
-						
 
+					}else{
+					cout<<"here"<<endl;
 					}
 				}else{
-					cout<<"You cannot move down!"<<endl;
+					cout<<"You cannot move down! There is a wall"<<endl;
 				}
 			}else{
-			cout<<"You cannot !"<<endl;
-			
-			cin >> key;
+				cout<<"You cannot move!"<<endl;
+				cin >> key;
 			}
+		}
 
-    }
-}
+
+
 
 
 
@@ -1144,49 +1302,48 @@ int Map::getCharRowLocation(string name,chracPosition p){
 		return p.getRow();
 }
 */
-map<string,chracPosition> Map::getLocation(){
-
-	return location;
+map<d20Characters::Fighter*,chracPosition> Map::getLocation(){
+	return characterLocation;
 }
 
-
+/*** FIX create a void method to print correct item ***
 d20Items::Item* Map::addItem2Map() const
 {
-	int rNumber;
+		int rNumber;
 	rNumber = 1 + rand() % 7;
 	
 	switch(rNumber) 
 	{
 	case 0: 
-		std::cout << "A";
+		//std::cout << 'A'<< " ";
 		return new d20Items::Armor("Dragonmail Armor");
 		break;
 	case 1: 
-		std::cout << "O";
+		//std::cout << 'O'<< " ";
 		return new d20Items::Belt("Dragonmail Belt");
 	case 2: 
-		std::cout << "B";
+		//std::cout << 'B'<< " ";
 		return new d20Items::Boots("Dragonmail Boots");
 		break;
 	case 3:
-		std::cout << "H";
+		//std::cout << 'H' << " ";
 		return new d20Items::Helmet("Dragonmail Helmet");
 		break;
 	case 4:
-		std::cout << "R";
+		//std::cout << 'R' << " ";
 		return new d20Items::Ring("Dragonmail Ring");
 		break;
 	case 5:
-		std::cout << "S";
+		//std::cout << 'S' << " ";
 		return new d20Items::Shield("Dragonmail Shield");
 		break;
 	case 6:
-		std::cout << "W";
+		//std::cout << 'W'<< " ";
 		return new d20Items::Weapon("Dragonmail Weapon");
 		break;
 	default: 
-		cout << "*";
+		cout << '*'<< " ";
 		return new d20Items::Item();
 		break;
 	}
-}
+}*/

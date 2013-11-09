@@ -15,16 +15,16 @@
 #include "Boots.h"
 #include "Item.h"
 #include "Shield.h"
+#include "character.h"
+#include "Fighter.h"
 
 
 using namespace std;
 
-
 class Map: public MapObservable{
-
-
+  	
 public:
-  
+
 	
 	Map(void);
 	
@@ -62,7 +62,7 @@ public:
 	//int getCharRowLocation(string,chracPosition);
 	//int getCharColLocation(string, chracPosition);
 	vector<vector<int>> getMapVector();
-	map<string,chracPosition> getLocation();
+	map<d20Characters::Fighter*, chracPosition> getLocation();
 	chracPosition getPosition();
 
 	d20Items::Item* addItem2Map() const;
@@ -96,12 +96,17 @@ public:
 protected:
 	// Current character position
 	chracPosition currentPosition;
-	
+
+	//d20Characters::Fighter* bob = new d20Characters::Fighter(2);
+	d20Characters::Fighter *bob;
+	//d20Characters::Fighter bob =  d20Characters::Fighter();
+
 	// hash map of all character's positions on map
-	map<string,chracPosition>  location;
+	typedef map<d20Characters::Fighter*, chracPosition>  CharacterLocation;
+	CharacterLocation characterLocation;
 	
 	// hash map of all item positions on the map, key = item, value = position
-	typedef std::map<d20Items::Item*, chracPosition> ItemLocation;
+	typedef std::map<chracPosition*, d20Items::Item*> ItemLocation;
 	ItemLocation itemLocation;
 	//map<const d20Items::Item*, chracPosition> itemLocation;
 
