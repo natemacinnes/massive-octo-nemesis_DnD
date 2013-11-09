@@ -221,6 +221,7 @@ bool Fighter::pickUp(d20Items::Item* item)
 		cin >> input;
 		cout <<endl;
 		if(input == 'Y' || input == 'y') {
+			this->setBoots(item);
 			return true;
 		} else if(input == 'N' || input == 'n') {
 			return false;

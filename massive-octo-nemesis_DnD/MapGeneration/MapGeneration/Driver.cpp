@@ -5,6 +5,7 @@
 #include "ItemContainer.h"
 #include "Helmet.h"
 #include "ConsoleOut.h"
+#include "GUIclass.h"
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -42,7 +43,6 @@ int main(int argc, char* argv[])
 	cin >> numRows; 
 	int temRow =  Map::Validation::validateRowInput(numRows);
 	numRows = temRow;
-	
 	
 	cout << "Enter the number of Columns: \n";
 	cin >> numCols;

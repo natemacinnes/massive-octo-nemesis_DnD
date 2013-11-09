@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "MapObservable.h"
 #include "chracPosition.h"
+#include "GUIclass.h"
 
 
 using namespace std;
@@ -34,6 +35,11 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 	this->myMap = v;
 	this->myObs;
 	bob = new d20Characters::Fighter(1);
+	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
+	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
+
+	//plug the two together -- the observer (GUI object) and observable (Fighter object):
+	gui->registerToObservable(bob);
 }
 
 int Map::getRowStart(){
@@ -374,7 +380,8 @@ int Map::Validation::getRow(int row1){
  return row1;
 }
 
-int Map::Validation::getCol(int col1){
+int Map::Validation::getCol(int col1)
+{
 	return col1;
 }	
 
@@ -883,7 +890,9 @@ if(newStartRowPoint + 1 <= row-1){
 	}
 }
 
-bool Map::move(vector<vector<int>>& tempMap, int row, int col){
+bool Map::move(vector<vector<int>>& tempMap, int row, int col)
+{
+
 
 	/*
 	e--> represents up key --> ASCII value 101
@@ -924,8 +933,10 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 	while(!(cin >> key) || (key != 101)||(key != 115)||(key != 100)||(key != 102))
         {
 		if(key=='e'){ //tries to move up
-				if((currentRowPosition-1)>=0){//you can move up
-					if(tempMap[currentRowPosition-1][currentColPosition] == 1){
+				if((currentRowPosition-1)>=0)
+				{//you can move up
+					if(tempMap[currentRowPosition-1][currentColPosition] == 1)
+					{
 						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 						previousValRow = currentRowPosition;
 						previousValCol = currentColPosition;
@@ -947,7 +958,7 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 
-					}else if(tempMap[currentRowPosition-1][currentColPosition] == 4){
+					} else if(tempMap[currentRowPosition-1][currentColPosition] == 4) {
 						
 						val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
 						tempMap[currentRowPosition][currentColPosition] = val;
@@ -961,7 +972,7 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
-					}else if(tempMap[currentRowPosition-1][currentColPosition] == 3){ //found something position =3
+					} else if(tempMap[currentRowPosition-1][currentColPosition] == 3) { //found something position =3
 						system("pause");
 						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 						previousValRow = currentRowPosition-1; //save value on cell into
@@ -1007,13 +1018,14 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						
 						//system("cls");
 						
-					}else{
+					} else {
 					cout<<"here"<<endl;
 					}
-				}else{
+				} else {
 					cout<<"You cannot move up! There is a wall"<<endl;
 				}
-		else if(key=='s'){ //tries to move left
+				
+		} else if(key=='s') { //tries to move left
 					//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 			if(tempMap[currentRowPosition][currentColPosition-1]==1){
 						previousValRow = currentRowPosition;
@@ -1036,7 +1048,8 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 
-					}else if(tempMap[currentRowPosition][currentColPosition-1] == 4){
+					}else if(tempMap[currentRowPosition][currentColPosition-1] == 4)
+					{
 						
 						val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
 						tempMap[currentRowPosition][currentColPosition] = val;
@@ -1051,7 +1064,8 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 						return true;
 					
-					}else if(tempMap[currentRowPosition][currentColPosition-1] == 3){ //found something position =3
+					}else if(tempMap[currentRowPosition][currentColPosition-1] == 3)
+					{ //found something position =3
 						system("pause");
 						//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 						previousValRow = currentRowPosition; //save value on cell into
@@ -1097,12 +1111,12 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 						
 						//system("cls");
 						
-					}else{
+					//}else{
 					cout<<"here"<<endl;
-					}
-				}else{
+					
+					}else{
 					cout<<"You cannot move up! There is a wall"<<endl;
-				}
+					}
 			}else if(key=='f'){ //checks if can move right
 				if((currentColPosition+1)<col){//you can move right
 					if(tempMap[currentRowPosition][currentColPosition+1] == 1){
@@ -1275,7 +1289,7 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col){
 				cin >> key;
 			}
 		}
-
+}
 
 
 
