@@ -1,3 +1,4 @@
+//#include "stdafx.h"
 #include "MapObservable.h"
 #include "Display.h"
 #include "chracPosition.h"

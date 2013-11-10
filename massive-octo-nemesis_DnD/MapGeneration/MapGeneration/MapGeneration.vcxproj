@@ -64,16 +64,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\stdafx.h" />
     <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\targetver.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObservable.h" />
     <ClInclude Include="MapObserver.h" />
     <ClInclude Include="chracPosition.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\stdafx.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Armor.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Belt.cpp" />
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Boots.cpp" />
@@ -98,6 +97,7 @@
     <ClCompile Include="MapObservable.cpp" />
     <ClCompile Include="MapObserver.cpp" />
     <ClCompile Include="chracPosition.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

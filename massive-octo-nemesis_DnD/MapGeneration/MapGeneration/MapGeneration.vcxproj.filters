@@ -39,10 +39,10 @@
     <ClInclude Include="chracPosition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\stdafx.h">
+    <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\targetver.h">
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,14 +113,14 @@
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp">
       <Filter>Source Files\CharacterDep</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Display.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Shield.cpp">
       <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
