@@ -23,7 +23,7 @@ public:
 	virtual void printCharacterStats();
 
 	//
-	virtual void setLevel(int level) = 0;
+	virtual void setLevel(int level_) = 0;
 	virtual int getLevel() = 0;
 
 	//abilities: getters only,

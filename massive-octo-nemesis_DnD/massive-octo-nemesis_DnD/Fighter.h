@@ -9,12 +9,14 @@
 #include "character.h"
 #include "Observable.h"
 
+
 namespace d20Characters {
 
 class Fighter: public character {
 public:
 	
 	Fighter(int level);
+	Fighter(std::vector<int> v, int level);//this is to create a fighter from loadFile
 	virtual ~Fighter();
 
 	using character::setLevel;
@@ -53,6 +55,15 @@ public:
 	virtual void setDamageBonus(int d); //(int strength);
 	virtual void setDamageBonus();
 
+	//save character and items to file
+	void SaveCharacterToFile();
+
+	//load character and items from file
+	Fighter* LoadCharacterFromFile();
+
+	//info for load
+	std::vector<int> characterParams;
+	
 	//pickup items
 	bool pickUp(d20Items::Item*);
 

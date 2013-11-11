@@ -139,6 +139,7 @@ void character::printCharacterStats() {
 	cout << "constitution: " << constitution << endl;
 	cout << "charisma: " << charisma << endl;
 	cout << "dexterity: " << dexterity << endl;
+	cout << "Level: " << getLevel() << endl;
 
 	//hit points:
 	cout << "hitPoints: " << hitPoints << endl;

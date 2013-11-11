@@ -10,13 +10,73 @@
 #include "character.h"
 #include "Item.h"
 #include <time.h>
+//#include "Map.h"
 #include <stdlib.h>
 #include <stddef.h>
 #include <iostream>
 #include <math.h>
 using namespace std;
 
+#include <string>
+#include <vector>
+#include <iterator>
+#include <fstream>
+#include <algorithm>
+#include <deque>
+#include <cassert>
+#include <sstream>
+
 namespace d20Characters {
+	
+	Fighter::Fighter(vector<int> v, int level_)
+		:character (level)
+	{
+
+
+		//the actual fighter variables:
+		//myStream << getLevel() << endl;
+		cout << "LEVEL?????????????" << level_;
+		level = v.at(0);
+		cout << "LEVEL?????????????" << level_;
+
+		//myStream << getArmorClass() << endl;
+		armorClass = v.at(1);
+		//myStream << getAttackBonus() << endl;
+		attackBonus = v.at(2);
+		//myStream << getCharisma() << endl;
+		charisma = v.at(3);
+		//myStream << getConstitution() << endl;
+		constitution = v.at(4);
+		//myStream << getDamageBonus() << endl;
+		damageBonus = v.at(5);
+		//myStream << getDexterity() << endl;
+		dexterity = v.at(6);
+		//myStream << getHitPoints() << endl;
+		hitPoints = v.at(7);
+		//myStream << getIntelligence() << endl;
+		intelligence= v.at(8);
+		//myStream << getStrength() << endl;
+		strength = v.at(9);
+		//myStream << getWisdom() << endl;
+		wisdom = v.at(10);
+
+		//additional ones:
+		//	1 helmet,
+		helmet = v.at(11);
+		//	2 rings,
+		rings = v.at(12);
+		//	1 weapon,
+		weapon = v.at(13); 
+		//	1 shield,
+		shield = v.at(14);
+		//	1 armor,
+		armor = v.at(15);
+		//	1 belt,
+		belt = v.at(16);
+		//	1 boots
+		boots = v.at(17);
+
+	}
 
 Fighter::Fighter(int level) :
 		character(level) {
@@ -213,7 +273,158 @@ void Fighter::setDamageBonus() { //(int strength) {
 	//notifyAllObservers(); // this method is a dependent
 }
 
-bool Fighter::pickUp(d20Items::Item* item) 
+
+	void Fighter::SaveCharacterToFile()
+	{
+
+		std::string CharName;
+		std::string InformationTextFile;
+		std::string characterNames;
+		std::string characterNamesFile;
+		std::string HELDSTRING;
+		std::string inputs;
+
+		ofstream myStream;
+
+		cout << "Input CHARACTER name to save" << endl;
+
+		//input character name
+		cin >> CharName;
+		cout << endl;
+
+		//covertly convert to _Character.txt so user doesn't have to input it
+		InformationTextFile = (CharName + "_Character.txt");
+		characterNamesFile = "characterNames.txt";
+
+
+		cout << InformationTextFile;
+
+		myStream.open("C:\\massive-octo-nemesis_DnD\\Characters\\" + InformationTextFile);
+
+		myStream << getLevel() << endl;///level
+		myStream << getArmorClass() << endl;
+		myStream << getAttackBonus() << endl;
+		myStream << getCharisma() << endl;
+		myStream << getConstitution() << endl;
+		myStream << getDamageBonus() << endl;
+		myStream << getDexterity() << endl;
+		myStream << getHitPoints() << endl;
+		myStream << getIntelligence() << endl;
+		myStream << getStrength() << endl;
+		myStream << getWisdom() << endl;
+		//additional private members:
+		//	1 helmet,
+		cout << "HELLO!!!!!!!!!!!!!!!" << helmet << endl;
+		myStream << (helmet? 1: 0) << endl;
+		//	2 rings,
+		myStream << (rings? 1: 0) << endl;
+		//	1 weapon,
+		myStream << (weapon? 1: 0) << endl;
+		//	1 shield,
+		myStream << (shield? 1: 0) << endl;
+		//	1 armor,
+		myStream << (armor? 1: 0) << endl;
+		//	1 belt,
+		myStream << (belt? 1: 0) << endl;
+		//	1 boots
+		myStream << (boots? 1: 0) << endl;
+
+		myStream.close();
+
+
+
+		//DONT FORGET THE ITEM CONTAINER
+
+
+
+		myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\" + characterNamesFile, ios_base::out | ios_base::app);
+		myStream << CharName << endl;
+		myStream.close();
+
+
+
+
+
+
+
+
+	}
+
+
+	Fighter* Fighter::LoadCharacterFromFile()
+	{
+		std::string CharName;
+		std::string InformationTextFile;
+		std::string characterNames;
+		std::string characterNamesFile;
+		std::string HELDSTRING;
+		std::string HS2;
+
+		std::string inputs;
+
+		std::ifstream myStream;
+		std::ifstream mySecondStream;
+
+		std::vector<std::string> tempArray;
+		std::vector<std::string> NameArray;
+		std::vector<int> valueArray;
+		std::vector<std::string> ItemTypeArray;
+		std::vector<std::string> EnhancementTypeArray;
+		//std::vector<int> HS2;
+		std::string k;
+		std::string s;
+
+
+		//std::vector<int> characterParams(30);
+
+
+		cout << endl;//make it cleaner
+
+		myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt");
+		if(!myStream.is_open())
+		{
+			cout << "Error opening file" << endl;
+			system("Pause");
+			return 0;
+		}
+		else
+		{
+			cout << "Select a Character Name to Load" << endl;
+
+			while(getline(myStream, HELDSTRING, '\n'))
+			{
+				cout << HELDSTRING << endl;
+			}
+			myStream.close();
+
+			while(true)
+			{
+				cout << "Select a Character Name to Load" << endl;
+				cin >> inputs;
+				CharName = (inputs + "_Character.txt");
+				myStream.open("C:\\massive-octo-nemesis_DnD\\Characters\\" + CharName);
+				if(myStream.good())
+				{
+					int i=0;
+					while(getline(myStream, HS2, '\n'))
+					{
+						//cout << "DERP DERP" << HS2 << endl;
+						characterParams.push_back(stoi(HS2));
+						i++;
+					}
+					//getline(myStream, HELDSTRING, '\n');
+					//cout << HELDSTRING << endl;
+					myStream.close();
+					break;
+
+					/*THIS IS WHERE WE GET INFORMATION FOR THE GAME */
+				}
+			}
+			return new Fighter(characterParams, 1);
+		}
+	}
+
+bool Fighter::pickUp(d20Items::Item* item) //hyo
 {
 	char input = ' ';
 	cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
@@ -231,5 +442,5 @@ bool Fighter::pickUp(d20Items::Item* item)
 	}while(input != 'Y' || input != 'N');
 	
 }
-
+	
 } /* namespace d20Characters */

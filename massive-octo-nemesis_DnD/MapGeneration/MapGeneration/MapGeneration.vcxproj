@@ -65,11 +65,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\targetver.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\character.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Fighter.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\GUIclass.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Observable.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Observer.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\resource.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\stdafx.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\targetver.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObservable.h" />
     <ClInclude Include="MapObserver.h" />
     <ClInclude Include="chracPosition.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +100,7 @@
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\stdafx.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -98,6 +108,10 @@
     <ClCompile Include="MapObserver.cpp" />
     <ClCompile Include="chracPosition.cpp" />
     <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\massive-octo-nemesis_DnD\Character.rc" />
+    <ResourceCompile Include="MapGeneration.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

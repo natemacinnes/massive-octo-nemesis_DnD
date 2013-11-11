@@ -25,14 +25,22 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 
 
-	
+
 	cout << endl
-			<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"
-			<< endl << endl;
+		<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"
+		<< endl << endl;
 
 	//create fighter that we will observe / watch for changes:
-	d20Characters::Fighter myFighter(2);
+	d20Characters::Fighter myFighter(1);
+	myFighter.printCharacterStats();
 
+
+	//TEST FOR SAVE FILE & LOAD
+	myFighter.SaveCharacterToFile();
+	d20Characters::Fighter* myFighter2 = myFighter.LoadCharacterFromFile();
+	cout << "HERE: MAIN: " << myFighter2->getLevel() << endl;
+	myFighter2->printCharacterStats();
+	/*
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
 	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
 
@@ -59,15 +67,15 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//those should not work because out of bounds:
 	cout << endl
-			<< "myFighter.setHitPoints(124); SHOULD *NOT* TRIGGER A RE-PRINT";
+	<< "myFighter.setHitPoints(124); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setHitPoints(124);
 	cout << endl
-			<< "myFighter.setDamageBonus(1064); SHOULD *NOT* TRIGGER A RE-PRINT";
+	<< "myFighter.setDamageBonus(1064); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setDamageBonus(1064);
 	cout << endl
-			<< "myFighter.setAttackBonus(-1); SHOULD *NOT* TRIGGER A RE-PRINT";
+	<< "myFighter.setAttackBonus(-1); SHOULD *NOT* TRIGGER A RE-PRINT";
 	myFighter.setAttackBonus(-1);
-
+	*/
 	system("pause");
 
 	return 0;
