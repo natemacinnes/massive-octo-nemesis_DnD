@@ -383,9 +383,10 @@ void Fighter::setDamageBonus() { //(int strength) {
 		myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt");
 		if(!myStream.is_open())
 		{
-			cout << "Error opening file" << endl;
-			system("Pause");
-			return 0;
+			cout << "Error opening file, creating new character instead: " << endl;
+			//system("Pause");
+			//return 0;
+			return new Fighter(1);
 		}
 		else
 		{
