@@ -39,7 +39,7 @@ namespace d20Characters {
 		//myStream << getLevel() << endl;
 		//cout << "LEVEL?????????????" << level_;
 		level = v.at(0);
-		cout << "LEVEL?????????????" << level_;
+		//cout << "LEVEL?????????????" << level_;
 
 		//myStream << getArmorClass() << endl;
 		armorClass = v.at(1);
@@ -118,6 +118,21 @@ namespace d20Characters {
 			//	(5) damage bonus (based on strength modifier).
 			setDamageBonus(rand() % 10 + 1);
 
+			//init all small vars:
+			//	1 helmet,
+			helmet = 0;
+			//	2 rings,
+			rings = 0;
+			//	1 weapon,
+			weapon = 0; 
+			//	1 shield,
+			shield = 0;
+			//	1 armor,
+			armor = 0;
+			//	1 belt,
+			belt = 0;
+			//	1 boots
+			boots = 0;
 	}
 
 	Fighter::~Fighter() {

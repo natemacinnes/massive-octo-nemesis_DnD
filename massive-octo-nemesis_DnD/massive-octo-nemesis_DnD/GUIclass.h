@@ -24,8 +24,6 @@ public:
 	//using Observer::onEvent;
 	virtual void onEvent();
 
-//	using character::setStrength;
-//	void setStrength(int strength);
 private:
 	std::vector<character*> listOfObservables_vector;
 	std::vector<character*>::iterator iter;

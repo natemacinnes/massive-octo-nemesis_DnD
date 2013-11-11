@@ -18,10 +18,11 @@
 #include "character.h"
 #include "Fighter.h"
 
+#include "Observer.h"
 
 using namespace std;
 
-class Map: public MapObservable{
+class Map: public MapObservable, public d20Characters::Observer {
   	
 public:
 
@@ -93,6 +94,17 @@ public:
 	};
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	void createOrReloadACharacterBob();
+
+	//for the Observer "interface":
+	
+	//register to watch and reflect changes on fighter, and keep a reference to that fighter to print its changes later:
+	void registerToObservable(d20Characters::character *obs); // optional really, must be done anyways from the main.
+	//using Observer::onEvent;
+	virtual void onEvent();
+
+private:
+	std::vector<d20Characters::character*> listOfObservables_vector;
+	std::vector<d20Characters::character*>::iterator iter;
 	
 protected:
 	// Current character position

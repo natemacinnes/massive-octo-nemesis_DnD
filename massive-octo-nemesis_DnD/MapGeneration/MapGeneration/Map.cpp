@@ -43,7 +43,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	while(isgoodanswer == false){
+	while(!isgoodanswer){
 		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
 		string doLoadChar;
 		cin.clear();
@@ -64,10 +64,10 @@ void Map::createOrReloadACharacterBob() {
 
 	
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
-	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
+	//d20Characters::GUIclass* gui = new d20Characters::GUIclass(); // now Map is an Observer itself, how it should be ...
 
 	//plug the two together -- the observer (GUI object) and observable (Fighter object):
-	gui->registerToObservable(bob);
+	this->registerToObservable(bob);
 }
 
 int Map::getRowStart(){
@@ -1319,6 +1319,20 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 	}
 }
 
+void Map::onEvent() {
+	//every time there's a change in one fighter, refresh the whole list.
+
+	for (int i = 0; i < listOfObservables_vector.size(); i++) {
+		listOfObservables_vector[i]->printCharacterStats();
+	}
+}
+
+void Map::registerToObservable(d20Characters::character *obs) {
+
+	this->listOfObservables_vector.push_back(obs);
+	obs->registerObserver(this);
+
+}
 
 
 
