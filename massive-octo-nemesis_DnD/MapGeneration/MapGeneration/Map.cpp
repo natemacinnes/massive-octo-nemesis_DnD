@@ -35,6 +35,12 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 	this->myMap = v;
 	this->myObs;
 
+
+
+
+}
+
+void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
 	while(isgoodanswer == false){
@@ -56,6 +62,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 		}
 	}
 
+	
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
 	d20Characters::GUIclass* gui = new d20Characters::GUIclass();
 

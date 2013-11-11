@@ -91,14 +91,15 @@ public:
 		bool static setEnd(vector < vector <int> >&, int, int);
 		
 	};
-
+	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
+	void createOrReloadACharacterBob();
 	
 protected:
 	// Current character position
 	chracPosition currentPosition;
 
 	//d20Characters::Fighter* bob = new d20Characters::Fighter(2);
-	d20Characters::Fighter *bob;
+	
 	//d20Characters::Fighter bob =  d20Characters::Fighter();
 
 	// hash map of all character's positions on map

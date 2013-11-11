@@ -1,10 +1,10 @@
 #include "stdafx.h"
 /*
- * Fighter.cpp
- *
- *  Created on: Oct 21, 2013
- *      Author: nick
- */
+* Fighter.cpp
+*
+*  Created on: Oct 21, 2013
+*      Author: nick
+*/
 
 #include "Fighter.h"
 #include "character.h"
@@ -26,8 +26,10 @@ using namespace std;
 #include <cassert>
 #include <sstream>
 
+#include <windows.h>
+
 namespace d20Characters {
-	
+
 	Fighter::Fighter(vector<int> v, int level_)
 		:character (level)
 	{
@@ -35,7 +37,7 @@ namespace d20Characters {
 
 		//the actual fighter variables:
 		//myStream << getLevel() << endl;
-		cout << "LEVEL?????????????" << level_;
+		//cout << "LEVEL?????????????" << level_;
 		level = v.at(0);
 		cout << "LEVEL?????????????" << level_;
 
@@ -78,200 +80,200 @@ namespace d20Characters {
 
 	}
 
-Fighter::Fighter(int level) :
+	Fighter::Fighter(int level) :
 		character(level) {
 
 			//init bag:
 			bag = new d20Items::ItemContainer();
 
-	// setting the level
-	setLevel(level);
+			// setting the level
+			setLevel(level);
 
-	//	(1) ability scores (generated randomly)
-	//	and ability modifiers,
+			//	(1) ability scores (generated randomly)
+			//	and ability modifiers,
 
-	// (...) Possible ability scores range from 7 to 18:
-	// http://www.d20pfsrd.com/basics-ability-scores/character-creation
-	srand(time(NULL)); // init random seed
-	setStrength(rand() % 11 + 7); // generate random int between 7 and 18
-	setIntelligence(rand() % 11 + 7);
-	setWisdom(rand() % 11 + 7);
-	setConstitution(rand() % 11 + 7);
-	setCharisma(rand() % 11 + 7);
-	setDexterity(rand() % 11 + 7);
+			// (...) Possible ability scores range from 7 to 18:
+			// http://www.d20pfsrd.com/basics-ability-scores/character-creation
+			srand(time(NULL)); // init random seed
+			setStrength(rand() % 11 + 7); // generate random int between 7 and 18
+			setIntelligence(rand() % 11 + 7);
+			setWisdom(rand() % 11 + 7);
+			setConstitution(rand() % 11 + 7);
+			setCharisma(rand() % 11 + 7);
+			setDexterity(rand() % 11 + 7);
 
-	//==============================now members that depend on other variables:
+			//==============================now members that depend on other variables:
 
-	//	(2) hit points (based on constitution modifier and level),
-	setHitPoints(rand() % 11 + 7);
+			//	(2) hit points (based on constitution modifier and level),
+			setHitPoints(rand() % 11 + 7);
 
-	//	(3) armor class (based on dexterity modifier),
-	setArmorClass(); //TODO: for performance: remove it here and make two different set<ability>() functions to update properly the "dependents"
+			//	(3) armor class (based on dexterity modifier),
+			setArmorClass(); //TODO: for performance: remove it here and make two different set<ability>() functions to update properly the "dependents"
 
-	//	(4) attack bonus (based level and strength/dexterity modifiers),
-	//see table:
-	//http://www.d20srd.org/srd/improvingMonsters.htm
-	setAttackBonus(rand() % 10 + 1); // for a fighter it's using a d10
+			//	(4) attack bonus (based level and strength/dexterity modifiers),
+			//see table:
+			//http://www.d20srd.org/srd/improvingMonsters.htm
+			setAttackBonus(rand() % 10 + 1); // for a fighter it's using a d10
 
-	//	(5) damage bonus (based on strength modifier).
-	setDamageBonus(rand() % 10 + 1);
+			//	(5) damage bonus (based on strength modifier).
+			setDamageBonus(rand() % 10 + 1);
 
-}
+	}
 
-Fighter::~Fighter() {
+	Fighter::~Fighter() {
 
-}
+	}
 
-//level:
-void Fighter::setLevel(int thelevel) {
-	if (thelevel > 0) {
-		level = thelevel;
+	//level:
+	void Fighter::setLevel(int thelevel) {
+		if (thelevel > 0) {
+			level = thelevel;
+			//dependents:
+			srand(time(NULL));
+			setHitPoints(rand() % 11 + 7);
+			// notify GUI or MAP
+			notifyAllObservers();
+		}
+	}
+	int Fighter::getLevel() {
+		return level;
+	}
+
+	//setters for abilities:
+	void Fighter::setStrength(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: invalid dice value for setStrength(int d)"
+				<< endl;
+			return;
+		}
+		strength = diceResult;
+		strengthModifier = floor((double) (strength / 2) - 5); //http://www.systemreferencedocuments.org/resources/systems/pennpaper/modern/smack/abilityscores.html
 		//dependents:
-		srand(time(NULL));
-		setHitPoints(rand() % 11 + 7);
+		setAttackBonus();
+		setDamageBonus();
 		// notify GUI or MAP
 		notifyAllObservers();
 	}
-}
-int Fighter::getLevel() {
-	return level;
-}
-
-//setters for abilities:
-void Fighter::setStrength(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: invalid dice value for setStrength(int d)"
+	void Fighter::setCharisma(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: invalid dice value for setCharisma(int d)"
 				<< endl;
-		return;
+			return;
+		}
+		charisma = diceResult;
+		charismaModifier = floor((double) (charisma / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	strength = diceResult;
-	strengthModifier = floor((double) (strength / 2) - 5); //http://www.systemreferencedocuments.org/resources/systems/pennpaper/modern/smack/abilityscores.html
-	//dependents:
-	setAttackBonus();
-	setDamageBonus();
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setCharisma(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: invalid dice value for setCharisma(int d)"
-				<< endl;
-		return;
-	}
-	charisma = diceResult;
-	charismaModifier = floor((double) (charisma / 2) - 5);
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setConstitution(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: " << diceResult
+	void Fighter::setConstitution(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setConstitution(int d)" << endl;
-		return;
+			return;
+		}
+		constitution = diceResult;
+		constitutionModifier = floor((double) (constitution / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	constitution = diceResult;
-	constitutionModifier = floor((double) (constitution / 2) - 5);
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setDexterity(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: " << diceResult
+	void Fighter::setDexterity(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setDexterity(int d)" << endl;
-		return;
+			return;
+		}
+		dexterity = diceResult;
+		dexterityModifier = floor((double) (dexterity / 2) - 5);
+		//dependents, to be recalculated:
+		setArmorClass();
+		setAttackBonus();
+		// notify GUI or MAP
+		notifyAllObservers(); //comment out because call done in dependents anyways
 	}
-	dexterity = diceResult;
-	dexterityModifier = floor((double) (dexterity / 2) - 5);
-	//dependents, to be recalculated:
-	setArmorClass();
-	setAttackBonus();
-	// notify GUI or MAP
-	notifyAllObservers(); //comment out because call done in dependents anyways
-}
-void Fighter::setIntelligence(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: " << diceResult
+	void Fighter::setIntelligence(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setIntelligence(int d)" << endl;
-		return;
+			return;
+		}
+		intelligence = diceResult;
+		intelligenceModifier = floor((double) (intelligence / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	intelligence = diceResult;
-	intelligenceModifier = floor((double) (intelligence / 2) - 5);
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setWisdom(int diceResult) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: " << diceResult
+	void Fighter::setWisdom(int diceResult) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setWisdom(int d)" << endl;
-		return;
+			return;
+		}
+		wisdom = diceResult;
+		wisdomModifier = floor((double) (wisdom / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	wisdom = diceResult;
-	wisdomModifier = floor((double) (wisdom / 2) - 5);
-	// notify GUI or MAP
-	notifyAllObservers();
-}
 
-//hit points:
-void Fighter::setHitPoints(int diceResult) { //(int constitution, int currentLevel) {
-	if (!(diceResult > 6 && diceResult < 19)) {
-		cout << endl << "ERROR: " << diceResult
+	//hit points:
+	void Fighter::setHitPoints(int diceResult) { //(int constitution, int currentLevel) {
+		if (!(diceResult > 6 && diceResult < 19)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setHitPoints(int d)" << endl;
-		return;
+			return;
+		}
+		if (level == 1) {
+			hitPoints = diceResult + constitution;
+		} else { // if the level is higher than 1:
+			srand(time(NULL)); // init random seed
+			hitPoints = diceResult + constitution + rand() % 11 + 7;
+		}
+		// notify GUI or MAP
+		//notifyAllObservers(); // since this method is a dependent (called by others)
 	}
-	if (level == 1) {
-		hitPoints = diceResult + constitution;
-	} else { // if the level is higher than 1:
-		srand(time(NULL)); // init random seed
-		hitPoints = diceResult + constitution + rand() % 11 + 7;
+
+	//armor class
+	void Fighter::setArmorClass() {
+		// http://paizo.com/prd/combat.html#_armor-class
+		//10 + armor bonus + shield bonus + Dexterity modifier + other modifiers
+		armorClass = 10 + armor + shield + dexterityModifier;
+		// notify GUI or MAP
+		//notifyAllObservers(); //this method is a dependent
 	}
-	// notify GUI or MAP
-	//notifyAllObservers(); // since this method is a dependent (called by others)
-}
 
-//armor class
-void Fighter::setArmorClass() {
-	// http://paizo.com/prd/combat.html#_armor-class
-	//10 + armor bonus + shield bonus + Dexterity modifier + other modifiers
-	armorClass = 10 + armor + shield + dexterityModifier;
-	// notify GUI or MAP
-	//notifyAllObservers(); //this method is a dependent
-}
-
-//attack bonus
-void Fighter::setAttackBonus(int diceResult) { //(int level, int strength, int dexterity) {
-	if (!(diceResult > 0 && diceResult < 12)) {
-		cout << endl << "ERROR: " << diceResult
+	//attack bonus
+	void Fighter::setAttackBonus(int diceResult) { //(int level, int strength, int dexterity) {
+		if (!(diceResult > 0 && diceResult < 12)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setAttackBonus(int d)" << endl;
-		return;
+			return;
+		}
+		attackBonusDiceResult = diceResult;
+		attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	attackBonusDiceResult = diceResult;
-	attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setAttackBonus() { //(int level, int strength, int dexterity) {
-	attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
-	// notify GUI or MAP
-	notifyAllObservers();
-}
+	void Fighter::setAttackBonus() { //(int level, int strength, int dexterity) {
+		attackBonus = attackBonusDiceResult + strengthModifier + dexterityModifier;
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
 
-//damage bonus
-void Fighter::setDamageBonus(int diceResult) { //(int strength) {
-	if (!(diceResult > 0 && diceResult < 12)) {
-		cout << endl << "ERROR: " << diceResult
+	//damage bonus
+	void Fighter::setDamageBonus(int diceResult) { //(int strength) {
+		if (!(diceResult > 0 && diceResult < 12)) {
+			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setDamageBonus(int d)" << endl;
-		return;
+			return;
+		}
+		damageBonusDiceResult = diceResult;
+		damageBonus = damageBonusDiceResult + strengthModifier;
+		// notify GUI or MAP
+		notifyAllObservers();
 	}
-	damageBonusDiceResult = diceResult;
-	damageBonus = damageBonusDiceResult + strengthModifier;
-	// notify GUI or MAP
-	notifyAllObservers();
-}
-void Fighter::setDamageBonus() { //(int strength) {
-	damageBonus = damageBonusDiceResult + strengthModifier;
-	// notify GUI or MAP
-	//notifyAllObservers(); // this method is a dependent
-}
+	void Fighter::setDamageBonus() { //(int strength) {
+		damageBonus = damageBonusDiceResult + strengthModifier;
+		// notify GUI or MAP
+		//notifyAllObservers(); // this method is a dependent
+	}
 
 
 	void Fighter::SaveCharacterToFile()
@@ -297,9 +299,67 @@ void Fighter::setDamageBonus() { //(int strength) {
 		characterNamesFile = "characterNames.txt";
 
 
-		cout << InformationTextFile;
 
+		//create dir if it doesn't exist yet:
+		LPCWSTR outerDir = L"C:\\massive-octo-nemesis_DnD";
+		CreateDirectoryW(outerDir, NULL);
+
+		//and again, for the inner level:
+		LPCWSTR innerDir = L"C:\\massive-octo-nemesis_DnD\\Characters";
+		CreateDirectoryW(innerDir, NULL);
+
+		//try to open the file (or create it if the two lines above just created the folders):
+		cout << InformationTextFile;
 		myStream.open("C:\\massive-octo-nemesis_DnD\\Characters\\" + InformationTextFile);
+		if(!myStream.is_open()) {
+
+			//if it failed try to create the file:
+			myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt", std::fstream::trunc);
+			if(!myStream.is_open()) {
+				cout << "Error opening file" << endl;
+				//system("Pause");
+				//return 0;
+
+			} else {
+
+				//than all is good now, continue with reading the file.
+
+
+				//then no else , just continue, all is good now:
+
+				myStream << getLevel() << endl;///level
+				myStream << getArmorClass() << endl;
+				myStream << getAttackBonus() << endl;
+				myStream << getCharisma() << endl;
+				myStream << getConstitution() << endl;
+				myStream << getDamageBonus() << endl;
+				myStream << getDexterity() << endl;
+				myStream << getHitPoints() << endl;
+				myStream << getIntelligence() << endl;
+				myStream << getStrength() << endl;
+				myStream << getWisdom() << endl;
+				//additional private members:
+				//	1 helmet,
+				//cout << "HELLO!!!!!!!!!!!!!!!" << helmet << endl;
+				myStream << (helmet? 1: 0) << endl;
+				//	2 rings,
+				myStream << (rings? 1: 0) << endl;
+				//	1 weapon,
+				myStream << (weapon? 1: 0) << endl;
+				//	1 shield,
+				myStream << (shield? 1: 0) << endl;
+				//	1 armor,
+				myStream << (armor? 1: 0) << endl;
+				//	1 belt,
+				myStream << (belt? 1: 0) << endl;
+				//	1 boots
+				myStream << (boots? 1: 0) << endl;
+
+				myStream.close();
+			}
+		}
+		//TODO make helper function here: to avoid duplicating this code:
+		//then no else , just continue, all is good now:
 
 		myStream << getLevel() << endl;///level
 		myStream << getArmorClass() << endl;
@@ -314,7 +374,7 @@ void Fighter::setDamageBonus() { //(int strength) {
 		myStream << getWisdom() << endl;
 		//additional private members:
 		//	1 helmet,
-		cout << "HELLO!!!!!!!!!!!!!!!" << helmet << endl;
+		//cout << "HELLO!!!!!!!!!!!!!!!" << helmet << endl;
 		myStream << (helmet? 1: 0) << endl;
 		//	2 rings,
 		myStream << (rings? 1: 0) << endl;
@@ -333,13 +393,39 @@ void Fighter::setDamageBonus() { //(int strength) {
 
 
 
+
 		//DONT FORGET THE ITEM CONTAINER
 
 
+		//create dir if it doesn't exist yet:
+		LPCWSTR outerDir2 = L"C:\\massive-octo-nemesis_DnD";
+		CreateDirectoryW(outerDir2, NULL);
 
-		myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\" + characterNamesFile, ios_base::out | ios_base::app);
-		myStream << CharName << endl;
-		myStream.close();
+		//again, for the inner level:
+		LPCWSTR innerDir2 = L"C:\\massive-octo-nemesis_DnD\\Names";
+		CreateDirectoryW(innerDir2, NULL);
+
+		//try to open it or create the file:
+		myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt", ios_base::out | ios_base::app);
+		if(!myStream.is_open()) {
+			//if it failed try to create the file:
+			myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt", std::fstream::trunc);
+			if(!myStream.is_open()) {
+				cout << "Error opening characetrNames file" << endl;
+				//system("Pause");
+				return;// 0;
+			} else {
+				//than all is good now, continue with reading the file.
+				myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\characterNames.txt", ios_base::out | ios_base::app);
+				myStream << CharName << endl;
+				myStream.close();
+			}
+		} else {
+			//TODO: make helper function to avoid duplicate code block
+			//than all is good now, continue with reading the file.
+			myStream << CharName << endl;
+			myStream.close();
+		}
 
 
 
@@ -386,7 +472,8 @@ void Fighter::setDamageBonus() { //(int strength) {
 			cout << "Error opening file, creating new character instead: " << endl;
 			//system("Pause");
 			//return 0;
-			return new Fighter(1);
+			returnedFighter = new Fighter(1);
+			return returnedFighter;
 		}
 		else
 		{
@@ -421,27 +508,30 @@ void Fighter::setDamageBonus() { //(int strength) {
 					/*THIS IS WHERE WE GET INFORMATION FOR THE GAME */
 				}
 			}
-			return new Fighter(characterParams, 1);
+			returnedFighter = new Fighter(characterParams, 1);
+			return returnedFighter;
 		}
 	}
 
-bool Fighter::pickUp(d20Items::Item* item) //hyo
-{
-	char input = ' ';
-	cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
-	do{ 
-		cin >> input;
-		cout <<endl;
-		if(input == 'Y' || input == 'y') {
-			this->setBoots(item);
-			return true;
-		} else if(input == 'N' || input == 'n') {
-			return false;
-		} else {
-			cout << "Please enter 'Y' for yes or 'N' for no." << endl;
-		}
-	}while(input != 'Y' || input != 'N');
-	
-}
-	
+	bool Fighter::pickUp(d20Items::Item* item) //hyo
+	{
+		char input = ' ';
+		cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
+		do{ 
+			cin >> input;
+			cout <<endl;
+			if(input == 'Y' || input == 'y') {
+				//this->setBoots(item); // that will be correct in the future ...
+				//right now it's just an int value for the number of boots:
+				this->setBoots(this->boots+1);
+				return true;
+			} else if(input == 'N' || input == 'n') {
+				return false;
+			} else {
+				cout << "Please enter 'Y' for yes or 'N' for no." << endl;
+			}
+		}while(input != 'Y' || input != 'N');
+
+	}
+
 } /* namespace d20Characters */

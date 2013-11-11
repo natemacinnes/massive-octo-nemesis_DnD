@@ -60,6 +60,7 @@ public:
 
 	//load character and items from file
 	Fighter* LoadCharacterFromFile();
+	Fighter* returnedFighter;
 
 	//info for load
 	std::vector<int> characterParams;
