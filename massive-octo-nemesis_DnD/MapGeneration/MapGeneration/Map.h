@@ -23,17 +23,17 @@
 using namespace std;
 
 class Map: public MapObservable, public d20Characters::Observer {
-  	
+
 public:
 
-	
+
 	Map(void);
-	
+
 	virtual ~Map(void);
 
 	//Map constructor
 	Map(vector <vector<int> >&,int, int);
-	
+
 
 	//mapconstruction
 	vector < vector <int> >& fillUpMap(vector <vector <int> >&, int, int );
@@ -41,7 +41,7 @@ public:
 	//map desing--print
 	void static displayMap (vector < vector <int> >, int, int);
 	void  mapDesign (vector < vector <int> >, int, int);
-	
+
 	//map validation
 	bool validatingMap(vector < vector <int> >&, int, int);
 
@@ -52,8 +52,8 @@ public:
 	bool move(vector<vector<int>>&, int, int);
 
 	Map* at(int) const;
-    
-	
+
+
 	//geters
 	int getSize() const;
 	int getMapRow();
@@ -71,7 +71,7 @@ public:
 	//charcater location map
 	//void characterPosition(string name, chracPosition p);
 	//chracPosition getCharacterPosition(string);
-	
+
 
 	class Validation{
 	public:
@@ -90,34 +90,43 @@ public:
 		//setting start and end points
 		bool static setBegin(vector < vector <int> >&, int, int);
 		bool static setEnd(vector < vector <int> >&, int, int);
-		
+
 	};
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	void createOrReloadACharacterBob();
 
 	//for the Observer "interface":
-	
+
 	//register to watch and reflect changes on fighter, and keep a reference to that fighter to print its changes later:
 	void registerToObservable(d20Characters::character *obs); // optional really, must be done anyways from the main.
 	//using Observer::onEvent;
 	virtual void onEvent();
 
+	void saveMapToFile();
+	static Map* LoadMapFromFile();
+	Map* returnedMap;
+	//info for load
+	static std::vector<int> MapParams; // only used by the loadMapFromFile() function
+
+	static Map*  Map::createMapByPromptingUser();
+	static Map* Map::createOrReloadAMap();
+
 private:
 	std::vector<d20Characters::character*> listOfObservables_vector;
 	std::vector<d20Characters::character*>::iterator iter;
-	
+
 protected:
 	// Current character position
 	chracPosition currentPosition;
 
 	//d20Characters::Fighter* bob = new d20Characters::Fighter(2);
-	
+
 	//d20Characters::Fighter bob =  d20Characters::Fighter();
 
 	// hash map of all character's positions on map
 	typedef map<d20Characters::Fighter*, chracPosition>  CharacterLocation;
 	CharacterLocation characterLocation;
-	
+
 	// hash map of all item positions on the map, key = item, value = position
 	typedef std::map<chracPosition*, d20Items::Item*> ItemLocation;
 	ItemLocation itemLocation;
@@ -129,7 +138,7 @@ protected:
 	// Map row & column
 	int row;
 	int col;
-    
+
 	// Vector of map observers
 	vector<Map *> myObs; //vector containing mapObserver pointer 
 

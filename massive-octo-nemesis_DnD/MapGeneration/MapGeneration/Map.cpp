@@ -12,6 +12,9 @@
 #include "chracPosition.h"
 #include "GUIclass.h"
 
+// for the loadMap functionality:
+#include <fstream>
+#include "Display.h"
 
 using namespace std;
 
@@ -62,13 +65,47 @@ void Map::createOrReloadACharacterBob() {
 		}
 	}
 
-	
+
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
 	//d20Characters::GUIclass* gui = new d20Characters::GUIclass(); // now Map is an Observer itself, how it should be ...
 
 	//plug the two together -- the observer (GUI object) and observable (Fighter object):
 	this->registerToObservable(bob);
 }
+
+//kind of like a factory getInstance -- but it could just be a constructor too.
+//TODO this should be a constructor: (or should it?)
+Map* Map::createOrReloadAMap() {
+		//ask the user if he wants to reload a character previously saved in a file or create a new one:
+	bool isgoodanswer = false;
+	while(!isgoodanswer){
+		cout << "Load a Map from file? (y/n) --> (enter \"n\" to create a new Map)" << endl;
+		string doLoadMap;
+		cin.clear();
+		cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
+		cin >> doLoadMap;
+		if(doLoadMap == "y") {
+			//load a map from file
+			LoadMapFromFile();
+			isgoodanswer = true;
+		} else if(doLoadMap == "n") {
+			//create a map with user:
+			createMapByPromptingUser();
+			isgoodanswer = true;
+		} else {
+			cout << "Invalid input." << endl;
+			isgoodanswer = false;
+		}
+	}
+
+
+	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
+	//d20Characters::GUIclass* gui = new d20Characters::GUIclass(); // now Map is an Observer itself, how it should be ...
+
+	//plug the two together -- the observer (GUI object) and observable (Fighter object):
+	//this->registerToObservable(bob);
+}
+
 
 int Map::getRowStart(){
 	return rowStart;
@@ -1403,3 +1440,214 @@ return new d20Items::Item();
 break;
 }
 }*/
+
+
+void Map::saveMapToFile() {
+
+}
+Map* Map::LoadMapFromFile() {
+	std::string CharName;
+	std::string InformationTextFile;
+	std::string characterNames;
+	std::string characterNamesFile;
+	std::string HELDSTRING;
+	std::string HS2;
+
+	std::string inputs;
+
+	std::ifstream myStream;
+	std::ifstream mySecondStream;
+
+	std::vector<std::string> tempArray;
+	std::vector<std::string> NameArray;
+	std::vector<int> valueArray;
+	std::vector<std::string> ItemTypeArray;
+	std::vector<std::string> EnhancementTypeArray;
+	//std::vector<int> HS2;
+	std::string k;
+	std::string s;
+
+
+	//std::vector<int> characterParams(30);
+
+
+	cout << endl;//make it cleaner
+
+	myStream.open("C:\\massive-octo-nemesis_DnD\\Names\\MapNames.txt");
+	if(!myStream.is_open())
+	{
+		cout << "Error opening file, you will now create new Map instead. " << endl;
+		//system("Pause");
+		//return 0;
+		Map* returnedMap = new Map(); // this Map should be empty and discarded, 
+		//this return statement is just to exit.
+		return returnedMap;
+	}
+	else
+	{
+		cout << "Select a Map Name to Load" << endl;
+
+		while(getline(myStream, HELDSTRING, '\n'))
+		{
+			cout << HELDSTRING << endl;
+		}
+		myStream.close();
+
+		while(true)
+		{
+			cout << "Select a Map Name to Load" << endl;
+			cin >> inputs;
+			CharName = (inputs + "_Map.txt");
+			myStream.open("C:\\massive-octo-nemesis_DnD\\Maps\\" + CharName);
+			if(myStream.good())
+			{
+				int i=0;
+				while(getline(myStream, HS2, '\n'))
+				{
+					//cout << "DERP DERP" << HS2 << endl;
+					MapParams.push_back(stoi(HS2)); // NOTE: not a map but a vector !!!
+					i++;
+				}
+				//getline(myStream, HELDSTRING, '\n');
+				//cout << HELDSTRING << endl;
+				myStream.close();
+				break;
+
+				/*THIS IS WHERE WE GET INFORMATION FOR THE GAME */
+			}
+		}
+		//returnedMap = new Map(MapParams, 1);
+		//go through all the steps to create a map, as done in the driver:
+		vector< vector <int> > vMap;
+		vector< vector <int> > zeroMap;
+		int numRows0 =0, numCols1=0;
+		// keep the same order to read and write to the file.
+		numRows0 = MapParams[0];
+		int temRow0 =  Map::Validation::validateRowInput(numRows0);
+		numRows0 = temRow0;
+
+
+		//filling up msp with empty spaces
+		vector<int> columns;
+		for (int i = 0; i < numRows0; i++) {
+			zeroMap.push_back(columns);
+			for (int j = 0; j < numCols1; j++) {
+				zeroMap[i].push_back('X');
+			}
+		}
+
+		//displays the empty map
+		Map emptyMap(zeroMap, numRows0, numCols1);
+		//cout<<"Empty Map"<<endl;
+		//emptyMap.mapDesign(zeroMap, numRows0, numCols1);
+
+		//Creates a 2D vector with the specifications (Row and Col) given
+		vector< vector <int> >& used = emptyMap.fillUpMap(vMap, numRows0, numCols1);
+		Map* returnedMap = new Map(used,numRows0,numCols1);
+
+
+
+		Display* display = new Display(returnedMap);
+
+		//cout << "Validating Map...." << endl;
+		//cout << "The validation was...."<< endl;
+
+
+		bool isValid = returnedMap->validatingMap(used, numRows0, numCols1);
+
+		//while(isValid != true){
+		if(!isValid) {
+			cout << "MAP loaded from file was not valid. You will now create a new map. " << endl;
+		}//vector< vector <int> > newMap;
+		//newMap = map->fillUpMap(newMap, numRows0, numCols1);
+		//isValid = map->validatingMap(newMap, numRows0, numCols1);
+		//used=newMap;
+		//}
+
+		//
+		return returnedMap;
+	}
+}
+
+Map* Map::createMapByPromptingUser() {
+	
+	//create map by user interaction:
+	vector< vector <int> > vMap;
+	vector< vector <int> > zeroMap;
+	int numRows =0, numCols=0;
+
+	//Prompts the user to enter the size of the map he/she wants
+	//Take the input enterd and set as arguments of the function mapGenerator();
+	cout << "Please enter the size of your map!" << endl;
+	cout << "Enter the number of rows: \n";
+	cin >> numRows; 
+	int temRow =  Map::Validation::validateRowInput(numRows);
+	numRows = temRow;
+
+	cout << "Enter the number of Columns: \n";
+	cin >> numCols;
+	int temCol = Map::Validation::validateColInput(numCols);
+	numCols = temCol;
+
+	//filling up msp with empty spaces
+	vector<int> columns;
+	for (int i = 0; i < numRows; i++) {
+		zeroMap.push_back(columns);
+		for (int j = 0; j < numCols; j++) {
+			zeroMap[i].push_back('X');
+		}
+	}
+
+	//displays the empty map
+	Map emptyMap(zeroMap, numRows, numCols);
+	cout<<"Empty Map"<<endl;
+	emptyMap.mapDesign(zeroMap, numRows, numCols);
+
+	//Creates a 2D vector with the specifications (Row and Col) given
+	vector< vector <int> >& used = emptyMap.fillUpMap(vMap, numRows, numCols);
+	Map* map = new Map(used,numRows,numCols);
+
+
+
+	Display* display = new Display(map);
+
+	cout << "Validating Map...." << endl;
+	cout << "The validation was...."<< endl;
+
+
+	bool isValid = map->validatingMap(used, numRows, numCols);
+
+	while(isValid != true){
+		cout << "MAP not valid. Do it again!" << endl;
+		vector< vector <int> > newMap;
+		newMap = map->fillUpMap(newMap, numRows, numCols);
+		isValid = map->validatingMap(newMap, numRows, numCols);
+		used=newMap;
+	}
+
+
+	//	char exit1;
+	bool isChanged = map->setCell(used, numRows, numCols);
+	while(isChanged != true){
+		cout << "Change not valid. Do it again!" << endl;
+		isChanged = map->setCell(used, numRows, numCols);
+	}
+	// ... end create map by user interaction.
+
+	//create a character bob:
+	map->createOrReloadACharacterBob();
+	map->bob->printCharacterStats();
+
+	cout<<"Let's play !! " << endl;
+	cout<<"Controls are: "<<endl;
+	cout<<"  e  "<<endl;
+	cout<<"s d f"<<endl;
+	//Display();
+	map->move(used, numRows,numCols);
+
+	// ... end create map by user interaction.
+
+	return map;
+
+	
+}
