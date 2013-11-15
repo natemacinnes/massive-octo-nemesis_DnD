@@ -538,7 +538,7 @@ namespace d20Characters {
 			if(input == 'Y' || input == 'y') {
 				//this->setBoots(item); // that will be correct in the future ...
 				//right now it's just an int value for the number of boots:
-				this->setBoots(this->boots+1);
+				//this->setBoots(this->boots+1);
 				return true;
 			} else if(input == 'N' || input == 'n') {
 				return false;

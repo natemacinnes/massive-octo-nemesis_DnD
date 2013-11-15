@@ -1,14 +1,21 @@
 #include "stdafx.h"
 #include "chracPosition.h"
 #include <iostream>
+#include "Display.h"
 //#include <string>
 //include <map>
 //#include "Map.h"
 
 chracPosition::chracPosition()
 {
-	rowPosition = 0;
-	colPosition = 0;
+	Display * d = new Display();
+	Map * map = d->getMap();
+	rowPosition = map->getRowStart();
+	colPosition = map->getColStart();
+	
+
+	//rowPosition = 0;
+	//colPosition = 0;
 }
 
  chracPosition::chracPosition(int r, int c){

@@ -49,7 +49,8 @@ public:
 	bool setCell ( int, int);//vector < vector <int> >&,
 
 	//map movement
-	bool gameLoop();
+	void gameLoop();
+	bool moveInMap(int, int, int,int,int); 
 
 	Map* at(int) const;
 

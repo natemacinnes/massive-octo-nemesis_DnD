@@ -7,6 +7,10 @@
 
 
 
+Display::Display()
+{
+	
+}
 Display::Display(Map * map){
 
 	 _map = map;
@@ -15,6 +19,10 @@ Display::Display(Map * map){
 
 }
 
+Map* Display::getMap()
+{
+	return _map;
+}
 void Display::update(MapObservable *aMap)
 {
 
@@ -36,14 +44,14 @@ Display::~Display(void)
 
 void Display::out(){
 	//getcharater name later
-	string name ="player"; 
-	cout << name << endl;
+	//string name ="player"; 
+	//cout << name << endl;
 	chracPosition pos = _map->getPosition(); 
 	int row = pos.getRow();
 	int col = pos.getCol();
 	vector<vector<int>> vectMap = _map->getMapVector();
 
-	cout << vectMap[row][col] << " map" <<endl;
+	//cout << vectMap[row][col] << " map" <<endl;
 
 	vectMap[row][col] = 5;
 	
