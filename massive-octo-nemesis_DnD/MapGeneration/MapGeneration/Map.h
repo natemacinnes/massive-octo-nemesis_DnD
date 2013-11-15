@@ -36,20 +36,20 @@ public:
 
 
 	//mapconstruction
-	vector < vector <int> >& fillUpMap(vector <vector <int> >&, int, int );
+	vector < vector <int> >& fillUpMap();//(vector <vector <int> >&, int, int );
 
 	//map desing--print
-	void static displayMap (vector < vector <int> >, int, int);
-	void  mapDesign (vector < vector <int> >, int, int);
+	//void static displayMap();// (vector < vector <int> >, int, int);
+	void  mapDesign();// (vector < vector <int> >, int, int);
 
 	//map validation
-	bool validatingMap(vector < vector <int> >&, int, int);
+	bool validatingMap();//(vector < vector <int> >&, int, int);
 
 	//map modification
-	bool setCell (vector < vector <int> >&, int, int);
+	bool setCell ( int, int);//vector < vector <int> >&,
 
 	//map movement
-	bool move(vector<vector<int>>&, int, int);
+	bool gameLoop();
 
 	Map* at(int) const;
 
@@ -73,25 +73,25 @@ public:
 	//chracPosition getCharacterPosition(string);
 
 
-	class Validation{
-	public:
+	//class Validation{
+	//public:
 
-		//geters
-		int static getRow(int);
-		int static getCol(int);
+	//geters
+	int  getRow(int);
+	int  getCol(int);
 
-		//validation
-		int static validateRowInput(int);
-		int static validateColInput(int);
-		bool static checkingPositionAssigned(vector < vector <int> >, int, int);
-		bool static checkingEndAssigned(vector < vector <int> >, int, int);
-		bool static validationNewStart(vector<vector<int>>&, int, int, int, int);
+	//validation
+	int  validateRowInput(int);
+	int  validateColInput(int);
+	bool  checkingPositionAssigned( int, int); //vector < vector <int> >,
+	bool  checkingEndAssigned( int, int);//vector < vector <int> >,
+	//bool static validationNewStart(vector<vector<int>>&, int, int, int, int);
 
-		//setting start and end points
-		bool static setBegin(vector < vector <int> >&, int, int);
-		bool static setEnd(vector < vector <int> >&, int, int);
+	//setting start and end points
+	bool setBegin( int, int); //vector < vector <int> >&,
+	bool  setEnd( int, int);//vector < vector <int> >&,
 
-	};
+	//};
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	void createOrReloadACharacterBob();
 
@@ -104,16 +104,23 @@ public:
 
 	void saveMapToFile();
 	static Map* LoadMapFromFile();
-	Map* returnedMap;
+	Map* returnedMap; // used only by the savetofile function (?)
 	//info for load
-	static std::vector<int> MapParams; // only used by the loadMapFromFile() function
+	//static std::vector<int> MapParams; // only used by the loadMapFromFile() function
 
-	static Map*  Map::createMapByPromptingUser();
-	static Map* Map::createOrReloadAMap();
+	static Map* createMapByPromptingUser();
+	static Map* createOrReloadAMap();
+
+	int numRows0; // TODO change to non static. and make constructors instead that initialize them.
+	int numCols1;
+	vector< vector <int> > used;
+	static const int myint = 2;
 
 private:
 	std::vector<d20Characters::character*> listOfObservables_vector;
 	std::vector<d20Characters::character*>::iterator iter;
+
+
 
 protected:
 	// Current character position
@@ -133,11 +140,11 @@ protected:
 	//map<const d20Items::Item*, chracPosition> itemLocation;
 
 	// vector containing the map
-	vector< vector <int> > myMap;
+	//vector< vector <int> > myMap;
 
 	// Map row & column
-	int row;
-	int col;
+	//int row;
+	//int col;
 
 	// Vector of map observers
 	vector<Map *> myObs; //vector containing mapObserver pointer 

@@ -47,7 +47,7 @@ void Display::out(){
 
 	vectMap[row][col] = 5;
 	
-	_map->mapDesign(vectMap,_map->getMapRow(),_map->getMapCol());
+	_map->mapDesign();//vectMap,_map->getMapRow(),_map->getMapCol()
 
 	/*
 	for(unsigned int i=0; i < _map->getSize(); i++){

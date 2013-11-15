@@ -18,13 +18,14 @@
 
 using namespace std;
 
-int static rowStart;
-int static colStart;
-int static rowEnd;
-int static colEnd;
+int rowStart;
+int colStart;
+int rowEnd;
+int colEnd;
 
-Map::Map(void) 
+Map::Map (void) : used(1,std::vector<int>(1,0))
 {
+	//{{0,0},{0,0}}; // =  = new vector<vector<int>>
 }
 
 Map::~Map(void)
@@ -33,12 +34,23 @@ Map::~Map(void)
 
 
 Map::Map (vector<vector<int>> &v,int r, int c) {
-	this->row = r;
-	this->col = c;
-	this->myMap = v;
+
+	r = this->validateRowInput(r);
+	c = this->validateColInput(c);
+
+	this->numRows0 = r;
+	this->numCols1 = c;
+	this->used = v;
 	this->myObs;
 
+	//this validation is just done 
+	//in the static methods (LoadMapFromFile() 
+	//and createMapByPromptingUser()) 
+	// ... that call this constructor we're in.
 
+	//if(!this->validatingMap()) {
+	//	this 
+	//}
 
 
 }
@@ -46,12 +58,14 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	while(!isgoodanswer){
-		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
-		string doLoadChar;
+	//cin.clear();
+	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
+	string doLoadChar;
+	while(cin >> doLoadChar && !isgoodanswer){
+		cout << "Load a character from file? (y/no) --> (enter \"n\" to create a new character)" << endl;
 		cin.clear();
-		cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
-		cin >> doLoadChar;
+		//TODO: test to see if this loop works. it used to break because of cin.ignore()
+		//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 		if(doLoadChar == "y") {
 			bob = new d20Characters::Fighter(1);
 			bob = bob->LoadCharacterFromFile(); // TODO this should be static, but works for now.
@@ -76,21 +90,21 @@ void Map::createOrReloadACharacterBob() {
 //kind of like a factory getInstance -- but it could just be a constructor too.
 //TODO this should be a constructor: (or should it?)
 Map* Map::createOrReloadAMap() {
-		//ask the user if he wants to reload a character previously saved in a file or create a new one:
+	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
+	Map* map;
 	while(!isgoodanswer){
 		cout << "Load a Map from file? (y/n) --> (enter \"n\" to create a new Map)" << endl;
 		string doLoadMap;
 		cin.clear();
-		cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 		cin >> doLoadMap;
 		if(doLoadMap == "y") {
 			//load a map from file
-			LoadMapFromFile();
+			map = LoadMapFromFile();
 			isgoodanswer = true;
 		} else if(doLoadMap == "n") {
 			//create a map with user:
-			createMapByPromptingUser();
+			map = createMapByPromptingUser();
 			isgoodanswer = true;
 		} else {
 			cout << "Invalid input." << endl;
@@ -104,6 +118,8 @@ Map* Map::createOrReloadAMap() {
 
 	//plug the two together -- the observer (GUI object) and observable (Fighter object):
 	//this->registerToObservable(bob);
+
+	return map;
 }
 
 
@@ -130,18 +146,18 @@ Map* Map::at(int i) const{
 }
 
 int  Map::getMapRow(){
-	return row;
+	return numRows0;//row;
 }
 int  Map::getMapCol(){
-	return col;
+	return numCols1;//col;
 }
 vector<vector<int>> Map::getMapVector(){
-	return myMap;
+	return used;//myMap;
 }
 
 
 
-vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col){
+vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, int col){
 
 	vector<int> columns;
 	//chracPosition* pos = new chracPosition();
@@ -151,11 +167,11 @@ vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col
 	cout << "Enter \'2\' to fill your map with wall" << endl;
 	cout << "Enter \'3\' to fill your map" << endl;
 
-	for (int i = 0; i < row; i++) {
+	for (int i = 0; i < numRows0; i++) {
 
-		m.push_back(columns);
+		used.push_back(columns);
 
-		for (int j = 0; j < col; j++) {
+		for (int j = 0; j < numCols1; j++) {
 
 
 
@@ -174,28 +190,28 @@ vector < vector<int> >& Map::fillUpMap(vector<vector <int>> &m, int row, int col
 			//const d20Items::Item *tempItem = 
 			itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
 			}*/
-			m[i].push_back(pathChoice);
+			used[i].push_back(pathChoice);
 		}
 	}
 
-	bool isSetStart = Map::Validation::setBegin(m, row, col);
+	bool isSetStart = Map::setBegin(numRows0, numCols1);//(m, row, col);
 	while (isSetStart != true) {
-		isSetStart = Map::Validation::setBegin(m, row, col);
+		isSetStart = Map::setBegin(numRows0, numCols1);
 	}
 
-	bool isSetEnd = Map::Validation::setEnd(m, row, col);
+	bool isSetEnd = Map::setEnd( numRows0, numCols1);
 	while (isSetEnd != true){ 
-		isSetEnd = Map::Validation::setEnd(m, row, col);
+		isSetEnd = Map::setEnd( numRows0, numCols1);
 	}
 
 
 	//displayMap(m, row, col);
 	//mapDesign(m,row,col);
-	return m;
+	return used;
 
 }
 
-int Map::Validation::validateRowInput(int row){
+int Map::validateRowInput(int row){
 
 
 	while ((isalpha(row)) || (row < 1)) {
@@ -208,7 +224,7 @@ int Map::Validation::validateRowInput(int row){
 	return row;
 }
 
-int Map::Validation::validateColInput(int col){
+int Map::validateColInput(int col){
 
 	while ((isalpha(col)) || (col <= 1)) {
 		cout << "Not a valid input!\n";
@@ -220,43 +236,44 @@ int Map::Validation::validateColInput(int col){
 
 	return col;
 }
+//
+//void Map::displayMap(){// (vector < vector <int> > myMap, int row, int col){
+//
+//	int i=0, j=0;
+//
+//	cout << "Displaying Map" << endl;	
+//	cout << "****************************************************************" << endl;
+//
+//	cout << "+ ";
+//	while (i < numCols1) {
+//		cout << "+ ";
+//		i++;
+//	}
+//	cout << "+";
+//	cout << endl;
+//	//delimitation of the map
+//
+//
+//	for (int i = 0 ; i < numRows0; i++) {
+//		cout << "+ ";
+//		for (int j = 0 ; j <  numCols1; j++) {
+//			cout << used[i][j] << " ";
+//		}
+//		cout << "+";
+//		cout << endl;
+//	}
+//
+//	cout << "+ ";
+//	while (j < numCols1) {
+//		cout << "+ ";
+//		j++;
+//	}
+//	cout << "+";
+//	cout << endl;
+//}
 
-void Map::displayMap (vector < vector <int> > myMap, int row, int col){
+void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 
-	int i=0, j=0;
-
-	cout << "Displaying Map" << endl;	
-	cout << "****************************************************************" << endl;
-
-	cout << "+ ";
-	while (i < col) {
-		cout << "+ ";
-		i++;
-	}
-	cout << "+";
-	cout << endl;
-	//delimitation of the map
-
-
-	for (int i = 0 ; i < row; i++) {
-		cout << "+ ";
-		for (int j = 0 ; j <  col; j++) {
-			cout << myMap[i][j] << " ";
-		}
-		cout << "+";
-		cout << endl;
-	}
-
-	cout << "+ ";
-	while (j < col) {
-		cout << "+ ";
-		j++;
-	}
-	cout << "+";
-	cout << endl;
-}
-
-void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 
 	int i = 0,j = 0;
 	cout << "Displaying Map" << endl;	
@@ -264,7 +281,7 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 
 
 	cout << "+ ";
-	while (i < col) {
+	while (i < numCols1) {
 		cout << "+ ";
 		i++;
 	}
@@ -272,24 +289,24 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 	cout << endl;
 	//delimitation of the map
 	//chracPosition* pos = new chracPosition();
-	for (int i = 0 ; i < row; i++) {
+	for (int i = 0 ; i < numRows0; i++) {
 		cout << "+ ";
-		for (int j = 0 ; j <  col; j++) {
-			if (myMap[i][j] == 1) {
+		for (int j = 0 ; j <  numCols1; j++) {
+			if (used[i][j] == 1) {
 				cout << " " << " ";
-			}else if (myMap[i][j] == 2) {
+			}else if (used[i][j] == 2) {
 				cout << "|" << " ";
-			}else if (myMap[i][j] == 3){
+			}else if (used[i][j] == 3){
 				//pos->setChracterPosition(i,j);
 				//itemLocation.find(pos)->second;
 				cout << "B" << " ";
 				//const d20Items::Item *tempItem = 
 				//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
-			}else if(myMap[i][j] == 0) {
+			}else if(used[i][j] == 0) {
 				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
-			}else if(myMap[i][j] == 4){
+			}else if(used[i][j] == 4){
 				cout << "E" << " "; // ending point; '+' sign, where it limits the map
-			}else if(myMap[i][j] == 'X'){
+			}else if(used[i][j] == 'X'){
 				cout << "O" << " "; // ending point; '+' sign, where it limits the map
 			}else{
 				cout << "P" << " "; //start point when player leaves
@@ -300,7 +317,7 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 	}
 
 	cout << "+ ";
-	while (j < col) {
+	while (j < numCols1) {
 		cout << "+ ";
 		j++;
 	}
@@ -308,24 +325,24 @@ void Map::mapDesign (vector < vector <int> > myMap, int row, int col){
 	cout << endl;
 }
 
-bool Map::Validation::setBegin(vector < vector <int> >& myMap, int row, int  col){
+bool Map::setBegin(int row, int  col){ //vector < vector <int> >& myMap, 
 
 	//keeps the value of the varibles cal ad row unchanged
-	int const sizeRow = row;
-	int const sizeCol = col;
+	//int const sizeRow = row;
+	//int const sizeCol = col;
 	int r, c;
 
 
 	cout << endl;
 	cout << "Where is the start point of your map?\n";
 	cout << "Please, enter its first coordinate.\n";
-	cout << "Remember: your first parameter has to be between: 0 and " << (sizeRow-1) << " :"<< endl;
+	cout << "Remember: your first parameter has to be between: 0 and " << (numRows0-1) << " :"<< endl;
 
-	while (!(cin >> r) || (r < 0 || r > (sizeRow-1)) || isalnum(r)) {
+	while (!(cin >> r) || (r < 0 || r > (numRows0-1)) || isalnum(r)) {
 
 		cout << endl;
 		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (sizeRow-1)<< " :"<< endl;
+		cout << "Enter a number between 0 and " << (numRows0-1)<< " :"<< endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
 
@@ -333,25 +350,25 @@ bool Map::Validation::setBegin(vector < vector <int> >& myMap, int row, int  col
 
 	cout << endl;
 	cout << "Please, enter its second coordinate.\n";
-	cout << "And your seoncd parameter has to be between: 0 and " << (sizeCol-1)<< " :" << endl;
+	cout << "And your seoncd parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
 
-	while (!(cin >> c) || (c < 0 || c > (sizeCol-1)) || isalpha(c)) {
+	while (!(cin >> c) || (c < 0 || c > (numCols1-1)) || isalpha(c)) {
 
 		cout << endl;
 		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (sizeCol-1) <<" :" << endl;
+		cout << "Enter a number between 0 and " << (numCols1-1) <<" :" << endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
 
 	}
 
-	bool checkStartPoint = Map::Validation::checkingEndAssigned(myMap,r,c);
+	bool checkStartPoint = Map::checkingEndAssigned(r,c);//used,
 	if (checkStartPoint == true) {
 		cout << "Your START position is: [" <<r <<"][" << c <<"]" << endl;
-		myMap[r][c] = 0; // zero will refer to the START point
+		used[r][c] = 0; // zero will refer to the START point
 
-		rowStart = Map::Validation::getRow(r);
-		colStart = Map::Validation::getCol(c);
+		rowStart = Map::getRow(r);
+		colStart = Map::getCol(c);
 
 
 		return true;
@@ -360,24 +377,24 @@ bool Map::Validation::setBegin(vector < vector <int> >& myMap, int row, int  col
 	}
 }
 
-bool Map::Validation::setEnd(vector < vector <int> >& myMap, int endRow, int  endCol){
+bool Map::setEnd(int endRow, int  endCol){ //vector < vector <int> >& myMap, 
 
 	//keeps the value of the varibles cal ad row unchanged
-	int const sizeRow = endRow;
-	int const sizeCol = endCol;
+	//int const sizeRow = endRow;
+	//int const sizeCol = endCol;
 	int r, c;
 
 
 	cout << endl;
 	cout << "Where is the END point of your map?\n";
 	cout << "Please, enter its first coordinate.\n";
-	cout << "Remember: your first parameter has to be between: 0 and " << (sizeRow-1) << " :"<< endl;
+	cout << "Remember: your first parameter has to be between: 0 and " << (numRows0-1) << " :"<< endl;
 
-	while (!(cin >> r) || (r < 0 || r > (sizeRow-1)) || isalnum(r)) {
+	while (!(cin >> r) || (r < 0 || r > (numRows0-1)) || isalnum(r)) {
 
 		cout << endl;
 		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (sizeRow-1)<< " :"<< endl;
+		cout << "Enter a number between 0 and " << (numRows0-1)<< " :"<< endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
 
@@ -385,25 +402,25 @@ bool Map::Validation::setEnd(vector < vector <int> >& myMap, int endRow, int  en
 
 	cout << endl;
 	cout << "Please, enter its second coordinate.\n";
-	cout << "And your seoncd parameter has to be between: 0 and " << (sizeCol-1)<< " :" << endl;
+	cout << "And your seoncd parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
 
-	while (!(cin >> c) || (c < 0 || c > (sizeCol-1)) || isalpha(c)) {
+	while (!(cin >> c) || (c < 0 || c > (numCols1-1)) || isalpha(c)) {
 
 		cout << endl;
 		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (sizeCol-1) <<" :" << endl;
+		cout << "Enter a number between 0 and " << (numCols1-1) <<" :" << endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
 
 	}
 
 
-	bool checkEndPoint = Map::Validation::checkingEndAssigned(myMap,r,c);
+	bool checkEndPoint = Map::checkingEndAssigned(r,c);//used,
 	if (checkEndPoint == true) {
 		cout << "Your END position is: [" << r <<"][" << c <<"]" << endl;
-		myMap[r][c] = 4; // four will refer to the END point
-		rowEnd = Map::Validation::getRow(r);
-		colEnd = Map::Validation::getCol(c);
+		used[r][c] = 4;// four will refer to the END point
+		rowEnd = Map::getRow(r);
+		colEnd = Map::getCol(c);
 		return true;
 	}else{
 		return false;
@@ -411,10 +428,10 @@ bool Map::Validation::setEnd(vector < vector <int> >& myMap, int endRow, int  en
 
 }
 
-bool Map::Validation::checkingEndAssigned(vector < vector <int> > myMap, int row, int col){
+bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 
 
 
-	if (myMap[row][col] == 0) {
+	if (used[row][col] == 0) {
 		cout << endl;
 		cout << "There is the STARTING point of your map. Sorry! Try again!\n" << endl;
 		return false;
@@ -424,14 +441,14 @@ bool Map::Validation::checkingEndAssigned(vector < vector <int> > myMap, int row
 
 }
 
-bool Map::Validation::checkingPositionAssigned(vector < vector <int> > myMap, int row, int col){
+bool Map::checkingPositionAssigned(int row, int col){//vector < vector <int> > myMap, 
 
 
-	if (myMap[row][col] == 2) {
+	if (used[row][col] == 2) {
 		cout << endl;
 		cout << "There is a wall in it. Sorry! Try again!\n" << endl;
 		return false;
-	}else if (myMap[row][col] == 3) {
+	}else if (used[row][col] == 3) {
 		cout << endl;
 		cout << "This place is occupied already. Sorry! Try again!\n" << endl;
 		return false;
@@ -441,16 +458,16 @@ bool Map::Validation::checkingPositionAssigned(vector < vector <int> > myMap, in
 
 }
 
-int Map::Validation::getRow(int row1){
+int Map::getRow(int row1){
 	return row1;
 }
 
-int Map::Validation::getCol(int col1)
+int Map::getCol(int col1)
 {
 	return col1;
 }	
 
-bool Map::setCell (vector < vector <int> >& myMap, int rowChange, int colChange){
+bool Map::setCell(int rowChange, int colChange) { // (vector < vector <int> >& myMap, int rowChange, int colChange){
 	//keeps the value of the varibles cal ad row unchanged
 	int sizeRow = rowChange;
 	int sizeCol = colChange;
@@ -501,9 +518,9 @@ bool Map::setCell (vector < vector <int> >& myMap, int rowChange, int colChange)
 	}
 
 
-	if((myMap[r][c] == 0) || (myMap[r][c] == 4) ){
+	if((used[r][c] == 0) || (used[r][c] == 4) ){
 
-		if(myMap[r][c] == 0){
+		if(used[r][c] == 0){
 			cout << endl;
 			cout << "Sorry, this is yor STARTING point. Please try again!" << endl;
 		}else{
@@ -529,17 +546,17 @@ bool Map::setCell (vector < vector <int> >& myMap, int rowChange, int colChange)
 
 		}
 
-		int previousVal = myMap[r][c]; //record previous value
-		myMap[r][c] = chageValue;
-		bool isValid1 = validatingMap(myMap, rowChange, colChange);
+		int previousVal = used[r][c]; //record previous value
+		used[r][c] = chageValue;
+		bool isValid1 = validatingMap();//used, rowChange, colChange
 		if (isValid1 == false) {
-			myMap[r][c] = previousVal;
+			used[r][c] = previousVal;
 			return false;
 		}else{
 			cout << endl;
 			cout << "Your changed position: ["<< r <<"][" << c <<"] " << endl;
-			myMap[r][c] = chageValue;
-			mapDesign(myMap, rowChange, colChange);
+			used[r][c] = chageValue;
+			mapDesign();//(used, rowChange, colChange);
 			//notify();
 			return true;
 		}
@@ -547,15 +564,15 @@ bool Map::setCell (vector < vector <int> >& myMap, int rowChange, int colChange)
 
 }
 
-bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
+bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col){
 
 	// keeps the size of the 2D vector without changing it
-	int rowValue = row;
-	int colValue = col;
+	int rowValue = numRows0;
+	int colValue = numCols1;
 
 
 	int currentRow = rowStart, currentCol = colStart;
-	vector<vector<int>> tempMap=myMap;
+	vector<vector<int>> tempMap=used;
 
 	//end point where we want to get
 	int endR = rowEnd;
@@ -564,19 +581,19 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	vector <int> valR;
 	vector <int> valC;
 
-	bool upS, downS, leftS, rightS; 
-	bool upE, downE, leftE, rightE;
+	bool upS=false, downS=false, leftS=false, rightS=false; 
+	bool upE=false, downE=false, leftE=false, rightE=false;
 
 	//checking start point
 	if(currentRow + 1 <= rowValue-1){
-		if(myMap[currentRow+1][currentCol] == 2){
+		if(used[currentRow+1][currentCol] == 2){
 			downS = false;
 		}else{
-			if(myMap[currentRow+ 1][currentCol] == 4){
+			if(used[currentRow+ 1][currentCol] == 4){
 				cout << "MAP IS VALID!!" << endl;
 				downS = true;
 				return true;
-			}else if((myMap[currentRow+1][currentCol] == 1)||(myMap[currentRow+ 1][currentCol] == 3)){
+			}else if((used[currentRow+1][currentCol] == 1)||(used[currentRow+ 1][currentCol] == 3)){
 				downS = true;
 			}
 		}
@@ -585,14 +602,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	}
 
 	if(currentRow-1 >= 0){
-		if(myMap[currentRow-1][currentCol] == 2){
+		if(used[currentRow-1][currentCol] == 2){
 			upS = false;
 		}else{
-			if(myMap[currentRow-1][currentCol] == 4){
+			if(used[currentRow-1][currentCol] == 4){
 				cout << "MAP IS VALID!!" << endl;
 				upS = true;
 				return true;
-			}else if((myMap[currentRow-1][currentCol] == 1)||(myMap[currentRow-1][currentCol] == 3)){
+			}else if((used[currentRow-1][currentCol] == 1)||(used[currentRow-1][currentCol] == 3)){
 				upS = true;
 			}
 		}
@@ -602,14 +619,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 
 	if(currentCol+1 <= colValue-1){
-		if(myMap[currentRow][currentCol+1] == 2){
+		if(used[currentRow][currentCol+1] == 2){
 			rightS = false;
 		}else{
-			if(myMap[currentRow][currentCol+1] == 4){
+			if(used[currentRow][currentCol+1] == 4){
 				cout << "MAP IS VALID!!" << endl;
 				rightS = true;
 				return true;
-			}else if((myMap[currentRow][currentCol+1] == 1)||(myMap[currentRow][currentCol+1] == 3)){
+			}else if((used[currentRow][currentCol+1] == 1)||(used[currentRow][currentCol+1] == 3)){
 				rightS = true;
 			}
 		}
@@ -618,14 +635,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	}
 
 	if(currentCol-1 >= 0){
-		if(myMap[currentRow][currentCol- 1] == 2){
+		if(used[currentRow][currentCol- 1] == 2){
 			leftS = false;
 		}else{
-			if(myMap[currentRow][currentCol-1] == 4){
+			if(used[currentRow][currentCol-1] == 4){
 				cout << "MAP IS VALID!!" << endl;
 				leftS = true;
 				return true;
-			}else if((myMap[currentRow][currentCol-1] == 1) || (myMap[currentRow][currentCol-1] == 3)) {
+			}else if((used[currentRow][currentCol-1] == 1) || (used[currentRow][currentCol-1] == 3)) {
 				leftS = true;
 			}
 		}
@@ -638,14 +655,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 	//checking end point
 	if(endR + 1 <= rowValue-1){
-		if(myMap[endR+1][endC] == 2){
+		if(used[endR+1][endC] == 2){
 			downE = false;
 		}else{
-			if(myMap[endR+1][endC] == 4){
+			if(used[endR+1][endC] == 4){
 				cout << "MAP IS VALID!!" << endl;
 				downE = true;
 				return true;
-			}else if((myMap[endR+1][endC] == 1)||(myMap[endR+1][endC] == 3)){
+			}else if((used[endR+1][endC] == 1)||(used[endR+1][endC] == 3)){
 				downE = true;
 			}
 		}
@@ -654,14 +671,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	}
 
 	if(endR-1 >= 0){
-		if(myMap[endR-1][endC] == 2){
+		if(used[endR-1][endC] == 2){
 			upE = false;
 		}else{
-			if(myMap[endR-1][endC] == 0){
+			if(used[endR-1][endC] == 0){
 				cout << "MAP IS VALID!!" << endl;
 				upE = true;
 				return true;
-			}else if((myMap[endR-1][endC] == 1)||(myMap[endR- 1][endC] == 3)){
+			}else if((used[endR-1][endC] == 1)||(used[endR- 1][endC] == 3)){
 				upE = true;
 			}
 		}
@@ -671,14 +688,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 
 	if(endC+1 <= colValue-1){
-		if(myMap[endR][endC+1] == 2){
+		if(used[endR][endC+1] == 2){
 			rightE = false;
 		}else{
-			if(myMap[endR][endC+1] == 0){
+			if(used[endR][endC+1] == 0){
 				cout << "MAP IS VALID!!" << endl;
 				rightE = true;
 				return true;
-			}else if((myMap[endR][endC+1] == 1)||(myMap[endR][endC+1] == 3)){
+			}else if((used[endR][endC+1] == 1)||(used[endR][endC+1] == 3)){
 				rightE = true;
 			}
 		}
@@ -687,14 +704,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	}
 
 	if(endC-1 >= 0){
-		if(myMap[endR][endC-1] == 2){
+		if(used[endR][endC-1] == 2){
 			leftE = false;
 		}else{
-			if(myMap[endR][endC-1] == 0){
+			if(used[endR][endC-1] == 0){
 				cout << "MAP IS VALID!!" << endl;
 				leftE = true;
 				return true;
-			}else if((myMap[endR][endC-1] == 1) || (myMap[endR][endC-1] == 3)) {
+			}else if((used[endR][endC-1] == 1) || (used[endR][endC-1] == 3)) {
 				leftE = true;
 			}
 		}
@@ -713,14 +730,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 			while(currentRow+1<=rowEnd){
 				if(currentCol<colEnd){
 					while(currentCol <colEnd){//+1no col =
-						if(myMap[currentRow][currentCol+1]==2){
+						if(used[currentRow][currentCol+1]==2){
 							count++;
-							if(count==row-1){
+							if(count==numRows0-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol+1]==4){
+						}else if(used[currentRow][currentCol+1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -729,14 +746,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 					}
 				}else{ //currentCol>colEnd
 					while(currentCol> colEnd){//-1 no col=
-						if(myMap[currentRow][currentCol-1]==2){
+						if(used[currentRow][currentCol-1]==2){
 							count++;//er2
-							if(count==row-1){
+							if(count==numRows0-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol-1]==4){
+						}else if(used[currentRow][currentCol-1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -750,14 +767,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 			while(currentRow-1>=rowEnd){
 				if(currentCol<colEnd){
 					while(currentCol<colEnd){//+1 no col =
-						if(myMap[currentRow][currentCol+1]==2){
+						if(used[currentRow][currentCol+1]==2){
 							count3++;
-							if(count3==row-1){
+							if(count3==numRows0-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol+1]==4){
+						}else if(used[currentRow][currentCol+1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -767,14 +784,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 				}else{ //currentCol >colEnd
 					while(currentCol>colEnd){//-1 no col=
-						if(myMap[currentRow][currentCol-1]==2){
+						if(used[currentRow][currentCol-1]==2){
 							count3++;//era 4
-							if(count3==row-1){
+							if(count3==numRows0-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol-1]==4){
+						}else if(used[currentRow][currentCol-1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -787,18 +804,18 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 			}
 
 		}else{ //rowStart=rowEnd
-			while(currentRow+1<row){
+			while(currentRow+1<numRows0){
 				if(colStart<colEnd){
 					while(currentCol<colEnd){//+1 no col =
-						if(myMap[currentRow][currentCol+1]==2){
+						if(used[currentRow][currentCol+1]==2){
 							count5++;
-							if(count5==col-1){
+							if(count5==numCols1-1){
 								return false;
 							}else{
 
 								break;
 							}
-						}else if(myMap[currentRow][currentCol+1]==4){
+						}else if(used[currentRow][currentCol+1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -808,14 +825,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 				}else{// colStart>colEnd
 					while(currentCol>colEnd){//=-1 no col
-						if(myMap[currentRow][currentCol-1]==2){
+						if(used[currentRow][currentCol-1]==2){
 							count5++;
-							if(count5==col-1){
+							if(count5==numCols1-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol-1]==4){
+						}else if(used[currentRow][currentCol-1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -831,15 +848,15 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 			while(currentRow-1>=0){
 				if(colStart<colEnd){
 					while(currentCol<colEnd){//+1 no col =
-						if(myMap[currentRow][currentCol+1]==2){
+						if(used[currentRow][currentCol+1]==2){
 							count7++;
-							if(count7==col-1){
+							if(count7==numCols1-1){
 								return false;
 							}else{
 
 								break;
 							}
-						}else if(myMap[currentRow][currentCol+1]==4){
+						}else if(used[currentRow][currentCol+1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -849,14 +866,14 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 
 				}else{// colStart>colEnd
 					while(currentCol>colEnd){//-1 col=
-						if(myMap[currentRow][currentCol-1]==2){
+						if(used[currentRow][currentCol-1]==2){
 							count7++;//era8
-							if(count7==col-1){
+							if(count7==numCols1-1){
 								return false;
 							}else{
 								break;
 							}
-						}else if(myMap[currentRow][currentCol-1]==4){
+						}else if(used[currentRow][currentCol-1]==4){
 							cout <<"MAP VALID!"<< endl;
 							return true;
 						}else{
@@ -874,88 +891,88 @@ bool Map::validatingMap(vector < vector <int> >& myMap, int row, int col){
 	return true;
 
 }
+//
+//bool Map::Validation::validationNewStart(vector<vector<int>>& tempMap, int row, int col, int currentRow, int currentCol){
+//
+//	int newStartRowPoint = currentRow;
+//	int newStartColPoint = currentCol;
+//	bool upS, downS, leftS, rightS; 
+//
+//
+//	//checking start point
+//	if(newStartRowPoint + 1 <= row-1){
+//		if((tempMap[newStartRowPoint+1][newStartColPoint] == 2) ||(tempMap[newStartRowPoint+1][newStartColPoint] == 5)){
+//			downS = false;
+//		}else{
+//			if(tempMap[currentRow+1][currentCol] == 4){ 
+//				cout << "MAP IS VALID!!" << endl;
+//				downS = true;
+//				return true;
+//			}else{
+//				downS = true;
+//			}
+//		}
+//	}else{
+//		downS = false;
+//	}
+//
+//	if(newStartRowPoint-1 >= 0){
+//		if((tempMap[newStartRowPoint-1][newStartColPoint] == 2)||(tempMap[newStartRowPoint-1][newStartColPoint] == 5)){
+//			upS = false;
+//		}else{
+//			if(tempMap[newStartRowPoint- 1][newStartColPoint] == 4){
+//				cout << "MAP IS VALID!!" << endl;
+//				upS = true;
+//				return true;
+//			}else{
+//				upS = true;
+//			}
+//		}
+//	}else{
+//		upS = false;
+//	}
+//
+//
+//	if(newStartColPoint+1 <= col-1){
+//		if((tempMap[newStartRowPoint][newStartColPoint+1] == 2)||(tempMap[newStartRowPoint][newStartColPoint+1] == 5)){
+//			rightS = false;
+//		}else{
+//			if(tempMap[newStartRowPoint][newStartColPoint+1] == 4){
+//				cout << "MAP IS VALID!!" << endl;
+//				rightS = true;
+//				return true;
+//			}else{
+//				rightS = true;
+//			}
+//		}
+//	}else{
+//		rightS = false;
+//	}
+//
+//	if(newStartColPoint-1 >= 0){
+//		if((tempMap[newStartRowPoint][newStartColPoint-1] == 2)||(tempMap[newStartRowPoint][newStartColPoint-1] == 5)){
+//			leftS = false;
+//		}else{
+//			if(tempMap[newStartRowPoint][newStartColPoint-1] == 4){
+//				cout << "MAP IS VALID!!" << endl;
+//				leftS = true;
+//				return true;
+//			}else{
+//				leftS = true;
+//			}
+//		}
+//	}else{
+//		leftS = false;
+//	}
+//
+//	if((upS==false)&&(downS==false)&&(leftS==false)&&(rightS==false)){
+//		return false;
+//	}else{
+//		return true;
+//	}
+//}
 
-bool Map::Validation::validationNewStart(vector<vector<int>>& tempMap, int row, int col, int currentRow, int currentCol){
-
-	int newStartRowPoint = currentRow;
-	int newStartColPoint = currentCol;
-	bool upS, downS, leftS, rightS; 
-
-
-	//checking start point
-	if(newStartRowPoint + 1 <= row-1){
-		if((tempMap[newStartRowPoint+1][newStartColPoint] == 2) ||(tempMap[newStartRowPoint+1][newStartColPoint] == 5)){
-			downS = false;
-		}else{
-			if(tempMap[currentRow+1][currentCol] == 4){ 
-				cout << "MAP IS VALID!!" << endl;
-				downS = true;
-				return true;
-			}else{
-				downS = true;
-			}
-		}
-	}else{
-		downS = false;
-	}
-
-	if(newStartRowPoint-1 >= 0){
-		if((tempMap[newStartRowPoint-1][newStartColPoint] == 2)||(tempMap[newStartRowPoint-1][newStartColPoint] == 5)){
-			upS = false;
-		}else{
-			if(tempMap[newStartRowPoint- 1][newStartColPoint] == 4){
-				cout << "MAP IS VALID!!" << endl;
-				upS = true;
-				return true;
-			}else{
-				upS = true;
-			}
-		}
-	}else{
-		upS = false;
-	}
-
-
-	if(newStartColPoint+1 <= col-1){
-		if((tempMap[newStartRowPoint][newStartColPoint+1] == 2)||(tempMap[newStartRowPoint][newStartColPoint+1] == 5)){
-			rightS = false;
-		}else{
-			if(tempMap[newStartRowPoint][newStartColPoint+1] == 4){
-				cout << "MAP IS VALID!!" << endl;
-				rightS = true;
-				return true;
-			}else{
-				rightS = true;
-			}
-		}
-	}else{
-		rightS = false;
-	}
-
-	if(newStartColPoint-1 >= 0){
-		if((tempMap[newStartRowPoint][newStartColPoint-1] == 2)||(tempMap[newStartRowPoint][newStartColPoint-1] == 5)){
-			leftS = false;
-		}else{
-			if(tempMap[newStartRowPoint][newStartColPoint-1] == 4){
-				cout << "MAP IS VALID!!" << endl;
-				leftS = true;
-				return true;
-			}else{
-				leftS = true;
-			}
-		}
-	}else{
-		leftS = false;
-	}
-
-	if((upS==false)&&(downS==false)&&(leftS==false)&&(rightS==false)){
-		return false;
-	}else{
-		return true;
-	}
-}
-
-bool Map::move(vector<vector<int>>& tempMap, int row, int col)
+bool Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 {
 
 
@@ -966,7 +983,7 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 	d--> represents key down --> ASCII value 100
 	*/
 
-	vector <vector <int>> mapTracker = tempMap;
+	vector <vector <int>> mapTracker = used;
 	int static currentRowPosition = rowStart;
 	int static currentColPosition = colStart;	
 	int  val; // value on the preivous cell entered
@@ -975,9 +992,9 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
 
-	//Map nMap(tempMap,currentRowPosition,currentColPosition);
+	//Map nMap(used,currentRowPosition,currentColPosition);
 
-	tempMap[currentRowPosition][currentColPosition] = 5; //start point with player
+	used[currentRowPosition][currentColPosition] = 5; //start point with player
 
 	//character name test
 	//string player ="player";
@@ -989,7 +1006,7 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 	characterLocation.insert(CharacterLocation::value_type(bob, currentPosition));
 
 	notify();
-	//mapDesign(tempMap,row,col);
+	//mapDesign(used,row,col);
 
 	char key;
 	cin.clear();
@@ -1000,21 +1017,21 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 		if(key=='e'){ //tries to move up
 			if((currentRowPosition-1)>=0)
 			{//you can move up
-				if(tempMap[currentRowPosition-1][currentColPosition] == 1)
+				if(used[currentRowPosition-1][currentColPosition] == 1)
 				{
 					//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 					previousValRow = currentRowPosition;
 					previousValCol = currentColPosition;
 
 					val = mapTracker[previousValRow][previousValCol]; //previous position
-					tempMap[previousValRow][previousValCol] = val; //set previous row with old value
+					used[previousValRow][previousValCol] = val; //set previous row with old value
 
 					//walk in the new cell
 					currentRowPosition = currentRowPosition-1;
 					currentColPosition = currentColPosition;
 
 					//set to player
-					tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+					used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1023,12 +1040,12 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 					cin.clear();
 					cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 
-				} else if(tempMap[currentRowPosition-1][currentColPosition] == 4) {
+				} else if(used[currentRowPosition-1][currentColPosition] == 4) {
 
 					val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
-					tempMap[currentRowPosition][currentColPosition] = val;
+					used[currentRowPosition][currentColPosition] = val;
 
-					tempMap[currentRowPosition-1][currentColPosition] = 5;
+					used[currentRowPosition-1][currentColPosition] = 5;
 
 					currentPosition.setChracterPosition(currentRowPosition-1,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1037,13 +1054,13 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 					return true;
-				} else if(tempMap[currentRowPosition-1][currentColPosition] == 3) { //found something position =3
+				} else if(used[currentRowPosition-1][currentColPosition] == 3) { //found something position =3
 					system("pause");
 					//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 					previousValRow = currentRowPosition-1; //save value on cell into
 					previousValCol = currentColPosition;
 					val = mapTracker[previousValRow][previousValCol];
-					tempMap[currentRowPosition-1][currentColPosition] =5;
+					used[currentRowPosition-1][currentColPosition] =5;
 					notify();
 
 					system("pause");
@@ -1060,18 +1077,18 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 						//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
 						//val =1;
-						tempMap[currentRowPosition-1][currentColPosition] = 1;
+						used[currentRowPosition-1][currentColPosition] = 1;
 
 
 					} else {
 						val = mapTracker[previousValRow][previousValCol]; //previous position
-						tempMap[previousValRow][previousValCol] = val;
+						used[previousValRow][previousValCol] = val;
 					}
 
 
 					currentRowPosition = currentRowPosition-1;
 					currentColPosition = currentColPosition;
-					tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+					used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1092,19 +1109,19 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 		} else if(key=='s') { //tries to move left
 			//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
-			if(tempMap[currentRowPosition][currentColPosition-1]==1){
+			if(used[currentRowPosition][currentColPosition-1]==1){
 				previousValRow = currentRowPosition;
 				previousValCol = currentColPosition;
 
 				val = mapTracker[previousValRow][previousValCol]; //previous position
-				tempMap[previousValRow][previousValCol] = val; //set previous row with old value
+				used[previousValRow][previousValCol] = val; //set previous row with old value
 
 				//walk in the new cell
 				currentRowPosition = currentRowPosition-1;
 				currentColPosition = currentColPosition;
 
 				//set to player
-				tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+				used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 				currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 				characterLocation.at(bob) = currentPosition; //update player position
@@ -1113,13 +1130,13 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 				cin.clear();
 				cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 
-			}else if(tempMap[currentRowPosition][currentColPosition-1] == 4)
+			}else if(used[currentRowPosition][currentColPosition-1] == 4)
 			{
 
 				val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
-				tempMap[currentRowPosition][currentColPosition] = val;
+				used[currentRowPosition][currentColPosition] = val;
 
-				tempMap[currentRowPosition][currentColPosition-1] = 5;
+				used[currentRowPosition][currentColPosition-1] = 5;
 
 				currentPosition.setChracterPosition(currentRowPosition,currentColPosition-1);
 				characterLocation.at(bob) = currentPosition; //update player position
@@ -1129,14 +1146,14 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 				cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 				return true;
 
-			}else if(tempMap[currentRowPosition][currentColPosition-1] == 3)
+			}else if(used[currentRowPosition][currentColPosition-1] == 3)
 			{ //found something position =3
 				system("pause");
 				//tempItemLoc->setChracterPosition(currentRowPosition-1, currentColPosition);
 				previousValRow = currentRowPosition; //save value on cell into
 				previousValCol = currentColPosition-1;
 				val = mapTracker[previousValRow][previousValCol];
-				tempMap[currentRowPosition][currentColPosition-1] =5;
+				used[currentRowPosition][currentColPosition-1] =5;
 				notify();
 
 				system("pause");
@@ -1153,18 +1170,18 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
 					//val =1;
-					tempMap[currentRowPosition][currentColPosition-1] = 1;
+					used[currentRowPosition][currentColPosition-1] = 1;
 
 
 				} else {
 					val = mapTracker[previousValRow][previousValCol]; //previous position
-					tempMap[previousValRow][previousValCol] = val;
+					used[previousValRow][previousValCol] = val;
 				}
 
 
 				currentRowPosition = currentRowPosition;
 				currentColPosition = currentColPosition-1;
-				tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+				used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 				currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 				characterLocation.at(bob) = currentPosition; //update player position
@@ -1183,17 +1200,17 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 				cout<<"You cannot move up! There is a wall"<<endl;
 			}
 		}else if(key=='f'){ //checks if can move right
-			if((currentColPosition+1)<col){//you can move right
-				if(tempMap[currentRowPosition][currentColPosition+1] == 1){
+			if((currentColPosition+1)<numCols1){//you can move right
+				if(used[currentRowPosition][currentColPosition+1] == 1){
 					//tempItemLoc->setChracterPosition(currentRowPosition, currentColPosition+1);
 					previousValRow = currentRowPosition;
 					previousValCol = currentColPosition;
 					val = mapTracker[previousValRow][previousValCol]; //preivous position
-					tempMap[previousValRow][previousValCol]=val;
+					used[previousValRow][previousValCol]=val;
 
 					currentRowPosition = currentRowPosition;
 					currentColPosition = currentColPosition+1;
-					tempMap[currentRowPosition][currentColPosition] = 5;
+					used[currentRowPosition][currentColPosition] = 5;
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1201,11 +1218,11 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					cin.clear();
 					cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-				}else if(tempMap[currentRowPosition][currentColPosition+1] == 4){
+				}else if(used[currentRowPosition][currentColPosition+1] == 4){
 					val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
-					tempMap[currentRowPosition][currentColPosition]=val;
+					used[currentRowPosition][currentColPosition]=val;
 
-					tempMap[currentRowPosition][currentColPosition+1] = 5;
+					used[currentRowPosition][currentColPosition+1] = 5;
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition+1);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1214,12 +1231,12 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 					return true;
-				} else if(tempMap[currentRowPosition][currentColPosition+1]==3){ //tempMap[currentRowPosition][currentColPosition+1] == 3) {
+				} else if(used[currentRowPosition][currentColPosition+1]==3){ //used[currentRowPosition][currentColPosition+1] == 3) {
 
 					previousValRow = currentRowPosition; //save value on cell into
 					previousValCol = currentColPosition+1;
 					val = mapTracker[previousValRow][previousValCol];
-					tempMap[currentRowPosition][currentColPosition+1] =5;
+					used[currentRowPosition][currentColPosition+1] =5;
 					notify();
 
 					system("pause");
@@ -1236,18 +1253,18 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 						//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
 						//val =1;
-						tempMap[currentRowPosition][currentColPosition+1] = 1;
+						used[currentRowPosition][currentColPosition+1] = 1;
 
 
 					} else {
 						val = mapTracker[previousValRow][previousValCol]; //previous position
-						tempMap[previousValRow][previousValCol] = val;
+						used[previousValRow][previousValCol] = val;
 					}
 
 
 					currentRowPosition = currentRowPosition;
 					currentColPosition = currentColPosition+1;
-					tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+					used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1266,19 +1283,19 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 			}
 
 		}else if(key=='d'){ //checks if can go down
-			if((currentRowPosition+1)<row){//you can move down
-				if(tempMap[currentRowPosition+1][currentColPosition] == 1){
+			if((currentRowPosition+1)<numRows0){//you can move down
+				if(used[currentRowPosition+1][currentColPosition] == 1){
 					//tempItemLoc->setChracterPosition(currentRowPosition+1, currentColPosition);
 
 					previousValRow = currentRowPosition;
 					previousValCol = currentColPosition;
 
 					val = mapTracker[previousValRow][previousValCol]; //preivous position
-					tempMap[previousValRow][previousValCol]=val;
+					used[previousValRow][previousValCol]=val;
 
 					currentRowPosition = currentRowPosition+1;
 					currentColPosition = currentColPosition;
-					tempMap[currentRowPosition][currentColPosition] = 5; //moving player down
+					used[currentRowPosition][currentColPosition] = 5; //moving player down
 
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
@@ -1287,11 +1304,11 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					cin.clear();
 					cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-				}else if(tempMap[currentRowPosition+1][currentColPosition] == 4){
+				}else if(used[currentRowPosition+1][currentColPosition] == 4){
 					val = mapTracker[currentRowPosition][currentColPosition]; //preivous position
-					tempMap[currentRowPosition][currentColPosition]=val;
+					used[currentRowPosition][currentColPosition]=val;
 
-					tempMap[currentRowPosition+1][currentColPosition] = 5;
+					used[currentRowPosition+1][currentColPosition] = 5;
 
 					currentPosition.setChracterPosition(currentRowPosition+1,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1300,11 +1317,11 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 					cout<<"YOU HAVE REACHED THE END OF THE MAP"<<endl;
 					return true;
-				}else if (tempMap[currentRowPosition+1][currentColPosition]==3){
+				}else if (used[currentRowPosition+1][currentColPosition]==3){
 					previousValRow = currentRowPosition+1; //save value on cell into
 					previousValCol = currentColPosition;
 					val = mapTracker[previousValRow][previousValCol];
-					tempMap[currentRowPosition+1][currentColPosition] =5;
+					used[currentRowPosition+1][currentColPosition] =5;
 					notify();
 
 					system("pause");
@@ -1321,18 +1338,18 @@ bool Map::move(vector<vector<int>>& tempMap, int row, int col)
 
 						//val = mapTracker[currentRowPosition-1][currentColPosition]; //previous position
 						//val =1;
-						tempMap[currentRowPosition+1][currentColPosition] = 1;
+						used[currentRowPosition+1][currentColPosition] = 1;
 
 
 					} else {
 						val = mapTracker[previousValRow][previousValCol]; //previous position
-						tempMap[previousValRow][previousValCol] = val;
+						used[previousValRow][previousValCol] = val;
 					}
 
 
 					currentRowPosition = currentRowPosition+1;
 					currentColPosition = currentColPosition;
-					tempMap[currentRowPosition][currentColPosition] = 5; //moving player up
+					used[currentRowPosition][currentColPosition] = 5; //moving player up
 
 					currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 					characterLocation.at(bob) = currentPosition; //update player position
@@ -1445,7 +1462,18 @@ break;
 void Map::saveMapToFile() {
 
 }
+
+//TODO this method, along with the createMapWithUserInput() one, 
+// ... should both be constructors.
+// ... and numRows0 and numCols1 should both be private members. not static as it is now.
+//int Map::numRows0=0; // TODO change to non static. and make constructors instead that initialize them.
+//int Map::numCols1;
+//vector< vector <int> >& used(2,0); //{{0,0},{0,0}}; // init it?
 Map* Map::LoadMapFromFile() {
+
+	//used.resize( 2 , vector<int>( 2 , 0 ));
+
+
 	std::string CharName;
 	std::string InformationTextFile;
 	std::string characterNames;
@@ -1469,6 +1497,7 @@ Map* Map::LoadMapFromFile() {
 
 
 	//std::vector<int> characterParams(30);
+	std::vector<int> MapParams;
 
 
 	cout << endl;//make it cleaner
@@ -1479,7 +1508,8 @@ Map* Map::LoadMapFromFile() {
 		cout << "Error opening file, you will now create new Map instead. " << endl;
 		//system("Pause");
 		//return 0;
-		Map* returnedMap = new Map(); // this Map should be empty and discarded, 
+		Map* returnedMap = Map::createMapByPromptingUser();
+		//Map* returnedMap = new Map(); // this Map should be empty and discarded, 
 		//this return statement is just to exit.
 		return returnedMap;
 	}
@@ -1520,30 +1550,30 @@ Map* Map::LoadMapFromFile() {
 		//go through all the steps to create a map, as done in the driver:
 		vector< vector <int> > vMap;
 		vector< vector <int> > zeroMap;
-		int numRows0 =0, numCols1=0;
+		int numRows0_ =0, numCols1_=0;
 		// keep the same order to read and write to the file.
-		numRows0 = MapParams[0];
-		int temRow0 =  Map::Validation::validateRowInput(numRows0);
-		numRows0 = temRow0;
+		numRows0_ = MapParams[0];
+		//int temRow0 =  Map::validateRowInput(numRows0_); // those checks should be in the constructor
+		//numRows0_ = temRow0;
 
 
 		//filling up msp with empty spaces
 		vector<int> columns;
-		for (int i = 0; i < numRows0; i++) {
+		for (int i = 0; i < numRows0_; i++) {
 			zeroMap.push_back(columns);
-			for (int j = 0; j < numCols1; j++) {
+			for (int j = 0; j < numCols1_; j++) {
 				zeroMap[i].push_back('X');
 			}
 		}
 
 		//displays the empty map
-		Map emptyMap(zeroMap, numRows0, numCols1);
+		Map emptyMap(zeroMap, numRows0_, numCols1_);
 		//cout<<"Empty Map"<<endl;
 		//emptyMap.mapDesign(zeroMap, numRows0, numCols1);
 
 		//Creates a 2D vector with the specifications (Row and Col) given
-		vector< vector <int> >& used = emptyMap.fillUpMap(vMap, numRows0, numCols1);
-		Map* returnedMap = new Map(used,numRows0,numCols1);
+		vector<vector<int>> used_ = emptyMap.fillUpMap();//vMap, numRows0, numCols1
+		Map* returnedMap = new Map(used_,numRows0_,numCols1_);
 
 
 
@@ -1553,11 +1583,14 @@ Map* Map::LoadMapFromFile() {
 		//cout << "The validation was...."<< endl;
 
 
-		bool isValid = returnedMap->validatingMap(used, numRows0, numCols1);
+		bool isValid = returnedMap->validatingMap();//used, numRows0, numCols1
+
+
 
 		//while(isValid != true){
 		if(!isValid) {
 			cout << "MAP loaded from file was not valid. You will now create a new map. " << endl;
+			Map::createMapByPromptingUser();
 		}//vector< vector <int> > newMap;
 		//newMap = map->fillUpMap(newMap, numRows0, numCols1);
 		//isValid = map->validatingMap(newMap, numRows0, numCols1);
@@ -1570,42 +1603,42 @@ Map* Map::LoadMapFromFile() {
 }
 
 Map* Map::createMapByPromptingUser() {
-	
+
 	//create map by user interaction:
 	vector< vector <int> > vMap;
 	vector< vector <int> > zeroMap;
-	int numRows =0, numCols=0;
+	int numRows0_ = 0, numCols1_ = 0;
 
 	//Prompts the user to enter the size of the map he/she wants
 	//Take the input enterd and set as arguments of the function mapGenerator();
 	cout << "Please enter the size of your map!" << endl;
 	cout << "Enter the number of rows: \n";
-	cin >> numRows; 
-	int temRow =  Map::Validation::validateRowInput(numRows);
-	numRows = temRow;
+	cin >> numRows0_; 
+	//int temRow =  Map::validateRowInput(numRows0_);
+	//numRows0 = temRow;
 
 	cout << "Enter the number of Columns: \n";
-	cin >> numCols;
-	int temCol = Map::Validation::validateColInput(numCols);
-	numCols = temCol;
+	cin >> numCols1_;
+	//int temCol = Map::validateColInput(numCols1_); // will be put in the constructor
+	//numCols1 = temCol;
 
 	//filling up msp with empty spaces
 	vector<int> columns;
-	for (int i = 0; i < numRows; i++) {
+	for (int i = 0; i < numRows0_; i++) {
 		zeroMap.push_back(columns);
-		for (int j = 0; j < numCols; j++) {
+		for (int j = 0; j < numCols1_; j++) {
 			zeroMap[i].push_back('X');
 		}
 	}
 
 	//displays the empty map
-	Map emptyMap(zeroMap, numRows, numCols);
+	Map emptyMap(zeroMap, numRows0_, numCols1_);
 	cout<<"Empty Map"<<endl;
-	emptyMap.mapDesign(zeroMap, numRows, numCols);
+	emptyMap.mapDesign();//zeroMap, numRows0, numCols1
 
 	//Creates a 2D vector with the specifications (Row and Col) given
-	vector< vector <int> >& used = emptyMap.fillUpMap(vMap, numRows, numCols);
-	Map* map = new Map(used,numRows,numCols);
+	vector<vector<int>> used_ = emptyMap.fillUpMap();//vMap, numRows0, numCols1
+	Map* map = new Map(used_,numRows0_,numCols1_);
 
 
 
@@ -1615,22 +1648,21 @@ Map* Map::createMapByPromptingUser() {
 	cout << "The validation was...."<< endl;
 
 
-	bool isValid = map->validatingMap(used, numRows, numCols);
+	bool isValid = map->validatingMap();//used, numRows0, numCols1
 
 	while(isValid != true){
 		cout << "MAP not valid. Do it again!" << endl;
 		vector< vector <int> > newMap;
-		newMap = map->fillUpMap(newMap, numRows, numCols);
-		isValid = map->validatingMap(newMap, numRows, numCols);
-		used=newMap;
+		newMap = map->fillUpMap();//newMap, numRows0, numCols1
+		map = new Map(newMap,numRows0_,numCols1_);
+		isValid = map->validatingMap();//newMap, numRows0, numCols1
 	}
 
-
 	//	char exit1;
-	bool isChanged = map->setCell(used, numRows, numCols);
+	bool isChanged = map->setCell( numRows0_, numCols1_);//used,
 	while(isChanged != true){
 		cout << "Change not valid. Do it again!" << endl;
-		isChanged = map->setCell(used, numRows, numCols);
+		isChanged = map->setCell(numRows0_, numCols1_);
 	}
 	// ... end create map by user interaction.
 
@@ -1643,11 +1675,10 @@ Map* Map::createMapByPromptingUser() {
 	cout<<"  e  "<<endl;
 	cout<<"s d f"<<endl;
 	//Display();
-	map->move(used, numRows,numCols);
 
 	// ... end create map by user interaction.
 
 	return map;
 
-	
+
 }
