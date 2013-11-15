@@ -1057,7 +1057,9 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	characterLocation.insert(CharacterLocation::value_type(bob, currentPosition));
 
 	
-
+	vector<vector<int>> actualMap =Map::getMapVector();
+	actualMap[rowStart][colStart] =5;
+	notify();
 	
 
 	char key;
