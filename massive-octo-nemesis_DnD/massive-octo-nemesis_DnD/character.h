@@ -25,6 +25,7 @@ public:
 	//
 	virtual void setLevel(int level_) = 0;
 	virtual int getLevel() = 0;
+	virtual void increaseLevel() = 0;
 
 	//abilities: getters only,
 	//setters are specific to subclasses to define boundaries:
@@ -76,6 +77,9 @@ protected:
 	//attack bonus
 	virtual void setAttackBonus(int a) = 0; //(int level, int strength, int dexterity) = 0;
 	virtual void setAttackBonus() = 0;
+	//assignment3:
+	virtual void setNumAttacksPerRound(int level) = 0;
+	int NumAttacksPerRound;
 
 	//damage bonus
 	virtual void setDamageBonus(int d) = 0; //(int strength) = 0;

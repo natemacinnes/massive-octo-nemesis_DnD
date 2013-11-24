@@ -54,6 +54,18 @@
     <ClInclude Include="character.h">
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterBuilderAbstract.h">
+      <Filter>Header Files\characterHs</Filter>
+    </ClInclude>
+    <ClInclude Include="BullyFighterBuilder.h">
+      <Filter>Header Files\characterHs</Filter>
+    </ClInclude>
+    <ClInclude Include="NimbleFighterBuilder.h">
+      <Filter>Header Files\characterHs</Filter>
+    </ClInclude>
+    <ClInclude Include="TankFighterBuilder.h">
+      <Filter>Header Files\characterHs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -130,6 +142,18 @@
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBuilderAbstract.cpp">
+      <Filter>Source Files\character</Filter>
+    </ClCompile>
+    <ClCompile Include="BullyFighterBuilder.cpp">
+      <Filter>Source Files\character</Filter>
+    </ClCompile>
+    <ClCompile Include="NimbleFighterBuilder.cpp">
+      <Filter>Source Files\character</Filter>
+    </ClCompile>
+    <ClCompile Include="TankFighterBuilder.cpp">
+      <Filter>Source Files\character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -150,6 +150,8 @@ void character::printCharacterStats() {
 
 	//attack bonus:
 	cout << "attackBonus: " << attackBonus << endl;
+	//assignment 3: number of attacks per round:
+	cout << "NumAttacksPerRound: " << NumAttacksPerRound << endl;
 	//damage bonus:
 	cout << "damageBonus: " << damageBonus << endl;
 
