@@ -19,27 +19,49 @@ using namespace std;
 #include "Observable.h"
 #include "Observer.h"
 #include "GUIclass.h"
-
+#include "TankFighterBuilder.h"
+#include "BullyFighterBuilder.h"
+#include "NimbleFighterBuilder.h"
+#include <time.h>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	srand(time(NULL)); // init random seed for all 
 
 
+	//make a tank:
+	d20Characters::TankFighterBuilder* tankbuilder = new d20Characters::TankFighterBuilder();
+	d20Characters::Fighter* tank = tankbuilder->getCharacter();
+	tank->printCharacterStats();
 
-	cout << endl
-		<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"
-		<< endl << endl;
+	//make a bully:
+	d20Characters::BullyFighterBuilder* bullybuilder = new d20Characters::BullyFighterBuilder();
+	d20Characters::Fighter* bully = bullybuilder->getCharacter();
+	bully->printCharacterStats();
 
-	//create fighter that we will observe / watch for changes:
-	d20Characters::Fighter myFighter(1);
-	myFighter.printCharacterStats();
+	//make a nimble:
+	d20Characters::NimbleFighterBuilder* nimblebuilder = new d20Characters::NimbleFighterBuilder();
+	d20Characters::Fighter* nimble = nimblebuilder->getCharacter();
+	nimble->printCharacterStats();
+
+	//demonstrate save load functionality:
+	//cout << endl
+	//	<< "Starting comp345_driver_for_character.cpp for assignment 2 by Nicolas Chausseau 643 1526"
+	//	<< endl << endl;
+
+	////create fighter that we will observe / watch for changes:
+	//d20Characters::Fighter myFighter(1);
+	//myFighter.printCharacterStats();
 
 
-	//TEST FOR SAVE FILE & LOAD
-	myFighter.SaveCharacterToFile();
-	d20Characters::Fighter* myFighter2 = myFighter.LoadCharacterFromFile();
-	cout << "HERE: MAIN: " << myFighter2->getLevel() << endl;
-	myFighter2->printCharacterStats();
+	////TEST FOR SAVE FILE & LOAD
+	//myFighter.SaveCharacterToFile();
+	//d20Characters::Fighter* myFighter2 = myFighter.LoadCharacterFromFile();
+	//cout << "HERE: MAIN: " << myFighter2->getLevel() << endl;
+	//myFighter2->printCharacterStats();
+
+
+	//demonstrate assignment 2:
 	/*
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
 	d20Characters::GUIclass* gui = new d20Characters::GUIclass();

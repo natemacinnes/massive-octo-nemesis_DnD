@@ -36,6 +36,13 @@ public:
 	void setCharisma(int c);
 	using character::setDexterity;
 	void setDexterity(int d);
+	//for NEW rules FROM ASSIGNMENT 3:
+	void setStrengthNewRules(int strength);
+	void setIntelligenceNewRules(int i);
+	void setWisdomNewRules(int w);
+	void setConstitutionNewRules(int c);
+	void setCharismaNewRules(int c);
+	void setDexterityNewRules(int d);
 
 	//hit points:
 	using character::setHitPoints;
