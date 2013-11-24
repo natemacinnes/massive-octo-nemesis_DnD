@@ -144,7 +144,7 @@ namespace d20Characters {
 			level = thelevel;
 			//dependents:
 			//srand(time(NULL));
-			setHitPoints(rand() % 9 + 1 + this->constitutionModifier);
+			hitPoints += (rand() % 9 + 1 + this->constitutionModifier);
 			this->attackBonus = attackBonus++;
 			this->setNumAttacksPerRound(level);
 			// notify GUI or MAP
