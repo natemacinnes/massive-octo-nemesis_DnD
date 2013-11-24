@@ -92,7 +92,7 @@ void Map::createOrReloadACharacterBob() {
 Map* Map::createOrReloadAMap() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	Map* map;
+	Map* map = new Map();
 	while(!isgoodanswer){
 		cout << "Load a Map from file? (y/n) --> (enter \"n\" to create a new Map)" << endl;
 		string doLoadMap;
