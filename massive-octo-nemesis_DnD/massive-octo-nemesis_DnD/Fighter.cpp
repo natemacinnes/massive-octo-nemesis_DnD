@@ -101,6 +101,9 @@ namespace d20Characters {
 			//http://www.d20srd.org/srd/improvingMonsters.htm
 			setAttackBonus(rand() % 10 + 1); // for a fighter it's using a d10
 
+			//for assignment 3:
+			setNumAttacksPerRound(level);
+
 			//	(5) damage bonus (based on strength modifier).
 			setDamageBonus(rand() % 10 + 1);
 
@@ -136,8 +139,32 @@ namespace d20Characters {
 			notifyAllObservers();
 		}
 	}
+	void Fighter::setLevelNewRules(int thelevel) {
+		if (thelevel > 0) {
+			level = thelevel;
+			//dependents:
+			//srand(time(NULL));
+			setHitPoints(rand() % 9 + 1 + this->constitutionModifier);
+			this->attackBonus = attackBonus++;
+			this->setNumAttacksPerRound(level);
+			// notify GUI or MAP
+			notifyAllObservers();
+		}
+	}
 	int Fighter::getLevel() {
 		return level;
+	}
+	void Fighter::increaseLevel() {
+		setLevelNewRules(getLevel()+1);
+	}
+	void Fighter::setNumAttacksPerRound(int level) {
+
+		// to reflect rule in second table of assignment 3 handout:
+		NumAttacksPerRound = 0;
+		while(level > 0) {
+			NumAttacksPerRound += level;
+			level -= 5;
+		}
 	}
 
 	//setters for abilities:
@@ -213,7 +240,7 @@ namespace d20Characters {
 		// notify GUI or MAP
 		notifyAllObservers();
 	}
-	
+
 	// NEW setters for abilities, FOR NEW RULES FROM ASSIGNMENT 3:
 	void Fighter::setStrengthNewRules(int diceResult) {
 		if (diceResult > 18) {

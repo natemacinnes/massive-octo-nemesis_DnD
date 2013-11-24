@@ -54,9 +54,9 @@ namespace d20Characters {
 		//	}
 		//}
 
-		for(int i=0; i<6; i++) {
-			std::cout << "\n " << i << ":" << abilityValuesFromSmallestToGreatest[i] << " ";
-		}
+		//for(int i=0; i<6; i++) {
+		//	std::cout << "\n " << i << ":" << abilityValuesFromSmallestToGreatest[i] << " ";
+		//}
 
 	}
 
@@ -81,7 +81,7 @@ namespace d20Characters {
 			}
 		}
 		//return sum of 3 best:
-		return diceResults[0]+diceResults[1]+diceResults[2]+diceResults[3]-min;
+		return diceResults[0] + diceResults[1] + diceResults[2] + diceResults[3] - min;
 	}
 
 }
