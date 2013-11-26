@@ -73,6 +73,9 @@
     <ClInclude Include="..\..\massive-octo-nemesis_DnD\resource.h" />
     <ClInclude Include="..\..\massive-octo-nemesis_DnD\stdafx.h" />
     <ClInclude Include="..\..\massive-octo-nemesis_DnD\targetver.h" />
+    <ClInclude Include="ArenaBuilder.h" />
+    <ClInclude Include="ArenaConstructor.h" />
+    <ClInclude Include="Builder.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObservable.h" />
@@ -101,6 +104,9 @@
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\stdafx.cpp" />
+    <ClCompile Include="ArenaBuilder.cpp" />
+    <ClCompile Include="ArenaConstructor.cpp" />
+    <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="Map.cpp" />

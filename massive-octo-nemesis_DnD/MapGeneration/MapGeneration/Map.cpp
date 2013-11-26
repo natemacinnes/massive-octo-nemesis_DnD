@@ -136,6 +136,20 @@ chracPosition Map::getPosition()
 	return currentPosition;
 }
 
+//sets player on map on its initial position
+void Map::setPlayerPos(int r, int c)
+{
+	used[r][c] = 5; 
+}
+
+void Map::setMapLvl()
+{
+	//gets character level and set it to be the map level as well
+	//map and character should have the same level
+	int playerLevel ;//= getPlayerLevel();
+	mapLevel = playerLevel;
+
+}
 int Map::getSize() const{
 
 	return myObs.size();

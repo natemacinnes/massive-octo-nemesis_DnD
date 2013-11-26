@@ -91,8 +91,9 @@ public:
 	//setting start and end points
 	bool setBegin( int, int); //vector < vector <int> >&,
 	bool  setEnd( int, int);//vector < vector <int> >&,
-
+	void setMapLvl();
 	//};
+	void setPlayerPos(int, int);
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	void createOrReloadACharacterBob();
 
@@ -116,6 +117,7 @@ public:
 	int numCols1;
 	vector< vector <int> > used;
 	static const int myint = 2;
+	int mapLevel;
 
 private:
 	std::vector<d20Characters::character*> listOfObservables_vector;
