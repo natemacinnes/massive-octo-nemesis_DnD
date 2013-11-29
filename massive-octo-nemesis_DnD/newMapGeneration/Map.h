@@ -17,7 +17,6 @@
 #include "Shield.h"
 #include "character.h"
 #include "Fighter.h"
-#include "UIMap.h"
 
 #include "Observer.h"
 
@@ -67,6 +66,7 @@ public:
 	vector<vector<int>> getMapVector();
 	map<d20Characters::Fighter*, chracPosition> getLocation();
 	chracPosition getPosition();
+	void characterOptionToMove();
 
 	d20Items::Item* addItem2Map() const;
 
@@ -93,15 +93,17 @@ public:
 	bool setBegin( int, int); //vector < vector <int> >&,
 	bool  setEnd( int, int);//vector < vector <int> >&,
 	void setMapLvl();
-	void setMonsterLvl(int);
-	bool setMonsterPos();
-	void setMonsterOnVector(int,int);
-	d20Items::Item setRandomItemToMap();
 	//};
-	void setPlayerPos();
+	void setPlayerPos(int, int);
+	void setMonsterPos();
+	bool checkRight();
+	bool checkLeft();
+	int returnRight();
+	int returnLeft();
+	void colorRight();
+	void colorLeft();
+	void displayTempMap();
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
-	//change to monster
-	d20Characters::Fighter *monster;
 	void createOrReloadACharacterBob();
 
 	//for the Observer "interface":
@@ -123,6 +125,7 @@ public:
 	int numRows0; // TODO change to non static. and make constructors instead that initialize them.
 	int numCols1;
 	vector< vector <int> > used;
+	vector< vector <int> > tempUsed; //holds a copy of the used vector
 	static const int myint = 2;
 	int mapLevel;
 
@@ -135,7 +138,6 @@ private:
 protected:
 	// Current character position
 	chracPosition currentPosition;
-	chracPosition monsterPosition;
 
 	//d20Characters::Fighter* bob = new d20Characters::Fighter(2);
 
@@ -145,14 +147,8 @@ protected:
 	typedef map<d20Characters::Fighter*, chracPosition>  CharacterLocation;
 	CharacterLocation characterLocation;
 
-	// hash map of all monster's positions on map
-	typedef map<chracPosition, d20Characters::Fighter*>  MonsterLocation;
-	MonsterLocation monsterLocation;
-
-
 	// hash map of all item positions on the map, key = item, value = position
 	typedef std::map<chracPosition*, d20Items::Item*> ItemLocation;
-	//typedef std::map<chracPosition*, d20Items::Item> ItemLocation;
 	ItemLocation itemLocation;
 	//map<const d20Items::Item*, chracPosition> itemLocation;
 

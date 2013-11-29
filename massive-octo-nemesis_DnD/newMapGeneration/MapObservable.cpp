@@ -27,6 +27,7 @@ void MapObservable::detach(MapObserver* ob){
 
 void MapObservable::notify(){
 	for( int i=0; i< mapObs.size();i++){
+		std::cout << "Notifying " << i << endl;
 		mapObs[i]->update(this);
 	}
 	

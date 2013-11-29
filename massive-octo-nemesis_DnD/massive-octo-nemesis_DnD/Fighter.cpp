@@ -615,7 +615,8 @@ namespace d20Characters {
 		}
 	}
 
-	bool Fighter::pickUp(d20Items::Item* item) //hyo
+	//bool Fighter::pickUp(d20Items::Item* item) //before was like this
+	bool Fighter::pickUp(int itVl) 
 	{
 		char input = ' ';
 		cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
@@ -626,6 +627,8 @@ namespace d20Characters {
 				//this->setBoots(item); // that will be correct in the future ...
 				//right now it's just an int value for the number of boots:
 				//this->setBoots(this->boots+1);
+				std::string itemName = identifyItemOnMap(itVl);
+				setItemToPla(itemName);
 				return true;
 			} else if(input == 'N' || input == 'n') {
 				return false;
@@ -636,4 +639,56 @@ namespace d20Characters {
 
 	}
 
+	std::string Fighter::identifyItemOnMap(int itVal)
+	{
+		std::string itName;
+		if(itVal == 13){
+			itName = "Armor";
+			return itName;
+		}else if(itVal == 14){
+			itName = "Belt";
+			return itName;
+		}else if(itVal == 15){
+			itName = "Boots";
+			return itName;
+		}else if(itVal == 16){
+			itName = "Helmet";
+			return itName;
+		}else if(itVal == 17){
+			itName = "Ring";
+			return itName;
+		}else if(itVal == 18){
+			itName = "Shield";
+			return itName;
+		}else{ //itVal == 19
+			itName = "Weapon";
+			return itName;
+		}
+	}
+
+	void Fighter::setItemToPla(std::string itemName)
+	{
+		if(itemName == "Armor"){
+			d20Items::Item* item  = new d20Items::Item("Armor");
+			this->setArmor(item);
+		}else if(itemName == "Belts"){
+			d20Items::Item* item  = new d20Items::Item("Belts");
+			this->setBelt(item);
+		}else if(itemName == "Boots"){
+			d20Items::Item* item  = new d20Items::Item("Boots");
+			this->setBoots(item);
+		}else if(itemName == "Helmet" ){
+			d20Items::Item* item  = new d20Items::Item("Helmet");
+			this->setHelmet(item);
+		}else if(itemName == "Ring"){
+			d20Items::Item* item  = new d20Items::Item("Ring");
+			this->setRings(1);
+		}else if(itemName == "Shield"){
+			d20Items::Item* item  = new d20Items::Item("Shield");
+			this->setShield(item);
+		}else{ //itVal == 19
+			d20Items::Item* item  = new d20Items::Item("Weapon");
+			this->setWeapon(item);
+		}
+	}
 } /* namespace d20Characters */

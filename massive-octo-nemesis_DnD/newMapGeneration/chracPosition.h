@@ -10,7 +10,6 @@ public:
 	int getRow();
 	int getCol();
 	void setChracterPosition(int, int);
-	
 	//chracPosition getCharacterRow();
 	
 	void print();

@@ -12,12 +12,11 @@
 #include "ArenaConstructor.h"
 #include "MapObservable.h"
 #include "chracPosition.h"
-#include "SDL_thread.h"
+#include "GUIclass.h"
 
 // for the loadMap functionality:
 #include <fstream>
 #include "Display.h"
-#include "UIMap.h"
 
 using namespace std;
 
@@ -44,7 +43,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 	this->numRows0 = r;
 	this->numCols1 = c;
 	this->used = v;
-	this->mapLevel = 0;
+	this->tempUsed;
 	this->myObs;
 
 	//this validation is just done 
@@ -62,12 +61,11 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	cin.clear();
+	//cin.clear();
 	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
-	
 	string doLoadChar;
 	while(cin >> doLoadChar && !isgoodanswer){
-		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
+		cout << "Load a character from file? (y/no) --> (enter \"n\" to create a new character)" << endl;
 		cin.clear();
 		//TODO: test to see if this loop works. it used to break because of cin.ignore()
 		//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
@@ -142,9 +140,41 @@ chracPosition Map::getPosition()
 }
 
 //sets player on map on its initial position
-void Map::setPlayerPos()
+void Map::setPlayerPos(int r, int c)
 {
-	used[rowStart][colStart] = 5; 
+	used[r][c] = 5; 
+}
+
+void Map::setMonsterPos()
+{
+	//surround exit by a monster end placed on the top left
+	if(rowEnd==0){
+		used[rowEnd+1][colEnd] =10; // 10 is for the monster
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]=10;
+		}
+	}else if(rowEnd==numCols1-1){
+		used[rowEnd-1][colEnd];
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]= 10;
+		}
+	}//end else if
+	else{
+		//place monster above and below end point
+		used[rowEnd-1][colEnd]=10;
+		used[rowEnd+1][colEnd]=10;
+		//checks if can place it on the right and on the left of end point
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]=10;
+		}
+	}
+	
 }
 
 void Map::setMapLvl()
@@ -155,8 +185,6 @@ void Map::setMapLvl()
 	mapLevel = playerLevel;
 
 }
-
-
 int Map::getSize() const{
 
 	return myObs.size();
@@ -181,7 +209,6 @@ vector<vector<int>> Map::getMapVector(){
 vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, int col){
 
 	vector<int> columns;
-	
 	//chracPosition* pos = new chracPosition();
 
 	cout << "Let's build up your map!" <<endl;
@@ -206,33 +233,12 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 
 			}
-			
+			/*
 			if(pathChoice==3){
-			//pos->setChracterPosition(i,j);
+			pos->setChracterPosition(i,j);
 			//const d20Items::Item *tempItem = 
-			//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
-				//selects an item to add to the map 
-				d20Items::Item item = setRandomItemToMap();
-				string itemName = item.getName();
-				if(itemName == "Armor"){
-					pathChoice = 13; //13 refers to Armor Item
-				}else if(itemName == "Belt"){
-					pathChoice = 14; //14 refers to Belt Item
-				}else if(itemName == "Boots"){
-					pathChoice = 15; //15 refers to Boots Item
-				}else if(itemName == "Helmet"){
-					pathChoice = 16;//16 refers to Helmet Item 
-				}else if(itemName == "Ring"){
-					pathChoice = 17; //17 refers to Ring Item
-				}else if(itemName == "Shield"){
-					pathChoice = 18; //18 refers to Shield Item
-				}else if(itemName == "Weapon"){
-					pathChoice = 19; //19 refers to Weapon Item
-				}
-
-				//testing DELETE LATER
-				cout << item.toString() << "item" <<endl;
-			}
+			itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
+			}*/
 			used[i].push_back(pathChoice);
 		}
 	}
@@ -247,7 +253,6 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 		isSetEnd = Map::setEnd( numRows0, numCols1);
 	}
 
-	
 
 	//displayMap(m, row, col);
 	//mapDesign(m,row,col);
@@ -316,39 +321,13 @@ int Map::validateColInput(int col){
 //	cout << endl;
 //}
 
-//random function to pick up set an item 
-//when user enters 3 on fillUpMap
-d20Items::Item Map::setRandomItemToMap()
-{
-	int randVal = rand() % 7 + 1;
-
-	switch(randVal)
-	{
-	case 1:
-		return d20Items::Item("Armor");
-	case 2:
-		return d20Items::Item("Belt");
-	case 3:
-		return d20Items::Item("Boots");
-	case 4:
-		return d20Items::Item("Helmet");
-	case 5:
-		return d20Items::Item("Ring");
-	case 6:
-		return d20Items::Item("Shield");
-	case 7:
-		return d20Items::Item("Weapon");
-	}
-
-}
-
 void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 
 
 	int i = 0,j = 0;
 	cout << "Displaying Map" << endl;	
 	cout << "****************************************************************" << endl;
-	cout << endl;
+
 
 	cout << "+ ";
 	while (i < numCols1) {
@@ -358,7 +337,7 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 	cout << "+";
 	cout << endl;
 	//delimitation of the map
-	chracPosition* pos = new chracPosition();
+	//chracPosition* pos = new chracPosition();
 	for (int i = 0 ; i < numRows0; i++) {
 		cout << "+ ";
 		for (int j = 0 ; j <  numCols1; j++) {
@@ -366,26 +345,22 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 				cout << " " << " ";
 			}else if (used[i][j] == 2) {
 				cout << "|" << " ";
-			}else if (used[i][j] == 13|| used[i][j] == 14|| used[i][j] == 15
-				|| used[i][j] == 16 || used[i][j] == 17 || used[i][j] == 18 || used[i][j] == 19){ //item's type 13 to 19
+			}else if (used[i][j] == 3){
 				//pos->setChracterPosition(i,j);
-				//cout << item.toString() << " item " <<endl;
 				//itemLocation.find(pos)->second;
+				cout << "B" << " ";
 				//const d20Items::Item *tempItem = 
 				//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
-
-					cout << "C" << " ";  // C refers for chest (could be any item)
-				
 			}else if(used[i][j] == 0) {
-				cout << "S" << " "; // starting point; 
+				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
 			}else if(used[i][j] == 4){
-				cout << "E" << " "; // ending point; 
+				cout << "E" << " "; // ending point; '+' sign, where it limits the map
 			}else if(used[i][j] == 'X'){
-				cout << "O" << " "; //  empty map; 
+				cout << "O" << " "; //  empty map; '+' sign, where it limits the map
 			}else if(used[i][j] == 10){
-				cout << "M" << " "; //  monster ;
+				cout << "M" << " "; //  monster ; '+' sign, where it limits the map
 			}else{
-				cout << "P" << " "; // refers to player
+				cout << "P" << " "; //start point when player leaves
 			}
 		}
 		cout << "+";
@@ -504,85 +479,12 @@ bool Map::setEnd(int endRow, int  endCol){ //vector < vector <int> >& myMap,
 
 }
 
-//sets monster in the map.
-bool Map::setMonsterPos()
-{
-
-	int r, c;
-
-
-	cout << endl;
-	cout << "Where do you want to place your Monster the map?\n";
-	cout << "Please, enter its first coordinate.\n";
-	cout << "Remember: your first parameter has to be between: 0 and " << (numRows0-1) << " :"<< endl;
-
-	while (!(cin >> r) || (r < 0 || r > (numRows0-1)) || isalnum(r)) {
-
-		cout << endl;
-		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (numRows0-1)<< " :"<< endl;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
-
-	}
-
-	cout << endl;
-	cout << "Please, enter its second coordinate.\n";
-	cout << "And your second parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
-
-	while (!(cin >> c) || (c < 0 || c > (numCols1-1)) || isalpha(c)) {
-
-		cout << endl;
-		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (numCols1-1) <<" :" << endl;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
-
-	}
-
-	bool checkStartPoint = Map::checkingEndAssigned(r,c);//used,
-	
-
-	
-	if((checkStartPoint == false) || (used[r][c] == 4) ){
-		if(used[r][c] == 4){
-			cout <<"Sorry this is your END point of your map. Try again!" << endl;
-			return false;
-		}
-		return false;
-	}else{
-		setMonsterOnVector(r,c);
-		return true;
-	}
-}
-
-void Map::setMonsterOnVector(int row, int col)
-{
-	used[row][col] = 10;
-	//position object holding row and collumn value
-	//monsterPosition.setChracterPosition(row,col);
-	//chracPosition* pos = new chracPosition();
-	//int r  = monsterPosition.getRow();
-	//int c = monsterPosition.getCol();
-	//pos(r,c);
-	////saving monster position on map
-	////needed to implement for multiple monsters
-	//monsterLocation.insert(std::pair<chracPosition,d20Characters::Fighter*>(monsterPosition, monster));
-	//cout << monsterLocation[monsterPosition] << "monster position saved on map " << endl;
-}
-
-void Map::setMonsterLvl(int lev)
-{
-	monster = new d20Characters::Fighter(0);
-	monster->setLevel(lev);
-}
-
 bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 
 
 
 	if (used[row][col] == 0) {
 		cout << endl;
-		cout << "This is the STARTING point of your map. Sorry! Try again!\n" << endl;
+		cout << "There is the STARTING point of your map. Sorry! Try again!\n" << endl;
 		return false;
 	}else{
 		return true;
@@ -742,8 +644,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				downS = true;
 				return true;
-			}else if((used[currentRow+1][currentCol] == 1) || (used[currentRow+ 1][currentCol] == 13) || (used[currentRow+ 1][currentCol] == 14)
-				|| (used[currentRow+ 1][currentCol] == 15) || (used[currentRow+ 1][currentCol] == 16) || (used[currentRow+ 1][currentCol] == 17) || (used[currentRow+ 1][currentCol] == 18) || (used[currentRow+ 1][currentCol] == 19)){
+			}else if((used[currentRow+1][currentCol] == 1)||(used[currentRow+ 1][currentCol] == 3)){
 				downS = true;
 			}
 		}
@@ -759,8 +660,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				upS = true;
 				return true;
-			}else if((used[currentRow-1][currentCol] == 1)||(used[currentRow-1][currentCol] == 13)||(used[currentRow-1][currentCol] == 14)
-				||(used[currentRow-1][currentCol] == 15)||(used[currentRow-1][currentCol] == 16)||(used[currentRow-1][currentCol] == 17)||(used[currentRow-1][currentCol] == 18)||(used[currentRow-1][currentCol] == 19)){
+			}else if((used[currentRow-1][currentCol] == 1)||(used[currentRow-1][currentCol] == 3)){
 				upS = true;
 			}
 		}
@@ -777,8 +677,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				rightS = true;
 				return true;
-			}else if((used[currentRow][currentCol+1] == 1)||(used[currentRow][currentCol+1] == 13)||(used[currentRow][currentCol+1] == 14)||(used[currentRow][currentCol+1] == 15)
-				||(used[currentRow][currentCol+1] == 16)||(used[currentRow][currentCol+1] == 17)||(used[currentRow][currentCol+1] == 18)||(used[currentRow][currentCol+1] == 19)){
+			}else if((used[currentRow][currentCol+1] == 1)||(used[currentRow][currentCol+1] == 3)){
 				rightS = true;
 			}
 		}
@@ -814,8 +713,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				downE = true;
 				return true;
-			}else if((used[endR+1][endC] == 1)||(used[endR+1][endC] == 13)||(used[endR+1][endC] == 14)||(used[endR+1][endC] == 15)
-				||(used[endR+1][endC] == 16)||(used[endR+1][endC] == 17)||(used[endR+1][endC] == 18)||(used[endR+1][endC] == 19)){
+			}else if((used[endR+1][endC] == 1)||(used[endR+1][endC] == 3)){
 				downE = true;
 			}
 		}
@@ -831,8 +729,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				upE = true;
 				return true;
-			}else if((used[endR-1][endC] == 1)||(used[endR- 1][endC] == 13)||(used[endR- 1][endC] == 14)||(used[endR- 1][endC] == 15)
-				||(used[endR- 1][endC] == 16)||(used[endR- 1][endC] == 17)||(used[endR- 1][endC] == 18)||(used[endR- 1][endC] == 19)){
+			}else if((used[endR-1][endC] == 1)||(used[endR- 1][endC] == 3)){
 				upE = true;
 			}
 		}
@@ -849,8 +746,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				rightE = true;
 				return true;
-			}else if((used[endR][endC+1] == 1)||(used[endR][endC+1] == 13)||(used[endR][endC+1] == 14)||(used[endR][endC+1] == 15)
-				||(used[endR][endC+1] == 16)||(used[endR][endC+1] == 17)||(used[endR][endC+1] == 18)||(used[endR][endC+1] ==19)){
+			}else if((used[endR][endC+1] == 1)||(used[endR][endC+1] == 3)){
 				rightE = true;
 			}
 		}
@@ -866,8 +762,7 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				leftE = true;
 				return true;
-			}else if((used[endR][endC-1] == 1) || (used[endR][endC-1] == 13) || (used[endR][endC-1] == 14) || (used[endR][endC-1] == 15) || (used[endR][endC-1] == 16) 
-				|| (used[endR][endC-1] == 17) || (used[endR][endC-1] == 18) || (used[endR][endC-1] == 19)) {
+			}else if((used[endR][endC-1] == 1) || (used[endR][endC-1] == 3)) {
 				leftE = true;
 			}
 		}
@@ -1047,8 +942,6 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 	return true;
 
 }
-
-/*
 //
 //bool Map::Validation::validationNewStart(vector<vector<int>>& tempMap, int row, int col, int currentRow, int currentCol){
 //
@@ -1130,24 +1023,18 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 //	}
 //}
 
-*/
-
 bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previousCol, int previousVal)
 {
-	//location of 
+	//location of item
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
-	//int static previousVal =  previousV;
 
-	if(used[currentRow][currentCol] == 13 || used[currentRow][currentCol] == 14 || used[currentRow][currentCol] == 15
-		|| used[currentRow][currentCol] == 16 || used[currentRow][currentCol] == 17 || used[currentRow][currentCol] == 18 || used[currentRow][currentCol] == 19)
+	if(used[currentRow][currentCol] == 3)
 	{
 
-		//test Line
-		cout << " this is a " << used[currentRow][currentCol] << endl;
+		
 		tempItemLoc->setChracterPosition(currentRow, currentCol);
-		//tempBool = bob->pickUp(itemLocation[tempItemLoc]); //before was like this
-		tempBool = bob->pickUp(used[currentRow][currentCol]);
+		tempBool = bob->pickUp(itemLocation[tempItemLoc]);
 		if(tempBool==true) 
 		{
 			previousVal=1;
@@ -1157,7 +1044,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		}
 		else
 		{
-			//previousVal = used[currentRow][currentCol];
+
 			used[previousRow][previousCol] = previousVal;
 			used[currentRow][currentCol] = 5;
 		
@@ -1168,8 +1055,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 			return true;
 	}
 	else if(used[currentRow][currentCol] == 4)
-	{
-		if(monster->getLevel() == 0 ){
+	{				
 		used[currentRow][currentCol] = 5; //set player new position
 		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
 		notify();
@@ -1178,18 +1064,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		system("pause");
 		exit(0);
 		//return false;
-		}else{
-			used[currentRow][currentCol] = 5; //set player new position
-			used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
-			cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
-			return false;
-		}
 						
-	}else if(used[currentRow][currentCol] == 10) {
-		// call Attack method!!!!
-		cout << "Attack method call!" << endl;
-		used[currentRow][currentCol] = 5; //set player new position
-		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
 	}
 	else //if(vectorMap[row][col] == 1) //empty cell
 	{
@@ -1233,8 +1108,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	characterLocation.insert(CharacterLocation::value_type(bob, currentPosition));
 
 	
-	vector<vector<int>> actualMap = Map::getMapVector();
-	actualMap[rowStart][colStart] = 5;
+	vector<vector<int>> actualMap =Map::getMapVector();
+	actualMap[rowStart][colStart] =5;
 	notify();
 	
 
@@ -1290,6 +1165,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 							
 							currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 							characterLocation.at(bob) = currentPosition; //update player position
+							currentPosition.print();
 							notify();
 						}
 				  }
@@ -1343,7 +1219,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						{
 							currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 							characterLocation.at(bob) = currentPosition; //update player position
-	
+							currentPosition.print();
 							notify();
 						}
 					}
@@ -1476,7 +1352,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 		{
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-			cout << "Cannot move there. Out of bounds" << endl;
+			cout << "Cannot move there. Out of bound" << endl;
 			cin >> key;
 		}
 
@@ -1488,7 +1364,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 
 
 
-/*
+
 
 	//	if(key=='e'){ //tries to move up
 	//		if((currentRowPosition-1)>=0)
@@ -1846,8 +1722,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	//		cout<<"You cannot move!"<<endl;
 	//		cin >> key;
 	//	}
-	*/
 	}//end while loop
+
 }
 
 void Map::onEvent() {
@@ -2130,10 +2006,6 @@ Map* Map::createMapByPromptingUser() {
 	Map* map = new Map(used_,numRows0_,numCols1_);
 	Display* display = new Display(map);
 
-	
-
-	UIMap* UI = new UIMap();
-
 	cout << "Validating Map...." << endl;
 	cout << "The validation was...."<< endl;
 
@@ -2155,30 +2027,19 @@ Map* Map::createMapByPromptingUser() {
 		cout << "Change not valid. Do it again!" << endl;
 		isChanged = map->setCell(numRows0_, numCols1_);
 	}
-	
-	//create a character bob:
-	map->createOrReloadACharacterBob();
-	map->bob->printCharacterStats();
-
-	//adds Monster to map
-	//int i = 1;
-	//while(i <= map->bob->getLevel())
-	//{
-		//map->setMonsterPos();
-		//i++;
-//	}
 
 	//should add to the created map: monster, map level and cestLevel
 	ArenaConstructor arenaConstructor;
 	ArenaBuilder* arenaBuilder = new ArenaBuilder;
-	arenaConstructor.setBuilder(arenaBuilder);
 	arenaBuilder->createMap(map);
-	
+	arenaConstructor.setBuilder(arenaBuilder);
 	arenaConstructor.construct();
 	// ... end create map by user interaction.
 
-	
-
+	//create a character bob:
+	//causing code to break
+//	map->createOrReloadACharacterBob();
+//	map->bob->printCharacterStats();
 
 	cout<<"Let's play !! " << endl;
 	cout<<"Controls are: "<<endl;
@@ -2191,4 +2052,182 @@ Map* Map::createMapByPromptingUser() {
 	return map;
 
 
+}
+
+
+//checks the options the character has to move based on his position
+/*
+* i think the highlight should be done inside this method.
+*/
+void Map::characterOptionToMove()
+{
+	int below, above, right, left;
+
+	//if player is on row=0
+	if(currentPosition.getRow() == 0){
+		
+		//saves the value of the cell below the charcter position
+		below = used[currentPosition.getRow()+1][currentPosition.getCol()];
+		
+
+		if(below != 2)
+		{
+			//highlight this cells
+			 tempUsed[currentPosition.getRow()+1][currentPosition.getCol()] = 50; //50 will be the color on the map
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+		
+
+	}else if(currentPosition.getRow() == numCols1-1){ //if player is on last row
+		above = used[currentPosition.getRow()-1][currentPosition.getCol()];
+
+		if(above != 2){
+			tempUsed[currentPosition.getRow()-1][currentPosition.getCol()] = 50;
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+
+	}//end else if
+	else{
+		//access the value of cell above and below character position
+		above = used[currentPosition.getRow()-1][currentPosition.getCol()];
+		below = used[currentPosition.getRow()+1][currentPosition.getCol()];
+		
+		if(below != 2)
+		{
+			//highlight this cells
+			 tempUsed[currentPosition.getRow()+1][currentPosition.getCol()] = 50; //50 will be the color on the map
+		}
+
+		if(above != 2)
+		{
+			tempUsed[currentPosition.getRow()-1][currentPosition.getCol()] = 50;
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+
+	}//end else statement
+
+}
+//checks if movement to the right is allowed based on the map boundry and charcter position
+bool Map::checkRight()
+{
+	if(currentPosition.getCol() < numCols1){
+		return true;
+	}
+	return false;
+
+}
+
+//checks if movement to the right is allowed based on the map boundry and charcter position	
+bool Map::checkLeft()
+{
+	if(currentPosition.getCol() > 0){
+		return true;
+	}
+
+	return false;
+}
+
+//access the value on the right of the charcter position
+int Map::returnRight()
+{
+	int right = -1;
+	if(checkRight() == true){
+		 right = used[currentPosition.getRow()][currentPosition.getCol()+1];
+	}
+
+	return right;
+}
+
+//access the value on the left of the character position
+int Map::returnLeft()
+{
+	int left  = -1;
+	if(checkLeft() == true){
+			left = used[currentPosition.getRow()][currentPosition.getCol()-1];
+	}
+
+	return left;
+}
+
+//colors the left cell of the charcterposition if it is not a wall
+void Map::colorRight()
+{
+	if((returnRight() != 2) || (returnRight() != -1)){
+		 tempUsed[currentPosition.getRow()][currentPosition.getCol()+1] = 50; 
+	}
+}
+
+
+//colors the left cell of the charcterposition if it is not a wall
+void Map::colorLeft()
+{
+	if(returnLeft() != 2 || (returnLeft() != -1)){
+		tempUsed[currentPosition.getRow()][currentPosition.getCol()-1] = 50;
+	}
+}
+
+//prints the colored map
+/*
+* Not sure if this is the right approach cause maybe the hightlight should be done on the UI
+* not sure about it.
+*/
+void Map::displayTempMap()
+{
+	int i = 0,j = 0;
+	cout << "Displaying Map" << endl;	
+	cout << "****************************************************************" << endl;
+
+
+	cout << "+ ";
+	while (i < numCols1) {
+		cout << "+ ";
+		i++;
+	}
+	cout << "+";
+	cout << endl;
+	//delimitation of the map
+
+	for (int i = 0 ; i < numRows0; i++) {
+		cout << "+ ";
+		for (int j = 0 ; j <  numCols1; j++) {
+			if (tempUsed[i][j] == 1) {
+				cout << " " << " ";
+			}else if (tempUsed[i][j] == 2) {
+				cout << "|" << " ";
+			}else if (tempUsed[i][j] == 3){
+				cout << "B" << " ";
+			}else if(tempUsed[i][j] == 0) {
+				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 4){
+				cout << "E" << " "; // ending point; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 'X'){
+				cout << "O" << " "; //  empty map; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 10){
+				cout << "M" << " "; //  monster ; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 50){
+				cout << "%" << " "; //  color ; '+' sign, where it limits the map
+			}else{
+				cout << "P" << " "; //start point when player leaves
+			}
+		}
+		cout << "+";
+		cout << endl;
+	}
+
+	cout << "+ ";
+	while (j < numCols1) {
+		cout << "+ ";
+		j++;
+	}
+	cout << "+";
+	cout << endl;
 }

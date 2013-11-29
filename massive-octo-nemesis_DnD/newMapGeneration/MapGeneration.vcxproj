@@ -43,14 +43,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\include;C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,7 +83,6 @@
     <ClInclude Include="chracPosition.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="UIMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ItemContainer\ItemContainer\Armor.cpp" />
@@ -107,6 +103,7 @@
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp" />
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\stdafx.cpp" />
     <ClCompile Include="ArenaBuilder.cpp" />
     <ClCompile Include="ArenaConstructor.cpp" />
     <ClCompile Include="Builder.cpp" />
@@ -117,7 +114,6 @@
     <ClCompile Include="MapObserver.cpp" />
     <ClCompile Include="chracPosition.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="UIMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\massive-octo-nemesis_DnD\Character.rc" />
