@@ -25,6 +25,10 @@ public:
 	virtual void setLevel(int level);
 	using character::getLevel;
 	virtual int getLevel();
+	using character::increaseLevel;
+	virtual void increaseLevel();
+	void setLevelNewRules(int level);
+
 
 	using character::setStrength;
 	void setStrength(int strength);
@@ -38,6 +42,15 @@ public:
 	void setCharisma(int c);
 	using character::setDexterity;
 	void setDexterity(int d);
+	//for NEW rules FROM ASSIGNMENT 3:
+	void setStrengthNewRules(int strength);
+	void setIntelligenceNewRules(int i);
+	void setWisdomNewRules(int w);
+	void setConstitutionNewRules(int c);
+	void setCharismaNewRules(int c);
+	void setDexterityNewRules(int d);
+	virtual void setNumAttacksPerRound(int level);
+
 
 	//hit points:
 	using character::setHitPoints;
