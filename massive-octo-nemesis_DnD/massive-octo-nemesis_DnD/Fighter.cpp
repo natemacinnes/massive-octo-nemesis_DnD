@@ -36,30 +36,16 @@ namespace d20Characters {
 
 
 		//the actual fighter variables:
-		//myStream << getLevel() << endl;
-		//cout << "LEVEL?????????????" << level_;
 		level = v.at(0);
-		//cout << "LEVEL?????????????" << level_;
-
-		//myStream << getArmorClass() << endl;
 		armorClass = v.at(1);
-		//myStream << getAttackBonus() << endl;
 		attackBonus = v.at(2);
-		//myStream << getCharisma() << endl;
 		charisma = v.at(3);
-		//myStream << getConstitution() << endl;
 		constitution = v.at(4);
-		//myStream << getDamageBonus() << endl;
 		damageBonus = v.at(5);
-		//myStream << getDexterity() << endl;
 		dexterity = v.at(6);
-		//myStream << getHitPoints() << endl;
 		hitPoints = v.at(7);
-		//myStream << getIntelligence() << endl;
 		intelligence= v.at(8);
-		//myStream << getStrength() << endl;
 		strength = v.at(9);
-		//myStream << getWisdom() << endl;
 		wisdom = v.at(10);
 
 		//additional ones:
@@ -94,7 +80,7 @@ namespace d20Characters {
 
 			// (...) Possible ability scores range from 7 to 18:
 			// http://www.d20pfsrd.com/basics-ability-scores/character-creation
-			srand(time(NULL)); // init random seed
+			//srand(time(NULL)); // init random seed
 			setStrength(rand() % 11 + 7); // generate random int between 7 and 18
 			setIntelligence(rand() % 11 + 7);
 			setWisdom(rand() % 11 + 7);
@@ -114,6 +100,9 @@ namespace d20Characters {
 			//see table:
 			//http://www.d20srd.org/srd/improvingMonsters.htm
 			setAttackBonus(rand() % 10 + 1); // for a fighter it's using a d10
+
+			//for assignment 3:
+			setNumAttacksPerRound(level);
 
 			//	(5) damage bonus (based on strength modifier).
 			setDamageBonus(rand() % 10 + 1);
@@ -150,8 +139,32 @@ namespace d20Characters {
 			notifyAllObservers();
 		}
 	}
+	void Fighter::setLevelNewRules(int thelevel) {
+		if (thelevel > 0) {
+			level = thelevel;
+			//dependents:
+			//srand(time(NULL));
+			hitPoints += (rand() % 9 + 1 + this->constitutionModifier);
+			this->attackBonus = attackBonus++;
+			this->setNumAttacksPerRound(level);
+			// notify GUI or MAP
+			notifyAllObservers();
+		}
+	}
 	int Fighter::getLevel() {
 		return level;
+	}
+	void Fighter::increaseLevel() {
+		setLevelNewRules(getLevel()+1);
+	}
+	void Fighter::setNumAttacksPerRound(int level) {
+
+		// to reflect rule in second table of assignment 3 handout:
+		NumAttacksPerRound = 0;
+		while(level > 0) {
+			NumAttacksPerRound += level;
+			level -= 5;
+		}
 	}
 
 	//setters for abilities:
@@ -228,9 +241,83 @@ namespace d20Characters {
 		notifyAllObservers();
 	}
 
+	// NEW setters for abilities, FOR NEW RULES FROM ASSIGNMENT 3:
+	void Fighter::setStrengthNewRules(int diceResult) {
+		if (diceResult > 18) {
+			cout << endl << "ERROR: invalid dice value for setStrengthNewRules(int d)"
+				<< endl;
+			return;
+		}
+		strength = diceResult;
+		strengthModifier = floor((double) (strength / 2) - 5); //http://www.systemreferencedocuments.org/resources/systems/pennpaper/modern/smack/abilityscores.html
+		//dependents:
+		setAttackBonus();
+		setDamageBonus();
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
+	void Fighter::setCharismaNewRules(int diceResult) {
+		if (diceResult < 3 || diceResult > 18) {
+			cout << endl << "ERROR: invalid dice value for setCharismaNewRules(int d)"
+				<< endl;
+			return;
+		}
+		charisma = diceResult;
+		charismaModifier = floor((double) (charisma / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
+	void Fighter::setConstitutionNewRules(int diceResult) {
+		if (diceResult < 3 || diceResult > 18) {
+			cout << endl << "ERROR: " << diceResult
+				<< "invalid dice value for setConstitutionNewRules(int d)" << endl;
+			return;
+		}
+		constitution = diceResult;
+		constitutionModifier = floor((double) (constitution / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
+	void Fighter::setDexterityNewRules(int diceResult) {
+		if (diceResult < 3 || diceResult > 18) {
+			cout << endl << "ERROR: " << diceResult
+				<< "invalid dice value for setDexterityNewRules(int d)" << endl;
+			return;
+		}
+		dexterity = diceResult;
+		dexterityModifier = floor((double) (dexterity / 2) - 5);
+		//dependents, to be recalculated:
+		setArmorClass();
+		setAttackBonus();
+		// notify GUI or MAP
+		notifyAllObservers(); //comment out because call done in dependents anyways
+	}
+	void Fighter::setIntelligenceNewRules(int diceResult) {
+		if (diceResult < 3 || diceResult > 18) {
+			cout << endl << "ERROR: " << diceResult
+				<< "invalid dice value for setIntelligenceNewRules(int d)" << endl;
+			return;
+		}
+		intelligence = diceResult;
+		intelligenceModifier = floor((double) (intelligence / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
+	void Fighter::setWisdomNewRules(int diceResult) {
+		if (diceResult < 3 || diceResult > 18) {
+			cout << endl << "ERROR: " << diceResult
+				<< "invalid dice value for setWisdomNewRules(int d)" << endl;
+			return;
+		}
+		wisdom = diceResult;
+		wisdomModifier = floor((double) (wisdom / 2) - 5);
+		// notify GUI or MAP
+		notifyAllObservers();
+	}
+
 	//hit points:
 	void Fighter::setHitPoints(int diceResult) { //(int constitution, int currentLevel) {
-		if (!(diceResult > 6 && diceResult < 19)) {
+		if (!(diceResult > 6 && diceResult < 25)) {
 			cout << endl << "ERROR: " << diceResult
 				<< "invalid dice value for setHitPoints(int d)" << endl;
 			return;

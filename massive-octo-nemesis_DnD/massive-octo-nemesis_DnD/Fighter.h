@@ -1,10 +1,10 @@
 #pragma once
 /*
- * Fighter.h
- *
- *  Created on: Oct 21, 2013
- *      Author: nick
- */
+* Fighter.h
+*
+*  Created on: Oct 21, 2013
+*      Author: nick
+*/
 
 #include "character.h"
 #include "Observable.h"
