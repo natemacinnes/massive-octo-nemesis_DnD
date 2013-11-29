@@ -37,7 +37,7 @@ public:
 	void remove(Item*);
 
 	//print stuff on every update of items in the bag:
-	void printBag() const;
+	void printItems() ; //const
 
 };
 } // namespace d20Items 

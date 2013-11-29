@@ -69,6 +69,9 @@ public:
 	void addBelt(d20Items::Belt* b);
 	void addBoots(d20Items::Boots* b);
 
+	d20Items::ItemContainer* wornContainer;
+	d20Items::ItemContainer* bagContainer;
+
 protected:
 
 	//protected setters for abilities:
@@ -146,8 +149,6 @@ protected:
 	//	1 boots
 	bool boots;// = false;
 
-	d20Items::ItemContainer* wornContainer;
-	d20Items::ItemContainer* bagContainer;
 
 };
 

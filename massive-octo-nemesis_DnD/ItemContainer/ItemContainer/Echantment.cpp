@@ -44,7 +44,7 @@ int Enchantment::getEnchantmentValue() const
 int Enchantment::getEnchantmentType() const
 {
 	return eType;
-}\
+}
 
 	std::string Enchantment::toString() const 
 {
