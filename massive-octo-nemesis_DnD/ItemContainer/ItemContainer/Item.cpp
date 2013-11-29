@@ -7,11 +7,14 @@ namespace d20Items {
 Item::Item(void)
 {
 	//this->setEnchantment(9,0);
+	itemID = currentItemID;
+	currentItemID++;
 	name = "";
 }
 
 Item::Item(std::string newName) {
-
+	itemID = currentItemID;
+	currentItemID++;
 	name = newName;
 }
 
@@ -26,6 +29,11 @@ void Item::setEnchantment(int i, const int j)
 
 }
 */
+
+int Item::getID() const
+{
+	return itemID;
+}
 
 std::string Item::getName(void) const {
 	return name;

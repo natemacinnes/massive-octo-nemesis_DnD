@@ -23,7 +23,6 @@ Item* ItemContainer::at(int i) const
 	return items.at(i);
 }
 
-
 void ItemContainer::add(Item* item)
 {
 	items.push_back(item);
@@ -36,7 +35,7 @@ void ItemContainer::remove(Item* item)
 
 	while (iter != std::end(items)) 
 	{
-		if (item->getName() == (*iter)->getName())
+		if (item->getID() == (*iter)->getID())
 		{
 			iter = items.erase(iter);
 		}
@@ -48,6 +47,8 @@ void ItemContainer::remove(Item* item)
 
 	notify();
 }
+
+
 
 void ItemContainer::printItems()  {
 
@@ -64,7 +65,7 @@ void ItemContainer::printItems()  {
 
 	iter = items.begin();
 	int i=1;
-	//std::cout << "this is the size of the container: " << items.size();
+	std::cout << "this is the size of the container: " << items.size();
 	std::cout << std::endl;
 	while (iter != std::end(items)) 
 	{

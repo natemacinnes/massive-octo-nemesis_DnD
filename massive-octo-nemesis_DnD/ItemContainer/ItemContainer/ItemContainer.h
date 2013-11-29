@@ -7,6 +7,7 @@
 // ItemContainer class using the IItemContainer interface, equivalent to the "Concrete Subject" or "Concrete Observable" in the observer pattern 
 
 namespace d20Items {
+	
 
 class ItemContainer : 
 	public IItemContainer

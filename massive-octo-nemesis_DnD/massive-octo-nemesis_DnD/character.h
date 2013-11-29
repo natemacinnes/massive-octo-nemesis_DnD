@@ -72,6 +72,9 @@ public:
 	d20Items::ItemContainer* wornContainer;
 	d20Items::ItemContainer* bagContainer;
 
+	void wear();
+
+
 protected:
 
 	//protected setters for abilities:

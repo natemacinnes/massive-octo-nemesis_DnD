@@ -252,4 +252,23 @@ void character::printCharacterStats() {
 	cout << "boots: " << boots << endl;
 	cout << "=====================================================" << endl;
 }
+
+void character::wear() {
+	cout <<endl<< "********** Inventory Pane of Items in Bag: **********" ;
+	bagContainer->printItems();
+
+	cout << endl << "Enter the number of the item in your bag that you want to wear: ";
+	int indexPlusOne = 0;
+	cin >> indexPlusOne;
+
+	d20Items::Item* itemPicked = bagContainer->at(indexPlusOne-1);
+	wornContainer->add(itemPicked);
+	bagContainer->remove(itemPicked);
+
+}
+
+//void character unwear() {
+//
+//}
+
 } /* namespace d20Characters */

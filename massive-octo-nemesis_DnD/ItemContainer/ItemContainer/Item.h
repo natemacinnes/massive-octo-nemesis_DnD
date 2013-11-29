@@ -7,6 +7,9 @@
 // Item class, parent to all items
 
 namespace d20Items {
+
+	static int currentItemID = 0;
+
 class Item	
 {
 public:
@@ -20,6 +23,8 @@ public:
 
 	void setName(std::string);
 
+	int getID() const;
+
 	virtual Enchantment getEnchantment() const;
 
 	virtual std::string toString(void) const;
@@ -27,5 +32,6 @@ public:
 private:
 	std::string name;
 	Enchantment enchantment;
+	int itemID;
 };
 } // namespace d20Items 

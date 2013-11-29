@@ -49,6 +49,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << endl<< "********** Inventory Pane of Items in Bag: **********";
 	tank->bagContainer->printItems();
 
+	tank->wear();
+
+	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
+	tank->wornContainer->printItems();
+	cout << endl<< "********** Inventory Pane of Items in Bag: **********";
+	tank->bagContainer->printItems();
+
 	////make a bully:
 	//d20Characters::BullyFighterBuilder* bullybuilder = new d20Characters::BullyFighterBuilder();
 	//d20Characters::Fighter* bully = bullybuilder->getCharacter();
