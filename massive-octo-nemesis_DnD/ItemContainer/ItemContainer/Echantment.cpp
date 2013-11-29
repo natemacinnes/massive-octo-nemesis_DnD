@@ -9,13 +9,13 @@ Enchantment::Enchantment(void)
 {
 }
 
-Enchantment::Enchantment(int newEType, int newEValue) 
+Enchantment::Enchantment(EnchantmentType newEType, int newEValue) 
 {
 	eType = newEType;
 	eValue = newEValue;
 }
 
-Enchantment::Enchantment(const int enchantmentTypes[], const int size) 
+Enchantment::Enchantment(const EnchantmentType enchantmentTypes[], const int size) 
 {
 	this->setEnchantmentType(enchantmentTypes, size);
 	this->setEnchantmentValue();
@@ -30,7 +30,12 @@ void Enchantment::setEnchantmentValue()
 	eValue = 1 + rand() % MAX_ENCHANTMENT;
 }
 
-void Enchantment::setEnchantmentType(const int enchantmentTypes[], const int size) 
+void Enchantment::setEnchantmentValue(int eVal)
+{
+	eValue = eVal;
+}
+
+void Enchantment::setEnchantmentType(const EnchantmentType enchantmentTypes[], const int size) 
 {
 	int _eType = rand() % size;
 	eType = enchantmentTypes[_eType];
@@ -41,7 +46,7 @@ int Enchantment::getEnchantmentValue() const
 	return eValue;
 }
 
-int Enchantment::getEnchantmentType() const
+EnchantmentType Enchantment::getEnchantmentType() const
 {
 	return eType;
 }\
@@ -52,30 +57,30 @@ int Enchantment::getEnchantmentType() const
 	switch(eType) 
 	{
 	case 0: 
-		return "Strength, +" + eV;
+		return "Strength +" + eV;
 		break;
 	case 1: 
-		return "Dexterity, +" + eV;
+		return "Dexterity +" + eV;
 		break;
 	case 2: 
-		return "Constition, +" + eV;
+		return "Constition +" + eV;
 		break;
 	case 3:
-		return "Intelligence, +" + eV;
+		return "Intelligence +" + eV;
 		break;
 	case 4:
-		return "Wisdom, +" + eV;
+		return "Wisdom +" + eV;
 	case 5:
-		return "Charisma, +" + eV;
+		return "Charisma +" + eV;
 		break;
 	case 6:
-		return "Armor Class, +" + eV;
+		return "Armor Class +" + eV;
 		break;
 	case 7:
-		return "Attack Bonus, +" + eV;
+		return "Attack Bonus +" + eV;
 		break;
 	case 8:
-		return "Damage Bonus, +" + eV;
+		return "Damage Bonus +" + eV;
 		break;
 	default: 
 		return "";

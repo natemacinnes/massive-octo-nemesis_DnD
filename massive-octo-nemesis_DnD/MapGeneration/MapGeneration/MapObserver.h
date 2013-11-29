@@ -2,7 +2,7 @@
 #include "MapObservable.h"
 #include "chracPosition.h"
 #include <vector>
-#include "Map.h"
+//#include "Map.h"
 
 
 class MapObserver {

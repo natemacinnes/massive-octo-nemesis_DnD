@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace d20Items {
-//enum EnchantmentType {STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA, ARMOR_CLASS, ATTACK_BONUS, DAMAGE_BONUS, _NULL};
+const static enum EnchantmentType {STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA, ARMOR_CLASS, ATTACK_BONUS, DAMAGE_BONUS, _NULL};
 
 // Maximum allowable enchantment value
 static int MAX_ENCHANTMENT = 5;
@@ -16,19 +16,21 @@ public:
 	
 	Enchantment(void);
 
-	Enchantment(int, int);
+	Enchantment(EnchantmentType, int);
 
-	Enchantment(const int[], const int);
+	Enchantment(const EnchantmentType[], const int);
 
 	~Enchantment(void);
 	
 	void setEnchantmentValue(void);
 
-	void setEnchantmentType(const int[], const int size);
+	void setEnchantmentValue(int);
+
+	void setEnchantmentType(const EnchantmentType[], const int size);
 
 	int getEnchantmentValue(void) const;
 
-	int getEnchantmentType(void) const;
+	EnchantmentType getEnchantmentType(void) const;
 
 	std::string toString(void) const;
 
@@ -36,7 +38,7 @@ public:
 
 private:
 	int eValue;
-	int eType;
+	EnchantmentType eType;
 };
 } // namespace d20Items 
 

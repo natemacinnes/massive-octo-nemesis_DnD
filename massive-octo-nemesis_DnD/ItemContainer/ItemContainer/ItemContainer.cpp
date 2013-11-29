@@ -29,6 +29,8 @@ void ItemContainer::add(Item* item)
 	notify();
 }
 
+
+
 void ItemContainer::remove(Item* item)
 {
 	iter = items.begin();
@@ -47,6 +49,7 @@ void ItemContainer::remove(Item* item)
 
 	notify();
 }
+
 /*
 void ItemContainer::printBag() const {
 

@@ -72,6 +72,9 @@
     <ClInclude Include="..\..\massive-octo-nemesis_DnD\targetver.h">
       <Filter>Source Files\characterDep</Filter>
     </ClInclude>
+    <ClInclude Include="UIMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Driver.cpp">
@@ -149,8 +152,8 @@
     <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp">
       <Filter>Source Files\characterDep</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\massive-octo-nemesis_DnD\stdafx.cpp">
-      <Filter>Source Files\characterDep</Filter>
+    <ClCompile Include="UIMap.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

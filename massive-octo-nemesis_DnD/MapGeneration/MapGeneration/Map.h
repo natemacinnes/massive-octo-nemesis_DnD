@@ -17,6 +17,7 @@
 #include "Shield.h"
 #include "character.h"
 #include "Fighter.h"
+#include "UIMap.h"
 
 #include "Observer.h"
 

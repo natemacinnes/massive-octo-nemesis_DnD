@@ -7,7 +7,7 @@ namespace d20Items {
 Item::Item(void)
 {
 	//this->setEnchantment(9,0);
-	name = "";
+	name = " ";
 }
 
 Item::Item(std::string newName) {
@@ -27,13 +27,19 @@ void Item::setEnchantment(int i, const int j)
 }
 */
 
-std::string Item::getName(void) const {
+std::string Item::getName(void) const 
+{
 	return name;
 }
 
 Enchantment Item::getEnchantment() const 
 {
 	return enchantment;
+}
+
+int Item::getModifier() const 
+{
+	return mod;
 }
 
 std::string Item::toString(void) const {

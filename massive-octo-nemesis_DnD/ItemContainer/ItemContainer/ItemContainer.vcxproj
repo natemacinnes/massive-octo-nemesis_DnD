@@ -86,6 +86,10 @@
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Belt.h" />
     <ClInclude Include="Boots.h" />
+    <ClInclude Include="Bow.h" />
+    <ClInclude Include="Bracers.h" />
+    <ClInclude Include="ChestBuilder.h" />
+    <ClInclude Include="ChestDirector.h" />
     <ClInclude Include="ConsoleOut.h" />
     <ClInclude Include="Enchantment.h" />
     <ClInclude Include="Helmet.h" />
@@ -93,9 +97,12 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemContainer.h" />
     <ClInclude Include="ItemObserver.h" />
+    <ClInclude Include="LeveledChestBuilder.h" />
+    <ClInclude Include="RandomChestBuilder.h" />
     <ClInclude Include="Ring.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
@@ -103,6 +110,10 @@
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Belt.cpp" />
     <ClCompile Include="Boots.cpp" />
+    <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="Bracers.cpp" />
+    <ClCompile Include="ChestBuilder.cpp" />
+    <ClCompile Include="ChestDirector.cpp" />
     <ClCompile Include="ConsoleOut.cpp" />
     <ClCompile Include="Helmet.cpp" />
     <ClCompile Include="IItemContainer.cpp" />
@@ -111,12 +122,15 @@
     <ClCompile Include="Echantment.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemObserver.cpp" />
+    <ClCompile Include="LeveledChestBuilder.cpp" />
+    <ClCompile Include="RandomChestBuilder.cpp" />
     <ClCompile Include="Ring.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>

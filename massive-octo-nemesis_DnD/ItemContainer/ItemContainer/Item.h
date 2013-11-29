@@ -22,10 +22,14 @@ public:
 
 	virtual Enchantment getEnchantment() const;
 
+	virtual int getModifier() const;
+
 	virtual std::string toString(void) const;
 
-private:
+protected:
 	std::string name;
 	Enchantment enchantment;
+	int mod;
+
 };
 } // namespace d20Items 

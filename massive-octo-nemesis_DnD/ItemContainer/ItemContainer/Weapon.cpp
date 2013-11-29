@@ -5,12 +5,16 @@
 
 namespace d20Items {
 
+// The number of valid Weapon enchantments
 const int Weapon::SIZE= 2;
-const int Weapon::ENCHANTMENTS[SIZE] = {7, 8};
+// Array of valid Weapon enchantments
+const EnchantmentType Weapon::ENCHANTMENTS[SIZE] = {ATTACK_BONUS, DAMAGE_BONUS};
 
 Weapon::Weapon(void)
 {
-	Item();
+	Item("Weapon of ");
+	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
+	enchantment.setEnchantmentValue();
 }
 
 Weapon::Weapon(std::string newName) 

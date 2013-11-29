@@ -1,5 +1,5 @@
 ///*****************************************************//
-//******* Assignent 2: Observer Pattern ****************//
+//******* Assignent 3: Builder Pattern ****************//
 //		Property of Nathan MacInnes 1957341
 //			Concordia University
 
@@ -18,6 +18,11 @@
 #include "Ring.h"
 #include "Belt.h"
 #include "Boots.h"
+#include "Bow.h"
+#include "ChestBuilder.h"
+#include "ChestDirector.h"
+#include "LeveledChestBuilder.h"
+#include "RandomChestBuilder.h"
 #include <string> 
 #include <ctime>
 #include <cstdlib>
@@ -31,48 +36,86 @@ void removeItem(ItemContainer*&);
 
 int main()
 {
-	cout << "The following is a small example of the Observer Pattern" << endl;
+	cout << "The following is a small example of the Builder Pattern" << endl;
 	cout << "implemented on the Item Container." << endl << endl;
-
+	
 	// set time to null for the random function
 	srand(time(NULL));
-	
-	Item* weapon1 = new Weapon("Sword of Ice Storm");
-	Item* helmet1 = new Helmet("Ice Storm Heml");
-	Item* armor1 = new Armor("Ice Storm Armor");
-	Item* shield1 = new Shield("Ice Storm Shield");
-	Item* ring1 = new Ring("Ice Storm Shield");
-	Item* belt1 = new Belt("Ice Storm Belt");
-	Item* boots1 = new Boots("Ice Storm Boots");
 
-	// Create an item container called 'chest'
-	ItemContainer *chest = new ItemContainer();
+	cout << "Initializing the Chest Director..." << endl;
+	ChestDirector cDirector;
 
-	// add Items to the chest
-	chest->add(weapon1);
-	chest->add(helmet1);
-	chest->add(armor1);
-	chest->add(shield1);
-	chest->add(ring1);
-	chest->add(belt1);
-	
-	// Instantiate a concrete observer of type ConsoleOutput
-	// and register it to the chest
-	ConsoleOut *output = new ConsoleOut(chest);
 
-	//add boots to the chest
-	cout << "Adding " << boots1->toString() << " to the contianer" << endl << endl;
-	chest->add(boots1);
-	
-	//cout << armor1->getEnchantment().toString() << endl;
+	cout << "Initializing a level 4, 11, and 19 Leveled Chest Builder." << endl <<endl;
+	ChestBuilder* lChestBuilder4 = new LeveledChestBuilder(4);
+	ChestBuilder* lChestBuilder11 = new LeveledChestBuilder(11);
+	ChestBuilder* lChestBuilder19 = new LeveledChestBuilder(19);
 
-	// allow user to remove an item or items if they wish
-	removeItem(chest);
+	cout << "Initializing two Random Chest Builders." << endl <<endl;
+	ChestBuilder* rChestBuilder1 = new RandomChestBuilder();
+	ChestBuilder* rChestBuilder2 = new RandomChestBuilder();
+
+	cout << "Telling the director to use the Leveled Chest Builder to" << endl;
+	cout << "build a level 4 chest (ItemContainer) with the Leveled Chest Builder." << endl;
+	cDirector.setChestBuilder(lChestBuilder4);
+	cDirector.constructChest();
 	
+	cout << "Getting the chest built by the Chest Director" << endl << endl;
+	ItemContainer* leveledChest4 = cDirector.getChest();
+
+	cout << "Telling the director to use the Leveled Chest Builder to" << endl;
+	cout << "build a level 11 chest (ItemContainer) with the Leveled Chest Builder." << endl;
+	cDirector.setChestBuilder(lChestBuilder11);
+	cDirector.constructChest();
+	
+	cout << "Getting the chest built by the Chest Director" << endl << endl;
+	ItemContainer* leveledChest11 = cDirector.getChest();
+
+	cout << "Telling the director to use the Leveled Chest Builder to" << endl;
+	cout << "build a level 19 chest (ItemContainer) with the Leveled Chest Builder." << endl;
+	cDirector.setChestBuilder(lChestBuilder19);
+	cDirector.constructChest();
+	
+	cout << "Getting the chest built by the Chest Director" << endl << endl;
+	ItemContainer* leveledChest19 = cDirector.getChest();
+
+
+	cout << "Telling the director to use the Random Chest Builder to" << endl;
+	cout << "build a chest (ItemContainer) with the Random Chest Builder." << endl;
+	cDirector.setChestBuilder(rChestBuilder1);
+	cDirector.constructChest();
+
+	cout << "Getting the chest buiilt by the Chest Director" << endl << endl;
+	ItemContainer* randomChest1 = cDirector.getChest();
+
+	cout << "Telling the director to use the Random Chest Builder to" << endl;
+	cout << "build a chest (ItemContainer) with the Random Chest Builder." << endl;
+	cDirector.setChestBuilder(rChestBuilder2);
+	cDirector.constructChest();
+
+	cout << "Getting the chest buiilt by the Chest Director" << endl << endl;
+	ItemContainer* randomChest2 = cDirector.getChest();
+
+	cout << "Here is a level 4 Leveled Chest: " << endl;
+	ConsoleOut *outputLeveled = new ConsoleOut(leveledChest4);
+
+	cout << "Here is a level 11 Leveled Chest: " << endl;
+	ConsoleOut *outputLeveled1 = new ConsoleOut(leveledChest11);
+
+	cout << "Here is a level 19 Leveled Chest: " << endl;
+	ConsoleOut *outputLeveled2 = new ConsoleOut(leveledChest19);
+
+	cout << "Here is a Random Chest: " << endl;
+	ConsoleOut *outputRandom = new ConsoleOut(randomChest1);
+
+		cout << "Here is a Random Chest: " << endl;
+	ConsoleOut *outputRandom1 = new ConsoleOut(randomChest2);
+
+
+
 	cout << endl;
-	cout << "This has been a demo of Nathan MacInnes's Item Container" << endl;
-	cout << "using the observer pattern." << endl;
-	cout << "Peace out!" << endl;
+	cout << "This has been a demo of Nathan MacInnes's Item Container and the Builder Pattern." << endl;
+	cout << "Peace out! And enjoy the winter holidays!" << endl;
 
 	// Wait for user input to end the program
 	system("pause");

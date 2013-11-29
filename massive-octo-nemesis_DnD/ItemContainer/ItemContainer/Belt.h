@@ -25,6 +25,6 @@ private:
 	Enchantment enchantment;
 	std::string name;
 	static const int SIZE;
-	static const int ENCHANTMENTS[2];
+	static const EnchantmentType ENCHANTMENTS[2];
 };
 } // namespace d20Items 

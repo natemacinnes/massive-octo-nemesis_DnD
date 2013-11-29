@@ -3,12 +3,17 @@
 
 namespace d20Items {
 
+// The number of valid  Belt enchantments
 const int Belt::SIZE= 2;
-const int Belt::ENCHANTMENTS[SIZE] = {0, 2};
+
+// The valid Belt Enchantments
+const EnchantmentType Belt::ENCHANTMENTS[SIZE] = {STRENGTH, CONSTITUTION};
 
 Belt::Belt(void)
 {
-	Item();
+	Item("Belt of ");
+	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
+	enchantment.setEnchantmentValue();
 }
 
 Belt::Belt(std::string newName) 
@@ -19,7 +24,6 @@ Belt::Belt(std::string newName)
 	enchantment.setEnchantmentValue();
 
 }
-
 
 Belt::~Belt(void)
 {

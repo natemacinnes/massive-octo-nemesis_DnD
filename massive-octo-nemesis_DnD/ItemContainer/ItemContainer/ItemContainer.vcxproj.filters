@@ -25,9 +25,6 @@
     <Filter Include="Source Files\Items\Children">
       <UniqueIdentifier>{4abd1481-6994-419c-9f55-ebc38485e613}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Observer">
-      <UniqueIdentifier>{53fbdc5e-2369-42f8-9297-3d775d45a15d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Observable">
       <UniqueIdentifier>{a2b495b8-40b7-4cf6-ba20-16dfed6c65be}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,15 @@
     </Filter>
     <Filter Include="Source Files\Observable">
       <UniqueIdentifier>{64a4ed38-04a2-483a-ba81-1aa2886cc003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Builder">
+      <UniqueIdentifier>{2e200528-d5e4-40fb-960c-0bfdb1efe6dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Builder">
+      <UniqueIdentifier>{3dd5ba8c-3875-454e-b83d-6815745182fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Observer">
+      <UniqueIdentifier>{53fbdc5e-2369-42f8-9297-3d775d45a15d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +78,6 @@
     <ClInclude Include="Ring.h">
       <Filter>Header Files\Items\Children</Filter>
     </ClInclude>
-    <ClInclude Include="Shield.h">
-      <Filter>Header Files\Items\Children</Filter>
-    </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>Header Files\Items\Children</Filter>
     </ClInclude>
@@ -92,6 +95,30 @@
     </ClInclude>
     <ClInclude Include="ItemObserver.h">
       <Filter>Header Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>Header Files\Items\Children</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>Header Files\Items\Children</Filter>
+    </ClInclude>
+    <ClInclude Include="Bracers.h">
+      <Filter>Header Files\Items\Children</Filter>
+    </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>Header Files\Items\Children</Filter>
+    </ClInclude>
+    <ClInclude Include="ChestBuilder.h">
+      <Filter>Header Files\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="ChestDirector.h">
+      <Filter>Header Files\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="LeveledChestBuilder.h">
+      <Filter>Header Files\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomChestBuilder.h">
+      <Filter>Header Files\Builder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +166,27 @@
     </ClCompile>
     <ClCompile Include="ItemObserver.cpp">
       <Filter>Source Files\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>Source Files\Items\Children</Filter>
+    </ClCompile>
+    <ClCompile Include="Bracers.cpp">
+      <Filter>Source Files\Items\Children</Filter>
+    </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>Source Files\Items\Children</Filter>
+    </ClCompile>
+    <ClCompile Include="ChestBuilder.cpp">
+      <Filter>Source Files\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="ChestDirector.cpp">
+      <Filter>Source Files\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="LeveledChestBuilder.cpp">
+      <Filter>Source Files\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomChestBuilder.cpp">
+      <Filter>Source Files\Builder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

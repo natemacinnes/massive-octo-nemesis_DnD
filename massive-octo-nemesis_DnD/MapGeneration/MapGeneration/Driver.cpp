@@ -1,4 +1,4 @@
-//#include "stdafx.h"
+//include "stdafx.h"
 #include "MapObservable.h"
 #include "Display.h"
 #include "chracPosition.h"
@@ -7,7 +7,11 @@
 #include "Helmet.h"
 #include "ConsoleOut.h"
 #include "GUIclass.h"
+#include "GUI.h"
 #include <iostream>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <vector>
 #include <limits>
 #include <ctype.h>
@@ -20,10 +24,10 @@ using std::streamsize;
 using namespace std;
 
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
 
-
+	SDL_Init(SDL_INIT_EVERYTHING);
 
 	cout << "ITEM CONTAINER CREATION" << endl;
 
@@ -31,15 +35,15 @@ int main(int argc, char* argv[])
 
 	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
 
-	d20Items::Item *item = new d20Items::Helmet("Name");
+	d20Items::Item *item = new d20Items::Shield("Shield of ");
 
 	items->add(item);
-
-
 
 	//TODO this should be a form of factory pattern:
 	// a static method that returns an instance of map after prompting the user for the inputs:
 	Map* map = Map::createOrReloadAMap();
+
+
 
 
 	map->gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
@@ -74,6 +78,8 @@ int main(int argc, char* argv[])
 			isgoodanswer2 = false;
 		}
 	}
+
+	SDL_Quit();
 	//end program:
 	return 0;
 }

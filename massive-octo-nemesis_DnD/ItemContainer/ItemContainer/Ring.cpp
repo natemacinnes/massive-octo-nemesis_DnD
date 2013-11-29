@@ -3,12 +3,17 @@
 
 namespace d20Items {
 
+// The number of valid Ring enchantments
 const int Ring::SIZE= 5;
-const int Ring::ENCHANTMENTS[SIZE] = {6, 0, 2, 4, 5};
+
+// Array of Ring enchantments
+const EnchantmentType Ring::ENCHANTMENTS[SIZE] = {ARMOR_CLASS, STRENGTH, CONSTITUTION, WISDOM, CHARISMA};
 
 Ring::Ring(void)
 {
-	Item();
+	Item("Ring of ");
+	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
+	enchantment.setEnchantmentValue();
 }
 
 Ring::Ring(std::string newName) 

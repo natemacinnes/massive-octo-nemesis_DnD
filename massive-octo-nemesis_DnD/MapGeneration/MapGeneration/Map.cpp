@@ -10,11 +10,12 @@
 #include "Map.h"
 #include "MapObservable.h"
 #include "chracPosition.h"
-#include "GUIclass.h"
+#include "SDL_thread.h"
 
 // for the loadMap functionality:
 #include <fstream>
 #include "Display.h"
+#include "UIMap.h"
 
 using namespace std;
 
@@ -58,11 +59,12 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	//cin.clear();
+	cin.clear();
 	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
+	
 	string doLoadChar;
 	while(cin >> doLoadChar && !isgoodanswer){
-		cout << "Load a character from file? (y/no) --> (enter \"n\" to create a new character)" << endl;
+		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
 		cin.clear();
 		//TODO: test to see if this loop works. it used to break because of cin.ignore()
 		//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
@@ -891,6 +893,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 	return true;
 
 }
+
+/*
 //
 //bool Map::Validation::validationNewStart(vector<vector<int>>& tempMap, int row, int col, int currentRow, int currentCol){
 //
@@ -972,9 +976,11 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 //	}
 //}
 
+*/
+
 bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previousCol, int previousVal)
 {
-	//location of item
+	//location of 
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
 
@@ -1301,7 +1307,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 		{
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-			cout << "Cannot move there. Out of bound" << endl;
+			cout << "Cannot move there. Out of bounds" << endl;
 			cin >> key;
 		}
 
@@ -1313,7 +1319,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 
 
 
-
+/*
 
 	//	if(key=='e'){ //tries to move up
 	//		if((currentRowPosition-1)>=0)
@@ -1671,8 +1677,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	//		cout<<"You cannot move!"<<endl;
 	//		cin >> key;
 	//	}
+	*/
 	}//end while loop
-
 }
 
 void Map::onEvent() {
@@ -1955,6 +1961,10 @@ Map* Map::createMapByPromptingUser() {
 	Map* map = new Map(used_,numRows0_,numCols1_);
 	Display* display = new Display(map);
 
+	
+
+	UIMap* UI = new UIMap();
+
 	cout << "Validating Map...." << endl;
 	cout << "The validation was...."<< endl;
 
@@ -1980,7 +1990,7 @@ Map* Map::createMapByPromptingUser() {
 
 	//create a character bob:
 	//causing code to break
-//	map->createOrReloadACharacterBob();
+   map->createOrReloadACharacterBob();
 //	map->bob->printCharacterStats();
 
 	cout<<"Let's play !! " << endl;

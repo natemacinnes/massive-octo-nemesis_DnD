@@ -3,12 +3,17 @@
 
 namespace d20Items {
 
+// The number of valid Helmet enchantments
 const int Helmet::SIZE = 3;
-const int Helmet::ENCHANTMENTS[SIZE] = {};
+
+// Array of valid Helmet enchantments
+const EnchantmentType Helmet::ENCHANTMENTS[SIZE] = {INTELLIGENCE, WISDOM, ARMOR_CLASS};
 
 Helmet::Helmet(void)
 {
-	Item();
+	Item("Helmet of ");
+	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
+	enchantment.setEnchantmentValue();
 }
 
 Helmet::Helmet(std::string newName)
