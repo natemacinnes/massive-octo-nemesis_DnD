@@ -28,6 +28,8 @@ public:
 	// returns an item at a given location in the ItemContianer
 	Item* at(int) const;
 
+	Item* getItem() const;
+
 	// adds an item to the container
 	void add(Item*);
 	

@@ -38,6 +38,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	d20Characters::TankFighterBuilder* tankbuilder = new d20Characters::TankFighterBuilder();
 	d20Characters::Fighter* tank = tankbuilder->getCharacter();
 	cout << "\nCreated tank fighter with builder pattern: " << endl;
+	tank->addRing(new d20Items::Ring());
+	tank->addRing(new d20Items::Ring());
 	tank->printCharacterStats();
 
 	//make a bully:
