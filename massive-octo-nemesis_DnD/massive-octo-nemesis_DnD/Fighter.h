@@ -8,7 +8,6 @@
 
 #include "character.h"
 #include "Observable.h"
-#include "chracPosition.h"
 
 
 

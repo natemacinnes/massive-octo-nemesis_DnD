@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CC9DF550-7582-46F6-BF83-1E37A79642D5}</ProjectGuid>
+    <RootNamespace>MapGeneration</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+<<<<<<< HEAD
+      <AdditionalIncludeDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\include;C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>C:\Users\Mariana\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\MapGeneration\MapGeneration;C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+>>>>>>> origin/master
+      <AdditionalUsingDirectories>$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\Desktop\COMP345_Individual\ItemContainer\ItemContainer\targetver.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\character.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Fighter.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\GUIclass.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Observable.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\Observer.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\resource.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\stdafx.h" />
+    <ClInclude Include="..\..\massive-octo-nemesis_DnD\targetver.h" />
+    <ClInclude Include="ArenaBuilder.h" />
+    <ClInclude Include="ArenaConstructor.h" />
+    <ClInclude Include="Builder.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapObservable.h" />
+    <ClInclude Include="MapObserver.h" />
+    <ClInclude Include="chracPosition.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="UIMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Armor.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Belt.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Boots.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ConsoleOut.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Echantment.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Helmet.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\IItemContainer.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Item.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemContainer.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ItemObserver.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Ring.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Shield.cpp" />
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Weapon.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\character.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Fighter.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\GUIclass.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observable.cpp" />
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Observer.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\stdafx.cpp" />
+    <ClCompile Include="ArenaBuilder.cpp" />
+    <ClCompile Include="ArenaConstructor.cpp" />
+    <ClCompile Include="Builder.cpp" />
+>>>>>>> origin/master
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapObservable.cpp" />
+    <ClCompile Include="MapObserver.cpp" />
+    <ClCompile Include="chracPosition.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="UIMap.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\massive-octo-nemesis_DnD\Character.rc" />
+    <ResourceCompile Include="MapGeneration.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
