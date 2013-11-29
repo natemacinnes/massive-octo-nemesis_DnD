@@ -65,7 +65,7 @@ int character::getAttackBonus() {
 }
 
 // items:
-void character::addHelmet(d20Items::Helmet* h) {
+void character::addHelmet(d20Items::Item* h) {
 	
 
 	//prompt the user if he wants to wear it or put it his bag:
@@ -84,7 +84,7 @@ void character::addHelmet(d20Items::Helmet* h) {
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addRing(d20Items::Ring* r) {
+void character::addRing(d20Items::Item* r) {
 	if (rings == false) {
 
 		wornContainer->add(r);
@@ -116,7 +116,7 @@ void character::addRing(d20Items::Ring* r) {
 //				<< "CANNOT setRings: invalid number of rings (range is 0-2 inclusive)"
 //				<< endl;
 //}
-void character::addWeapon(d20Items::Weapon* w) {
+void character::addWeapon(d20Items::Item* w) {
 	//prompt the user if he wants to wear it or put it his bag:
 
 	//check if he's already wearing a helmet:
@@ -133,7 +133,7 @@ void character::addWeapon(d20Items::Weapon* w) {
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addShield(d20Items::Shield* s) {
+void character::addShield(d20Items::Item* s) {
 	//prompt the user if he wants to wear it or put it his bag:
 
 	//check if he's already wearing a helmet:
@@ -151,7 +151,7 @@ void character::addShield(d20Items::Shield* s) {
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addArmor(d20Items::Armor* a) {
+void character::addArmor(d20Items::Item* a) {
 	//prompt the user if he wants to wear it or put it his bag:
 
 	//check if he's already wearing a helmet:
@@ -168,7 +168,7 @@ void character::addArmor(d20Items::Armor* a) {
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addBelt(d20Items::Belt* b) {
+void character::addBelt(d20Items::Item* b) {
 	//prompt the user if he wants to wear it or put it his bag:
 
 	//check if he's already wearing a helmet:
@@ -184,7 +184,7 @@ void character::addBelt(d20Items::Belt* b) {
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addBoots(d20Items::Boots* b) {
+void character::addBoots(d20Items::Item* b) {
 	//prompt the user if he wants to wear it or put it his bag:
 
 	//check if he's already wearing a helmet:

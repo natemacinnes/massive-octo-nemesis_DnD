@@ -59,15 +59,15 @@ public:
 	int getDamageBonus();
 
 	//items: simple accessors, don't need to be redefined in subclass fighter
-	void addHelmet(d20Items::Helmet* h);
-	void addRing(d20Items::Ring* r);
+	void addHelmet(d20Items::Item* h);
+	void addRing(d20Items::Item* r);
 	void removeRing();
 	//void setRings( number); // max of 2
-	void addWeapon(d20Items::Weapon* w);
-	void addShield(d20Items::Shield* s);
-	void addArmor(d20Items::Armor* a);
-	void addBelt(d20Items::Belt* b);
-	void addBoots(d20Items::Boots* b);
+	void addWeapon(d20Items::Item* w);
+	void addShield(d20Items::Item* s);
+	void addArmor(d20Items::Item* a);
+	void addBelt(d20Items::Item* b);
+	void addBoots(d20Items::Item* b);
 
 	d20Items::ItemContainer* wornContainer;
 	d20Items::ItemContainer* bagContainer;
