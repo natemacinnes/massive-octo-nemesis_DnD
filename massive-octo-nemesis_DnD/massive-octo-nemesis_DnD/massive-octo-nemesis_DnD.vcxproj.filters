@@ -54,6 +54,9 @@
     <ClInclude Include="character.h">
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>Header Files\characterHs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>Source Files\character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

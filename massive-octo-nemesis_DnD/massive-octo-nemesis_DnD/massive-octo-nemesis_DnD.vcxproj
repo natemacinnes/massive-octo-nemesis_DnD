@@ -82,6 +82,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attack.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="GUIclass.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="..\MapGeneration\MapGeneration\Map.cpp" />
     <ClCompile Include="..\MapGeneration\MapGeneration\MapObservable.cpp" />
     <ClCompile Include="..\MapGeneration\MapGeneration\MapObserver.cpp" />
+    <ClCompile Include="Attack.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="GUIclass.cpp" />
