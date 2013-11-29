@@ -7,6 +7,7 @@
 // ItemContainer class using the IItemContainer interface, equivalent to the "Concrete Subject" or "Concrete Observable" in the observer pattern 
 
 namespace d20Items {
+	
 
 class ItemContainer : 
 	public IItemContainer
@@ -37,7 +38,7 @@ public:
 	void remove(Item*);
 
 	//print stuff on every update of items in the bag:
-	void printBag() const;
+	void printItems() ; //const
 
 };
 } // namespace d20Items 

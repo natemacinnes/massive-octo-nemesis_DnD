@@ -8,6 +8,14 @@
 
 #include "Observable.h"
 #include "ItemContainer.h"
+#include "Helmet.h"
+#include "Shield.h"
+#include "Weapon.h"
+#include "Ring.h"
+#include "Helmet.h"
+#include "Armor.h"
+#include "Belt.h"
+#include "Boots.h"
 
 namespace d20Characters {
 
@@ -51,15 +59,21 @@ public:
 	int getDamageBonus();
 
 	//items: simple accessors, don't need to be redefined in subclass fighter
-	void setHelmet(bool h);
-	void addRing();
+	void addHelmet(d20Items::Helmet* h);
+	void addRing(d20Items::Ring* r);
 	void removeRing();
-	void setRings(int number); // max of 2
-	void setWeapon(bool w);
-	void setShield(bool s);
-	void setArmor(bool a);
-	void setBelt(bool b);
-	void setBoots(bool b);
+	//void setRings( number); // max of 2
+	void addWeapon(d20Items::Weapon* w);
+	void addShield(d20Items::Shield* s);
+	void addArmor(d20Items::Armor* a);
+	void addBelt(d20Items::Belt* b);
+	void addBoots(d20Items::Boots* b);
+
+	d20Items::ItemContainer* wornContainer;
+	d20Items::ItemContainer* bagContainer;
+
+	void wear();
+
 
 protected:
 
@@ -126,7 +140,7 @@ protected:
 	//	1 helmet,
 	bool helmet;// = false;
 	//	2 rings,
-	int rings;// = 0;
+	bool rings;// = 0;
 	//	1 weapon,
 	bool weapon;// = false;
 	//	1 shield,
@@ -137,6 +151,7 @@ protected:
 	bool belt;// = false;
 	//	1 boots
 	bool boots;// = false;
+
 
 };
 

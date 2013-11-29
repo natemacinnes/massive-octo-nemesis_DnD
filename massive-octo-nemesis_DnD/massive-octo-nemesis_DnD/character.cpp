@@ -19,6 +19,8 @@ namespace d20Characters {
 
 character::character(int thelevel) {
 	this->level = thelevel;
+	this->wornContainer = new d20Items::ItemContainer();
+	this->bagContainer = new d20Items::ItemContainer();
 }
 
 character::~character() {
@@ -63,63 +65,138 @@ int character::getAttackBonus() {
 }
 
 // items:
-void character::setHelmet(bool h) {
-	helmet = h;
+void character::addHelmet(d20Items::Helmet* h) {
+	
+
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (helmet == true) {
+		cout << "You are already wearing a helmet. Adding to bag instead." << endl;
+		bagContainer->add(h);
+	} else {
+		wornContainer->add(h);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		helmet = true; //h;
+	} 
+
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::addRing() {
-	if (rings < 2) {
-		rings += 1;
+void character::addRing(d20Items::Ring* r) {
+	if (rings == false) {
+
+		wornContainer->add(r);
+
+		rings = true;
 		// notify GUI or MAP
 		notifyAllObservers();
-	} else
-		cout << endl << "CANNOT addRing(): already 2 rings" << endl;
+	} else {
+		cout << endl << "You already wear a ring. Adding to bag instead." << endl;
+		bagContainer->add(r);
+	}
 }
-void character::removeRing() {
-	if (rings > 0) {
-		rings -= 1;
-		// notify GUI or MAP
-		notifyAllObservers();
-	} else
-		cout << endl << "CANNOT removeRing(): already 0 rings" << endl;
-}
-void character::setRings(int number) { // max of 2
-	if (number >= 0 && number < 2) {
-		rings = number;
-		// notify GUI or MAP
-		notifyAllObservers();
-	} else
-		cout << endl
-				<< "CANNOT setRings: invalid number of rings (range is 0-2 inclusive)"
-				<< endl;
-}
-void character::setWeapon(bool w) {
-	weapon = w;
+
+//void character::removeRing() {
+//	if (rings > 0) {
+//		rings -= 1;
+//		// notify GUI or MAP
+//		notifyAllObservers();
+//	} else
+//		cout << endl << "CANNOT removeRing(): already 0 rings" << endl;
+//}
+//void character::setRings(int number) { // max of 2
+//	if (number >= 0 && number < 2) {
+//		rings = number;
+//		// notify GUI or MAP
+//		notifyAllObservers();
+//	} else
+//		cout << endl
+//				<< "CANNOT setRings: invalid number of rings (range is 0-2 inclusive)"
+//				<< endl;
+//}
+void character::addWeapon(d20Items::Weapon* w) {
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (weapon == true) {
+		cout << "You are already wearing a weapon. Adding to bag instead." << endl;
+		bagContainer->add(w);
+	} else {
+		wornContainer->add(w);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		weapon = true; //h;
+	} 
+
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::setShield(bool s) {
-	shield = s;
-	//dependents:
+void character::addShield(d20Items::Shield* s) {
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (shield == true) {
+		cout << "You are already wearing a shield. Adding to bag instead." << endl;
+		bagContainer->add(s);
+	} else {
+		wornContainer->add(s);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		weapon = true; //h;
+	} 
+
 	setArmorClass();
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::setArmor(bool a) {
-	armor = a;
-	//dependents:
+void character::addArmor(d20Items::Armor* a) {
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (armor == true) {
+		cout << "You are already wearing an armor. Adding to bag instead." << endl;
+		bagContainer->add(a);
+	} else {
+		wornContainer->add(a);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		armor = true; //h;
+	} 
 	setArmorClass();
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::setBelt(bool b) {
-	belt = b;
+void character::addBelt(d20Items::Belt* b) {
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (belt == true) {
+		cout << "You are already wearing an armor. Adding to bag instead." << endl;
+		bagContainer->add(b);
+	} else {
+		wornContainer->add(b);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		belt = true; //h;
+	} 	
 	// notify GUI or MAP
 	notifyAllObservers();
 }
-void character::setBoots(bool b) {
-	boots = b;
+void character::addBoots(d20Items::Boots* b) {
+	//prompt the user if he wants to wear it or put it his bag:
+
+	//check if he's already wearing a helmet:
+	if (boots == true) {
+		cout << "You are already wearing boots. Adding to bag instead." << endl;
+		bagContainer->add(b);
+	} else {
+		wornContainer->add(b);
+
+		// since we can't get items easily after putting them in the bag, keep a boolean:
+		belt = true; //h;
+	} 	
 	// notify GUI or MAP
 	notifyAllObservers();
 }
@@ -175,4 +252,23 @@ void character::printCharacterStats() {
 	cout << "boots: " << boots << endl;
 	cout << "=====================================================" << endl;
 }
+
+void character::wear() {
+	cout <<endl<< "********** Inventory Pane of Items in Bag: **********" ;
+	bagContainer->printItems();
+
+	cout << endl << "Enter the number of the item in your bag that you want to wear: ";
+	int indexPlusOne = 0;
+	cin >> indexPlusOne;
+
+	d20Items::Item* itemPicked = bagContainer->at(indexPlusOne-1);
+	wornContainer->add(itemPicked);
+	bagContainer->remove(itemPicked);
+
+}
+
+//void character unwear() {
+//
+//}
+
 } /* namespace d20Characters */

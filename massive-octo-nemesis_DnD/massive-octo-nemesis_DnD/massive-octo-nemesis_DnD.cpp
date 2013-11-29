@@ -38,32 +38,48 @@ int _tmain(int argc, _TCHAR* argv[])
 	d20Characters::TankFighterBuilder* tankbuilder = new d20Characters::TankFighterBuilder();
 	d20Characters::Fighter* tank = tankbuilder->getCharacter();
 	cout << "\nCreated tank fighter with builder pattern: " << endl;
+	tank->addRing(new d20Items::Ring("Ring"));
+	tank->addRing(new d20Items::Ring("Ring"));
+	tank->addRing(new d20Items::Ring("Ring"));
+	tank->addRing(new d20Items::Ring("Ring"));
+	tank->addRing(new d20Items::Ring("Ring"));
 	tank->printCharacterStats();
+	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
+	tank->wornContainer->printItems();
+	cout << endl<< "********** Inventory Pane of Items in Bag: **********";
+	tank->bagContainer->printItems();
 
-	//make a bully:
-	d20Characters::BullyFighterBuilder* bullybuilder = new d20Characters::BullyFighterBuilder();
-	d20Characters::Fighter* bully = bullybuilder->getCharacter();
-	cout << "\nCreated bully fighter with builder pattern: " << endl;
-	bully->printCharacterStats();
+	tank->wear();
 
-	//make a nimble:
-	d20Characters::NimbleFighterBuilder* nimblebuilder = new d20Characters::NimbleFighterBuilder();
-	d20Characters::Fighter* nimble = nimblebuilder->getCharacter();
-	cout << "\nCreated nimble fighter with builder pattern: " << endl;
-	nimble->printCharacterStats();
+	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
+	tank->wornContainer->printItems();
+	cout << endl<< "********** Inventory Pane of Items in Bag: **********";
+	tank->bagContainer->printItems();
 
-	//now increase the levels and print to verify:
-	tank->increaseLevel();
-	cout << "\nwe increased the level for tank. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
-	tank->printCharacterStats();
+	////make a bully:
+	//d20Characters::BullyFighterBuilder* bullybuilder = new d20Characters::BullyFighterBuilder();
+	//d20Characters::Fighter* bully = bullybuilder->getCharacter();
+	//cout << "\nCreated bully fighter with builder pattern: " << endl;
+	//bully->printCharacterStats();
 
-	bully->increaseLevel();
-	cout << "\nwe increased the level for bully. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
-	bully->printCharacterStats();
+	////make a nimble:
+	//d20Characters::NimbleFighterBuilder* nimblebuilder = new d20Characters::NimbleFighterBuilder();
+	//d20Characters::Fighter* nimble = nimblebuilder->getCharacter();
+	//cout << "\nCreated nimble fighter with builder pattern: " << endl;
+	//nimble->printCharacterStats();
 
-	nimble->increaseLevel();
-	cout << "\nwe increased the level for nimble. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
-	nimble->printCharacterStats();
+	////now increase the levels and print to verify:
+	//tank->increaseLevel();
+	//cout << "\nwe increased the level for tank. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
+	//tank->printCharacterStats();
+
+	//bully->increaseLevel();
+	//cout << "\nwe increased the level for bully. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
+	//bully->printCharacterStats();
+
+	//nimble->increaseLevel();
+	//cout << "\nwe increased the level for nimble. This should affect \n - hitPoints, \n - attackBonus and \n - numAttackPerRound: " << endl;
+	//nimble->printCharacterStats();
 
 
 	//demonstrate save load functionality:
