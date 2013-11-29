@@ -8,6 +8,8 @@
 
 #include "character.h"
 #include "Observable.h"
+#include "chracPosition.h"
+
 
 
 namespace d20Characters {
@@ -66,8 +68,10 @@ public:
 	std::vector<int> characterParams;
 	
 	//pickup items
-	bool pickUp(d20Items::Item*);
-
+	//bool pickUp(d20Items::Item*);
+	bool pickUp(int);
+	std::string identifyItemOnMap(int);
+	void setItemToPla(std::string);
 };
 
 } /* namespace d20Characters */

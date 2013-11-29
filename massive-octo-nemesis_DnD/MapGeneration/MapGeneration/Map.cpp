@@ -215,6 +215,24 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				//Note: if cannot delete c from map make that item worth 0 so if the player tries to 
 				//pick it again it wont increment anything on player bag/inventory
 				d20Items::Item item = setRandomItemToMap();
+				string itemName = item.getName();
+				if(itemName == "Armor"){
+					pathChoice = 13; //13 refers to Armor Item
+				}else if(itemName == "Belt"){
+					pathChoice = 14; //14 refers to Belt Item
+				}else if(itemName == "Boots"){
+					pathChoice = 15; //15 refers to Boots Item
+				}else if(itemName == "Helmet"){
+					pathChoice = 16;//16 refers to Helmet Item 
+				}else if(itemName == "Ring"){
+					pathChoice = 17; //17 refers to Ring Item
+				}else if(itemName == "Shield"){
+					pathChoice = 18; //18 refers to Shield Item
+				}else if(itemName == "Weapon"){
+					pathChoice = 19; //19 refers to Weapon Item
+				}
+
+				//testing DELETE LATER
 				cout << item.toString() << "item" <<endl;
 			}
 			used[i].push_back(pathChoice);
@@ -346,7 +364,8 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 				cout << " " << " ";
 			}else if (used[i][j] == 2) {
 				cout << "|" << " ";
-			}else if (used[i][j] == 3){
+			}else if (used[i][j] == 13|| used[i][j] == 14|| used[i][j] == 15
+				|| used[i][j] == 16 || used[i][j] == 17 || used[i][j] == 18 || used[i][j] == 19){ //item's type 13 to 19
 				//pos->setChracterPosition(i,j);
 				
 				//cout << item.toString() << " item " <<endl;
@@ -721,7 +740,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				downS = true;
 				return true;
-			}else if((used[currentRow+1][currentCol] == 1)||(used[currentRow+ 1][currentCol] == 3)){
+			}else if((used[currentRow+1][currentCol] == 1) || (used[currentRow+ 1][currentCol] == 13) || (used[currentRow+ 1][currentCol] == 14)
+				|| (used[currentRow+ 1][currentCol] == 15) || (used[currentRow+ 1][currentCol] == 16) || (used[currentRow+ 1][currentCol] == 17) || (used[currentRow+ 1][currentCol] == 18) || (used[currentRow+ 1][currentCol] == 19)){
 				downS = true;
 			}
 		}
@@ -737,7 +757,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				upS = true;
 				return true;
-			}else if((used[currentRow-1][currentCol] == 1)||(used[currentRow-1][currentCol] == 3)){
+			}else if((used[currentRow-1][currentCol] == 1)||(used[currentRow-1][currentCol] == 13)||(used[currentRow-1][currentCol] == 14)
+				||(used[currentRow-1][currentCol] == 15)||(used[currentRow-1][currentCol] == 16)||(used[currentRow-1][currentCol] == 17)||(used[currentRow-1][currentCol] == 18)||(used[currentRow-1][currentCol] == 19)){
 				upS = true;
 			}
 		}
@@ -754,7 +775,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				rightS = true;
 				return true;
-			}else if((used[currentRow][currentCol+1] == 1)||(used[currentRow][currentCol+1] == 3)){
+			}else if((used[currentRow][currentCol+1] == 1)||(used[currentRow][currentCol+1] == 13)||(used[currentRow][currentCol+1] == 14)||(used[currentRow][currentCol+1] == 15)
+				||(used[currentRow][currentCol+1] == 16)||(used[currentRow][currentCol+1] == 17)||(used[currentRow][currentCol+1] == 18)||(used[currentRow][currentCol+1] == 19)){
 				rightS = true;
 			}
 		}
@@ -790,7 +812,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				downE = true;
 				return true;
-			}else if((used[endR+1][endC] == 1)||(used[endR+1][endC] == 3)){
+			}else if((used[endR+1][endC] == 1)||(used[endR+1][endC] == 13)||(used[endR+1][endC] == 14)||(used[endR+1][endC] == 15)
+				||(used[endR+1][endC] == 16)||(used[endR+1][endC] == 17)||(used[endR+1][endC] == 18)||(used[endR+1][endC] == 19)){
 				downE = true;
 			}
 		}
@@ -806,7 +829,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				upE = true;
 				return true;
-			}else if((used[endR-1][endC] == 1)||(used[endR- 1][endC] == 3)){
+			}else if((used[endR-1][endC] == 1)||(used[endR- 1][endC] == 13)||(used[endR- 1][endC] == 14)||(used[endR- 1][endC] == 15)
+				||(used[endR- 1][endC] == 16)||(used[endR- 1][endC] == 17)||(used[endR- 1][endC] == 18)||(used[endR- 1][endC] == 19)){
 				upE = true;
 			}
 		}
@@ -823,7 +847,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				rightE = true;
 				return true;
-			}else if((used[endR][endC+1] == 1)||(used[endR][endC+1] == 3)){
+			}else if((used[endR][endC+1] == 1)||(used[endR][endC+1] == 13)||(used[endR][endC+1] == 14)||(used[endR][endC+1] == 15)
+				||(used[endR][endC+1] == 16)||(used[endR][endC+1] == 17)||(used[endR][endC+1] == 18)||(used[endR][endC+1] ==19)){
 				rightE = true;
 			}
 		}
@@ -839,7 +864,8 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 				cout << "MAP IS VALID!!" << endl;
 				leftE = true;
 				return true;
-			}else if((used[endR][endC-1] == 1) || (used[endR][endC-1] == 3)) {
+			}else if((used[endR][endC-1] == 1) || (used[endR][endC-1] == 13) || (used[endR][endC-1] == 14) || (used[endR][endC-1] == 15) || (used[endR][endC-1] == 16) 
+				|| (used[endR][endC-1] == 17) || (used[endR][endC-1] == 18) || (used[endR][endC-1] == 19)) {
 				leftE = true;
 			}
 		}
@@ -1106,12 +1132,15 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
 
-	if(used[currentRow][currentCol] == 3)
+	if(used[currentRow][currentCol] == 13 || used[currentRow][currentCol] == 14 || used[currentRow][currentCol] == 15
+		|| used[currentRow][currentCol] == 16 || used[currentRow][currentCol] == 17 || used[currentRow][currentCol] == 18 || used[currentRow][currentCol] == 19)
 	{
 
-		
+		//test Line
+		cout << " this is a " << used[currentRow][currentCol] << endl;
 		tempItemLoc->setChracterPosition(currentRow, currentCol);
-		tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+		//tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+		tempBool = bob->pickUp(used[currentRow][currentCol]);
 		if(tempBool==true) 
 		{
 			previousVal=1;
