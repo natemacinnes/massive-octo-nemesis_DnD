@@ -210,10 +210,6 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 			//const d20Items::Item *tempItem = 
 			//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
 				//selects an item to add to the map 
-				//TODO: save this itm into itemLocation so we can
-				//access/identify which item the player encoutered when moving into the map
-				//Note: if cannot delete c from map make that item worth 0 so if the player tries to 
-				//pick it again it wont increment anything on player bag/inventory
 				d20Items::Item item = setRandomItemToMap();
 				string itemName = item.getName();
 				if(itemName == "Armor"){
@@ -317,6 +313,9 @@ int Map::validateColInput(int col){
 //	cout << "+";
 //	cout << endl;
 //}
+
+//random function to pick up set an item 
+//when user enters 3 on fillUpMap
 d20Items::Item Map::setRandomItemToMap()
 {
 	int randVal = rand() % 7 + 1;
@@ -340,13 +339,14 @@ d20Items::Item Map::setRandomItemToMap()
 	}
 
 }
+
 void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 
 
 	int i = 0,j = 0;
 	cout << "Displaying Map" << endl;	
 	cout << "****************************************************************" << endl;
-
+	cout << endl;
 
 	cout << "+ ";
 	while (i < numCols1) {
@@ -367,23 +367,23 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 			}else if (used[i][j] == 13|| used[i][j] == 14|| used[i][j] == 15
 				|| used[i][j] == 16 || used[i][j] == 17 || used[i][j] == 18 || used[i][j] == 19){ //item's type 13 to 19
 				//pos->setChracterPosition(i,j);
-				
 				//cout << item.toString() << " item " <<endl;
 				//itemLocation.find(pos)->second;
-				cout << "C" << " "; // C for chest
 				//const d20Items::Item *tempItem = 
 				//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
+
+					cout << "C" << " ";  // C refers for chest (could be any item)
 				
 			}else if(used[i][j] == 0) {
-				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
+				cout << "S" << " "; // starting point; 
 			}else if(used[i][j] == 4){
-				cout << "E" << " "; // ending point; '+' sign, where it limits the map
+				cout << "E" << " "; // ending point; 
 			}else if(used[i][j] == 'X'){
-				cout << "O" << " "; //  empty map; '+' sign, where it limits the map
+				cout << "O" << " "; //  empty map; 
 			}else if(used[i][j] == 10){
-				cout << "M" << " "; //  monster ; '+' sign, where it limits the map
+				cout << "M" << " "; //  monster ;
 			}else{
-				cout << "P" << " "; //start point when player leaves
+				cout << "P" << " "; // refers to player
 			}
 		}
 		cout << "+";
@@ -502,6 +502,7 @@ bool Map::setEnd(int endRow, int  endCol){ //vector < vector <int> >& myMap,
 
 }
 
+//sets monster in the map.
 bool Map::setMonsterPos()
 {
 
@@ -549,7 +550,6 @@ bool Map::setMonsterPos()
 		return false;
 	}else{
 		setMonsterOnVector(r,c);
-		
 		return true;
 	}
 }
@@ -1131,6 +1131,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	//location of item
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
+	//int static previousVal =  previousV;
 
 	if(used[currentRow][currentCol] == 13 || used[currentRow][currentCol] == 14 || used[currentRow][currentCol] == 15
 		|| used[currentRow][currentCol] == 16 || used[currentRow][currentCol] == 17 || used[currentRow][currentCol] == 18 || used[currentRow][currentCol] == 19)
@@ -1139,7 +1140,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		//test Line
 		cout << " this is a " << used[currentRow][currentCol] << endl;
 		tempItemLoc->setChracterPosition(currentRow, currentCol);
-		//tempBool = bob->pickUp(itemLocation[tempItemLoc]);
+		//tempBool = bob->pickUp(itemLocation[tempItemLoc]); //before was like this
 		tempBool = bob->pickUp(used[currentRow][currentCol]);
 		if(tempBool==true) 
 		{
@@ -1150,7 +1151,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		}
 		else
 		{
-
+			//previousVal = used[currentRow][currentCol];
 			used[previousRow][previousCol] = previousVal;
 			used[currentRow][currentCol] = 5;
 		

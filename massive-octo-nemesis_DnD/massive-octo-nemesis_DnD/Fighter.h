@@ -68,7 +68,7 @@ public:
 	std::vector<int> characterParams;
 	
 	//pickup items
-	//bool pickUp(d20Items::Item*);
+	//bool pickUp(d20Items::Item*); //before was like this
 	bool pickUp(int);
 	std::string identifyItemOnMap(int);
 	void setItemToPla(std::string);

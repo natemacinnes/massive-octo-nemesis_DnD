@@ -528,8 +528,8 @@ namespace d20Characters {
 		}
 	}
 
-	//bool Fighter::pickUp(d20Items::Item* item) //hyo
-	bool Fighter::pickUp(int itVl) //hyo
+	//bool Fighter::pickUp(d20Items::Item* item) //before was like this
+	bool Fighter::pickUp(int itVl) 
 	{
 		char input = ' ';
 		cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
