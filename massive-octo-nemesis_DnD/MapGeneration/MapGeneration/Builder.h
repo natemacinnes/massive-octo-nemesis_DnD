@@ -13,6 +13,7 @@ public:
 	virtual void setMapLevel () = 0;
 	virtual void setChestOnMap() = 0;
 	virtual void setChestLevel() = 0;
+	virtual void setMonsterLevel() = 0;
 	 void createMap(Map*);
 	Map* getResultMapBuilder();
 

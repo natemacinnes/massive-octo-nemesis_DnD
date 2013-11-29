@@ -18,4 +18,5 @@ void ArenaConstructor::construct()
 	_builder->setChestLevel();
 	_builder->setMapLevel();
 	_builder->setMonsterOnMap();
+	_builder->setPlayerOnMap();
 }

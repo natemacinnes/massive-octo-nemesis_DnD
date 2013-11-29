@@ -13,6 +13,7 @@ public:
 	virtual void setChestOnMap();
 	virtual void setChestLevel();
 	//virtual void createMap(Map*);
+	virtual void setMonsterLevel();
 	virtual void arenaDisplay();
 	
 };

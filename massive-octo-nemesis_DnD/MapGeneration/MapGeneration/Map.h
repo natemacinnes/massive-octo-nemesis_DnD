@@ -92,12 +92,15 @@ public:
 	bool setBegin( int, int); //vector < vector <int> >&,
 	bool  setEnd( int, int);//vector < vector <int> >&,
 	void setMapLvl();
-	void setMonsterLevel();
+	void setMonsterLvl(int);
 	bool setMonsterPos();
-	void setMonster(int,int);
+	void setMonsterOnVector(int,int);
+	d20Items::Item setRandomItemToMap();
 	//};
-	void setPlayerPos(int, int);
+	void setPlayerPos();
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
+	//change to monster
+	d20Characters::Fighter *monster;
 	void createOrReloadACharacterBob();
 
 	//for the Observer "interface":
@@ -131,6 +134,7 @@ private:
 protected:
 	// Current character position
 	chracPosition currentPosition;
+	chracPosition monsterPosition;
 
 	//d20Characters::Fighter* bob = new d20Characters::Fighter(2);
 
@@ -140,8 +144,14 @@ protected:
 	typedef map<d20Characters::Fighter*, chracPosition>  CharacterLocation;
 	CharacterLocation characterLocation;
 
+	// hash map of all monster's positions on map
+	typedef map<chracPosition, d20Characters::Fighter*>  MonsterLocation;
+	MonsterLocation monsterLocation;
+
+
 	// hash map of all item positions on the map, key = item, value = position
 	typedef std::map<chracPosition*, d20Items::Item*> ItemLocation;
+	//typedef std::map<chracPosition*, d20Items::Item> ItemLocation;
 	ItemLocation itemLocation;
 	//map<const d20Items::Item*, chracPosition> itemLocation;
 

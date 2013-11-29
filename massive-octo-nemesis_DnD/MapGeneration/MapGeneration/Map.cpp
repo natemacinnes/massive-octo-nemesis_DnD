@@ -140,9 +140,9 @@ chracPosition Map::getPosition()
 }
 
 //sets player on map on its initial position
-void Map::setPlayerPos(int r, int c)
+void Map::setPlayerPos()
 {
-	used[r][c] = 5; 
+	used[rowStart][colStart] = 5; 
 }
 
 void Map::setMapLvl()
@@ -179,6 +179,7 @@ vector<vector<int>> Map::getMapVector(){
 vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, int col){
 
 	vector<int> columns;
+	
 	//chracPosition* pos = new chracPosition();
 
 	cout << "Let's build up your map!" <<endl;
@@ -203,12 +204,19 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 
 			}
-			/*
+			
 			if(pathChoice==3){
-			pos->setChracterPosition(i,j);
+			//pos->setChracterPosition(i,j);
 			//const d20Items::Item *tempItem = 
-			itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
-			}*/
+			//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
+				//selects an item to add to the map 
+				//TODO: save this itm into itemLocation so we can
+				//access/identify which item the player encoutered when moving into the map
+				//Note: if cannot delete c from map make that item worth 0 so if the player tries to 
+				//pick it again it wont increment anything on player bag/inventory
+				d20Items::Item item = setRandomItemToMap();
+				cout << item.toString() << "item" <<endl;
+			}
 			used[i].push_back(pathChoice);
 		}
 	}
@@ -291,7 +299,29 @@ int Map::validateColInput(int col){
 //	cout << "+";
 //	cout << endl;
 //}
+d20Items::Item Map::setRandomItemToMap()
+{
+	int randVal = rand() % 7 + 1;
 
+	switch(randVal)
+	{
+	case 1:
+		return d20Items::Item("Armor");
+	case 2:
+		return d20Items::Item("Belt");
+	case 3:
+		return d20Items::Item("Boots");
+	case 4:
+		return d20Items::Item("Helmet");
+	case 5:
+		return d20Items::Item("Ring");
+	case 6:
+		return d20Items::Item("Shield");
+	case 7:
+		return d20Items::Item("Weapon");
+	}
+
+}
 void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 
 
@@ -308,7 +338,7 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 	cout << "+";
 	cout << endl;
 	//delimitation of the map
-	//chracPosition* pos = new chracPosition();
+	chracPosition* pos = new chracPosition();
 	for (int i = 0 ; i < numRows0; i++) {
 		cout << "+ ";
 		for (int j = 0 ; j <  numCols1; j++) {
@@ -318,10 +348,13 @@ void Map::mapDesign () { //vector < vector <int> > myMap, int row, int col;
 				cout << "|" << " ";
 			}else if (used[i][j] == 3){
 				//pos->setChracterPosition(i,j);
+				
+				//cout << item.toString() << " item " <<endl;
 				//itemLocation.find(pos)->second;
-				cout << "B" << " ";
+				cout << "C" << " "; // C for chest
 				//const d20Items::Item *tempItem = 
 				//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
+				
 			}else if(used[i][j] == 0) {
 				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
 			}else if(used[i][j] == 4){
@@ -457,7 +490,7 @@ bool Map::setMonsterPos()
 
 
 	cout << endl;
-	cout << "Where do you want to place your Monsteron the map?\n";
+	cout << "Where do you want to place your Monster the map?\n";
 	cout << "Please, enter its first coordinate.\n";
 	cout << "Remember: your first parameter has to be between: 0 and " << (numRows0-1) << " :"<< endl;
 
@@ -473,7 +506,7 @@ bool Map::setMonsterPos()
 
 	cout << endl;
 	cout << "Please, enter its second coordinate.\n";
-	cout << "And your seoncd parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
+	cout << "And your second parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
 
 	while (!(cin >> c) || (c < 0 || c > (numCols1-1)) || isalpha(c)) {
 
@@ -486,35 +519,49 @@ bool Map::setMonsterPos()
 	}
 
 	bool checkStartPoint = Map::checkingEndAssigned(r,c);//used,
-	//bool checkEndPonit = Map::checkingPositionAssigned(r,c);
-	if (checkStartPoint == false && used[r][c] != 4 ) {
-		//cout << "Your START position is: [" <<r <<"][" << c <<"]" << endl;
-		 //  will refer to the Monster point
-		setMonster(r,c);
-		//rowStart = Map::getRow(r);
-		//colStart = Map::getCol(c);
+	
 
-
-		return true;
-	}else{
+	
+	if((checkStartPoint == false) || (used[r][c] == 4) ){
+		if(used[r][c] == 4){
+			cout <<"Sorry this is your END point of your map. Try again!" << endl;
+			return false;
+		}
 		return false;
+	}else{
+		setMonsterOnVector(r,c);
+		
+		return true;
 	}
-
-
-
 }
 
-void Map::setMonster(int row, int col)
+void Map::setMonsterOnVector(int row, int col)
 {
 	used[row][col] = 10;
-	cout << used[row][col] << endl;
+	//position object holding row and collumn value
+	//monsterPosition.setChracterPosition(row,col);
+	//chracPosition* pos = new chracPosition();
+	//int r  = monsterPosition.getRow();
+	//int c = monsterPosition.getCol();
+	//pos(r,c);
+	////saving monster position on map
+	////needed to implement for multiple monsters
+	//monsterLocation.insert(std::pair<chracPosition,d20Characters::Fighter*>(monsterPosition, monster));
+	//cout << monsterLocation[monsterPosition] << "monster position saved on map " << endl;
 }
+
+void Map::setMonsterLvl(int lev)
+{
+	monster = new d20Characters::Fighter(0);
+	monster->setLevel(lev);
+}
+
 bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 
 
 
 	if (used[row][col] == 0) {
 		cout << endl;
-		cout << "There is the STARTING point of your map. Sorry! Try again!\n" << endl;
+		cout << "This is the STARTING point of your map. Sorry! Try again!\n" << endl;
 		return false;
 	}else{
 		return true;
@@ -1085,7 +1132,8 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 			return true;
 	}
 	else if(used[currentRow][currentCol] == 4)
-	{				
+	{
+		if(monster->getLevel() == 0 ){
 		used[currentRow][currentCol] = 5; //set player new position
 		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
 		notify();
@@ -1094,7 +1142,18 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		system("pause");
 		exit(0);
 		//return false;
+		}else{
+			used[currentRow][currentCol] = 5; //set player new position
+			used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+			cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+			return false;
+		}
 						
+	}else if(used[currentRow][currentCol] == 10) {
+		// call Attack method!!!!
+		cout << "Attack method call!" << endl;
+		used[currentRow][currentCol] = 5; //set player new position
+		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
 	}
 	else //if(vectorMap[row][col] == 1) //empty cell
 	{
@@ -1195,7 +1254,6 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 							
 							currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 							characterLocation.at(bob) = currentPosition; //update player position
-							currentPosition.print();
 							notify();
 						}
 				  }
@@ -1249,7 +1307,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						{
 							currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
 							characterLocation.at(bob) = currentPosition; //update player position
-							currentPosition.print();
+	
 							notify();
 						}
 					}
@@ -2063,12 +2121,12 @@ Map* Map::createMapByPromptingUser() {
 	map->bob->printCharacterStats();
 
 	//adds Monster to map
-	int i = 1;
-	while(i <= map->bob->getLevel())
-	{
-		map->setMonsterPos();
-		i++;
-	}
+	//int i = 1;
+	//while(i <= map->bob->getLevel())
+	//{
+		//map->setMonsterPos();
+		//i++;
+//	}
 
 	//should add to the created map: monster, map level and cestLevel
 	ArenaConstructor arenaConstructor;
