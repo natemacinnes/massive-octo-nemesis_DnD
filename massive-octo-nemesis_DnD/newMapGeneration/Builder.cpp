@@ -3,15 +3,16 @@
 #include "Map.h";
 
 
-void Builder::createMap(Map* mapBuilder)
+/*void Builder::createMap(Map * mapBuilder)
 {
 	//fill up map
-	//vector <vector <int > >& mapVect = _result->fillUpMap();
-	//int row = _result->numRows0;
-	//int col = _result->numCols1;
+	vector <vector <int > >& mapVect = _result->fillUpMap();
+	int row = _result->numRows0;
+	int col = _result->numCols1;
 	//_result= new Map(mapVect, row, col);
 	_result = mapBuilder;
-}
+
+}*/
 
 Map* Builder::getResultMapBuilder()
 {

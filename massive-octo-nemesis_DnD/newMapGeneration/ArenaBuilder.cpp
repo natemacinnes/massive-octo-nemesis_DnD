@@ -1,15 +1,21 @@
 #include "stdafx.h"
 #include  "ArenaBuilder.h"
 
-//void ArenaBuilder::createMap(Map* mapBuilder)
-//{
-	//Map * tempMap = getResultMapBuilder();
-	//tempMap= mapBuilder;
-//}
+
+void ArenaBuilder::createMap(Map * mapBuilder)
+{
+	//fill up map
+	//vector <vector <int > >& mapVect = _result->fillUpMap();
+	//int row = _result->numRows0;
+	//int col = _result->numCols1;
+	//_result= new Map(mapVect, row, col);
+	Map * tempMap = getResultMapBuilder();
+	tempMap= mapBuilder;
+
+}
 void ArenaBuilder::setStart()
 {
 	//done on fillUpMap method
-	
 }
 
 void ArenaBuilder::setEnd()
@@ -18,24 +24,22 @@ void ArenaBuilder::setEnd()
 }
 
 void ArenaBuilder::setPlayerOnMap()
-{
-	Map *map = getResultMapBuilder();
+{   //done on the move
+	/*Map *map = getResultMapBuilder();
 	chracPosition pos  = map->getPosition();
-	map->setPlayerPos(pos.getRow(),pos.getCol());
-
+	map->setPlayerPos(pos.getRow(),pos.getCol());*/
 }
 
 void ArenaBuilder::setMonsterOnMap()
-{
-	//will be done on fillupmap
+{   //done on fillUpMap
 	//sets monster on the map
 	//Map *map = getResultMapBuilder();
-//	 map->setMonsterPos();
+	//map->setMonsterPos();
 }
 void ArenaBuilder::setMapLevel()
 {
-	Map *m = getResultMapBuilder();
-	m->setMapLvl();
+	Map *map = getResultMapBuilder();
+	map->setMapLvl();
 }
 
 void ArenaBuilder::setChestOnMap()

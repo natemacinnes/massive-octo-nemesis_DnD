@@ -43,7 +43,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 	this->numRows0 = r;
 	this->numCols1 = c;
 	this->used = v;
-	this->mapLevel = 0;
+	this->tempUsed;
 	this->myObs;
 
 	//this validation is just done 
@@ -61,7 +61,7 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	cin.clear();
+	//cin.clear();
 	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 	string doLoadChar;
 	while(cin >> doLoadChar && !isgoodanswer){
@@ -145,6 +145,38 @@ void Map::setPlayerPos(int r, int c)
 	used[r][c] = 5; 
 }
 
+void Map::setMonsterPos()
+{
+	//surround exit by a monster end placed on the top left
+	if(rowEnd==0){
+		used[rowEnd+1][colEnd] =10; // 10 is for the monster
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]=10;
+		}
+	}else if(rowEnd==numCols1-1){
+		used[rowEnd-1][colEnd];
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]= 10;
+		}
+	}//end else if
+	else{
+		//place monster above and below end point
+		used[rowEnd-1][colEnd]=10;
+		used[rowEnd+1][colEnd]=10;
+		//checks if can place it on the right and on the left of end point
+		if(colEnd<numCols1){
+			used[rowEnd][colEnd+1]=10;
+		}if(colEnd>0){
+			used[rowEnd][colEnd-1]=10;
+		}
+	}
+	
+}
+
 void Map::setMapLvl()
 {
 	//gets character level and set it to be the map level as well
@@ -153,8 +185,6 @@ void Map::setMapLvl()
 	mapLevel = playerLevel;
 
 }
-
-
 int Map::getSize() const{
 
 	return myObs.size();
@@ -223,7 +253,6 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 		isSetEnd = Map::setEnd( numRows0, numCols1);
 	}
 
-	
 
 	//displayMap(m, row, col);
 	//mapDesign(m,row,col);
@@ -450,65 +479,6 @@ bool Map::setEnd(int endRow, int  endCol){ //vector < vector <int> >& myMap,
 
 }
 
-bool Map::setMonsterPos()
-{
-
-	int r, c;
-
-
-	cout << endl;
-	cout << "Where do you want to place your Monsteron the map?\n";
-	cout << "Please, enter its first coordinate.\n";
-	cout << "Remember: your first parameter has to be between: 0 and " << (numRows0-1) << " :"<< endl;
-
-	while (!(cin >> r) || (r < 0 || r > (numRows0-1)) || isalnum(r)) {
-
-		cout << endl;
-		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (numRows0-1)<< " :"<< endl;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
-
-	}
-
-	cout << endl;
-	cout << "Please, enter its second coordinate.\n";
-	cout << "And your seoncd parameter has to be between: 0 and " << (numCols1-1)<< " :" << endl;
-
-	while (!(cin >> c) || (c < 0 || c > (numCols1-1)) || isalpha(c)) {
-
-		cout << endl;
-		cout << "Not a valid input!\n";
-		cout << "Enter a number between 0 and " << (numCols1-1) <<" :" << endl;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n' ); //ignores whatever apeared after the previous input
-
-	}
-
-	bool checkStartPoint = Map::checkingEndAssigned(r,c);//used,
-	//bool checkEndPonit = Map::checkingPositionAssigned(r,c);
-	if (checkStartPoint == false && used[r][c] != 4 ) {
-		//cout << "Your START position is: [" <<r <<"][" << c <<"]" << endl;
-		 //  will refer to the Monster point
-		setMonster(r,c);
-		//rowStart = Map::getRow(r);
-		//colStart = Map::getCol(c);
-
-
-		return true;
-	}else{
-		return false;
-	}
-
-
-
-}
-
-void Map::setMonster(int row, int col)
-{
-	used[row][col] = 10;
-	cout << used[row][col] << endl;
-}
 bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 
 
 
@@ -1138,8 +1108,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	characterLocation.insert(CharacterLocation::value_type(bob, currentPosition));
 
 	
-	vector<vector<int>> actualMap = Map::getMapVector();
-	actualMap[rowStart][colStart] = 5;
+	vector<vector<int>> actualMap =Map::getMapVector();
+	actualMap[rowStart][colStart] =5;
 	notify();
 	
 
@@ -2057,30 +2027,19 @@ Map* Map::createMapByPromptingUser() {
 		cout << "Change not valid. Do it again!" << endl;
 		isChanged = map->setCell(numRows0_, numCols1_);
 	}
-	
-	//create a character bob:
-	map->createOrReloadACharacterBob();
-	map->bob->printCharacterStats();
-
-	//adds Monster to map
-	int i = 1;
-	while(i <= map->bob->getLevel())
-	{
-		map->setMonsterPos();
-		i++;
-	}
 
 	//should add to the created map: monster, map level and cestLevel
 	ArenaConstructor arenaConstructor;
 	ArenaBuilder* arenaBuilder = new ArenaBuilder;
-	arenaConstructor.setBuilder(arenaBuilder);
 	arenaBuilder->createMap(map);
-	
+	arenaConstructor.setBuilder(arenaBuilder);
 	arenaConstructor.construct();
 	// ... end create map by user interaction.
 
-	
-
+	//create a character bob:
+	//causing code to break
+//	map->createOrReloadACharacterBob();
+//	map->bob->printCharacterStats();
 
 	cout<<"Let's play !! " << endl;
 	cout<<"Controls are: "<<endl;
@@ -2093,4 +2052,182 @@ Map* Map::createMapByPromptingUser() {
 	return map;
 
 
+}
+
+
+//checks the options the character has to move based on his position
+/*
+* i think the highlight should be done inside this method.
+*/
+void Map::characterOptionToMove()
+{
+	int below, above, right, left;
+
+	//if player is on row=0
+	if(currentPosition.getRow() == 0){
+		
+		//saves the value of the cell below the charcter position
+		below = used[currentPosition.getRow()+1][currentPosition.getCol()];
+		
+
+		if(below != 2)
+		{
+			//highlight this cells
+			 tempUsed[currentPosition.getRow()+1][currentPosition.getCol()] = 50; //50 will be the color on the map
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+		
+
+	}else if(currentPosition.getRow() == numCols1-1){ //if player is on last row
+		above = used[currentPosition.getRow()-1][currentPosition.getCol()];
+
+		if(above != 2){
+			tempUsed[currentPosition.getRow()-1][currentPosition.getCol()] = 50;
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+
+	}//end else if
+	else{
+		//access the value of cell above and below character position
+		above = used[currentPosition.getRow()-1][currentPosition.getCol()];
+		below = used[currentPosition.getRow()+1][currentPosition.getCol()];
+		
+		if(below != 2)
+		{
+			//highlight this cells
+			 tempUsed[currentPosition.getRow()+1][currentPosition.getCol()] = 50; //50 will be the color on the map
+		}
+
+		if(above != 2)
+		{
+			tempUsed[currentPosition.getRow()-1][currentPosition.getCol()] = 50;
+		}
+
+		//color left and/or right if aplicable.
+		colorRight();
+		colorLeft();
+
+	}//end else statement
+
+}
+//checks if movement to the right is allowed based on the map boundry and charcter position
+bool Map::checkRight()
+{
+	if(currentPosition.getCol() < numCols1){
+		return true;
+	}
+	return false;
+
+}
+
+//checks if movement to the right is allowed based on the map boundry and charcter position	
+bool Map::checkLeft()
+{
+	if(currentPosition.getCol() > 0){
+		return true;
+	}
+
+	return false;
+}
+
+//access the value on the right of the charcter position
+int Map::returnRight()
+{
+	int right = -1;
+	if(checkRight() == true){
+		 right = used[currentPosition.getRow()][currentPosition.getCol()+1];
+	}
+
+	return right;
+}
+
+//access the value on the left of the character position
+int Map::returnLeft()
+{
+	int left  = -1;
+	if(checkLeft() == true){
+			left = used[currentPosition.getRow()][currentPosition.getCol()-1];
+	}
+
+	return left;
+}
+
+//colors the left cell of the charcterposition if it is not a wall
+void Map::colorRight()
+{
+	if((returnRight() != 2) || (returnRight() != -1)){
+		 tempUsed[currentPosition.getRow()][currentPosition.getCol()+1] = 50; 
+	}
+}
+
+
+//colors the left cell of the charcterposition if it is not a wall
+void Map::colorLeft()
+{
+	if(returnLeft() != 2 || (returnLeft() != -1)){
+		tempUsed[currentPosition.getRow()][currentPosition.getCol()-1] = 50;
+	}
+}
+
+//prints the colored map
+/*
+* Not sure if this is the right approach cause maybe the hightlight should be done on the UI
+* not sure about it.
+*/
+void Map::displayTempMap()
+{
+	int i = 0,j = 0;
+	cout << "Displaying Map" << endl;	
+	cout << "****************************************************************" << endl;
+
+
+	cout << "+ ";
+	while (i < numCols1) {
+		cout << "+ ";
+		i++;
+	}
+	cout << "+";
+	cout << endl;
+	//delimitation of the map
+
+	for (int i = 0 ; i < numRows0; i++) {
+		cout << "+ ";
+		for (int j = 0 ; j <  numCols1; j++) {
+			if (tempUsed[i][j] == 1) {
+				cout << " " << " ";
+			}else if (tempUsed[i][j] == 2) {
+				cout << "|" << " ";
+			}else if (tempUsed[i][j] == 3){
+				cout << "B" << " ";
+			}else if(tempUsed[i][j] == 0) {
+				cout << "S" << " "; // starting point;  '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 4){
+				cout << "E" << " "; // ending point; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 'X'){
+				cout << "O" << " "; //  empty map; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 10){
+				cout << "M" << " "; //  monster ; '+' sign, where it limits the map
+			}else if(tempUsed[i][j] == 50){
+				cout << "%" << " "; //  color ; '+' sign, where it limits the map
+			}else{
+				cout << "P" << " "; //start point when player leaves
+			}
+		}
+		cout << "+";
+		cout << endl;
+	}
+
+	cout << "+ ";
+	while (j < numCols1) {
+		cout << "+ ";
+		j++;
+	}
+	cout << "+";
+	cout << endl;
 }

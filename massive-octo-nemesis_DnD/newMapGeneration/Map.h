@@ -66,6 +66,7 @@ public:
 	vector<vector<int>> getMapVector();
 	map<d20Characters::Fighter*, chracPosition> getLocation();
 	chracPosition getPosition();
+	void characterOptionToMove();
 
 	d20Items::Item* addItem2Map() const;
 
@@ -92,11 +93,16 @@ public:
 	bool setBegin( int, int); //vector < vector <int> >&,
 	bool  setEnd( int, int);//vector < vector <int> >&,
 	void setMapLvl();
-	void setMonsterLevel();
-	bool setMonsterPos();
-	void setMonster(int,int);
 	//};
 	void setPlayerPos(int, int);
+	void setMonsterPos();
+	bool checkRight();
+	bool checkLeft();
+	int returnRight();
+	int returnLeft();
+	void colorRight();
+	void colorLeft();
+	void displayTempMap();
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	void createOrReloadACharacterBob();
 
@@ -119,6 +125,7 @@ public:
 	int numRows0; // TODO change to non static. and make constructors instead that initialize them.
 	int numCols1;
 	vector< vector <int> > used;
+	vector< vector <int> > tempUsed; //holds a copy of the used vector
 	static const int myint = 2;
 	int mapLevel;
 
