@@ -633,6 +633,7 @@ namespace d20Characters {
 	{
 		char input = ' ';
 		cout << "Pick up " << /*item->toString() << */ " 'Y' or 'N' ?" << endl;
+		cout << "YOU ONLY HAVE ONE CHANCE TO PICK IT UP!!!" << endl;
 		do{ 
 			cin >> input;
 			cout <<endl;
