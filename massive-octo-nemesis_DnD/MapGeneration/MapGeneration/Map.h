@@ -96,7 +96,7 @@ public:
 	void setMonsterLvl(int);
 	bool setMonsterPos();
 	void setMonsterOnVector(int,int);
-	d20Items::Item setRandomItemToMap();
+	d20Items::Item* setRandomItemToMap();
 	bool areAllMonstersDead();
 	Map* mapGameSequence(int);
 	//};

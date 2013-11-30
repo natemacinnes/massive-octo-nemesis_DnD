@@ -844,26 +844,26 @@ namespace d20Characters {
 
 	void Fighter::setItemToPla(std::string itemName)
 	{
-		if(itemName == "Armor"){
-			d20Items::Item* item  = new d20Items::Armor("Armor");
+		if(itemName == "Armor of "){
+			d20Items::Item* item  = new d20Items::Armor();
 			this->addArmor(item);
-		}else if(itemName == "Belts"){
-			d20Items::Item* item  = new d20Items::Belt("Belts");
+		}else if(itemName == "Belts of "){
+			d20Items::Item* item  = new d20Items::Belt();
 			this->addBelt(item);
-		}else if(itemName == "Boots"){
-			d20Items::Item* item  = new d20Items::Boots("Boots");
+		}else if(itemName == "Boots of "){
+			d20Items::Item* item  = new d20Items::Boots();
 			this->addBoots(item);
-		}else if(itemName == "Helmet" ){
-			d20Items::Item* item  = new d20Items::Helmet("Helmet");
+		}else if(itemName == "Helmet of " ){
+			d20Items::Item* item  = new d20Items::Helmet();
 			this->addHelmet(item);
-		}else if(itemName == "Ring"){
-			d20Items::Item* item  = new d20Items::Ring("Ring");
+		}else if(itemName == "Ring of "){
+			d20Items::Item* item  = new d20Items::Ring();
 			this->addRing(item);
-		}else if(itemName == "Shield"){
-			d20Items::Item* item  = new d20Items::Shield("Shield");
+		}else if(itemName == "Shield of "){
+			d20Items::Item* item  = new d20Items::Shield();
 			this->addShield(item);
 		}else{ //itVal == 19
-			d20Items::Item* item  = new d20Items::Weapon("Weapon");
+			d20Items::Item* item  = new d20Items::Weapon();
 			this->addWeapon(item);
 		}
 	}

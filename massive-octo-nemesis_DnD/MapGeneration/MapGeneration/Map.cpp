@@ -235,8 +235,8 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 			//const d20Items::Item *tempItem = 
 			//itemLocation.insert(ItemLocation::value_type(pos, addItem2Map()));
 				//selects an item to add to the map 
-				d20Items::Item item = setRandomItemToMap();
-				string itemName = item.getName();
+				d20Items::Item* item = setRandomItemToMap();
+				string itemName = item->getName();
 				if(itemName == "Armor of "){
 					pathChoice = 13; //13 refers to Armor Item
 				}else if(itemName == "Belt of "){
@@ -255,7 +255,7 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 
 				//testing DELETE LATER
 				cout << endl;
-				cout << item.toString() << " item" <<endl;
+				cout << item->toString() << " item" <<endl;
 			}
 			used[i].push_back(pathChoice);
 		}
@@ -342,26 +342,26 @@ int Map::validateColInput(int col){
 
 //random function to pick up set an item 
 //when user enters 3 on fillUpMap
-d20Items::Item Map::setRandomItemToMap()
+d20Items::Item* Map::setRandomItemToMap()
 {
 	int randVal = rand() % 7 + 1;
 
 	switch(randVal)
 	{
 	case 1:
-		return d20Items::Item("Armor of ");
+		return new d20Items::Item("Armor of ");
 	case 2:
-		return d20Items::Item("Belt of ");
+		return new d20Items::Item("Belt of ");
 	case 3:
-		return d20Items::Item("Boots of ");
+		return new d20Items::Item("Boots of ");
 	case 4:
-		return d20Items::Item("Helmet of ");
+		return new d20Items::Item("Helmet of ");
 	case 5:
-		return d20Items::Item("Ring of ");
+		return new d20Items::Item("Ring of ");
 	case 6:
-		return d20Items::Item("Shield of ");
+		return new  d20Items::Item("Shield of ");
 	case 7:
-		return d20Items::Item("Weapon of ");
+		return new d20Items::Item("Weapon of ");
 	}
 
 }
