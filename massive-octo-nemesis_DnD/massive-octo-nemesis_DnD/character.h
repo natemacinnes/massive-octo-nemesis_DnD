@@ -94,6 +94,7 @@ protected:
 	//assignment3:
 	virtual void setNumAttacksPerRound(int level) = 0;
 	int NumAttacksPerRound;
+	virtual int getNumAttacksPerRound() = 0;
 
 	//damage bonus
 	virtual void setDamageBonus(int d) = 0; //(int strength) = 0;

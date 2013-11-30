@@ -43,12 +43,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\include;C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\SDL2_image-2.0.0\include;$(SolutionDir)Libraries\SDL2_mixer-2.0.0\include;$(SolutionDir)Libraries\SDL2-2.0.1\include;$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\lib\x86;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\SDL2_image-2.0.0\lib\x86;$(SolutionDir)Libraries\SDL2_mixer-2.0.0\lib\x86;$(SolutionDir)Libraries\SDL2-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>

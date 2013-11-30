@@ -1,8 +1,8 @@
 #pragma once
 
 #include "MapObserver.h"
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL.h>//<SDL.h>
+#include <SDL_image.h>//<SDL_image.h>
 
 
 class UIMap : public MapObserver

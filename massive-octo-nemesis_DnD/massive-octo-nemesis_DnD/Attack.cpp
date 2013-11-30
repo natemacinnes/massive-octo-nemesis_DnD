@@ -3,8 +3,9 @@
 #include "character.h"
 #include "Fighter.h"
 #include "ItemContainer.h"
-//#include "LeveledChestBuilder.h" // nate will put this in
-//#include "ChestDirector.h" //nate will put this in
+#include "LeveledChestBuilder.h" 
+#include "ChestDirector.h"
+#include "ChestBuilder.h"
 #include <iostream>
 
 Attack::Attack(void)
@@ -25,7 +26,7 @@ void Attack::PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter
 		
 		
 
-		for(aPerR = Player->getAttacksPerRound(); aPerR > 0; aPerR--)
+		for(aPerR = Player->getNumAttacksPerRound(); aPerR > 0; aPerR--)
 		{
 			std::cout << "attack number: " << aPerR << " good luck!" << std::endl;
 
@@ -38,7 +39,7 @@ void Attack::PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter
 				Monster->setHitPoints(monsterHealth);
 
 				std::cout << "You dealt: " << damage << " points of damage" << std::endl;
-				std::cout << "The Monster still has " << monsterHealth << "hit points left." << endl;
+				std::cout << "The Monster still has " << monsterHealth << "hit points left." << std::endl;
 			}
 			else
 			{
@@ -65,7 +66,7 @@ void Attack::MonsterAttack(d20Characters::Fighter* Player, d20Characters::Fighte
 		
 		
 
-		for(aPerR = Monster->getAttacksPerRound(); aPerR > 0; aPerR--)
+		for(aPerR = Monster->getNumAttacksPerRound(); aPerR > 0; aPerR--)
 		{
 			std::cout << "attack number: " << aPerR << std::endl;
 
@@ -99,10 +100,11 @@ void Attack::whoWon()
 	{
 		std::cout << "You have defeated the enemy! Congratulations!" << std::endl;
 		
-		ChestBuilder* IChestBuilder = new LevelChestBuilder(monsterLevel);
-		cDirector.setChestBuilder(IChestBuilder);
-		cDirector.constructChest();
-		ItemContainer* leveledChest = cDirector.getChest();
+		d20Items::ChestBuilder* IChestBuilder = new d20Items::LeveledChestBuilder(monsterLevel);
+		d20Items::ChestDirector* chestDirector = new d20Items::ChestDirector();
+		chestDirector->setChestBuilder(IChestBuilder);
+		chestDirector->constructChest();
+		d20Items::ItemContainer* leveledChest = chestDirector->getChest();
 
 		while(true)
 		{

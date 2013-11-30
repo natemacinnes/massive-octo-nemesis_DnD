@@ -166,6 +166,9 @@ namespace d20Characters {
 			level -= 5;
 		}
 	}
+	int Fighter::getNumAttacksPerRound() {
+		return NumAttacksPerRound;
+	}
 
 	//setters for abilities:
 	void Fighter::setStrength(int diceResult) {

@@ -49,6 +49,7 @@ public:
 	void setCharismaNewRules(int c);
 	void setDexterityNewRules(int d);
 	virtual void setNumAttacksPerRound(int level);
+	virtual int getNumAttacksPerRound();
 
 
 	//hit points:
