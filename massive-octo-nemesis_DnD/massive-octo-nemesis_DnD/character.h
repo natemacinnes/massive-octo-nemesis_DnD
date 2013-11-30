@@ -72,7 +72,8 @@ public:
 	d20Items::ItemContainer* wornContainer;
 	d20Items::ItemContainer* bagContainer;
 
-	void wear();
+	void wearItem();
+	void tackeOffItem();
 
 
 protected:

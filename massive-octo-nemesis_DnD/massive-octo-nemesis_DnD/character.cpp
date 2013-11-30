@@ -253,7 +253,7 @@ void character::printCharacterStats() {
 	cout << "=====================================================" << endl;
 }
 
-void character::wear() {
+void character::wearItem() {
 	cout <<endl<< "********** Inventory Pane of Items in Bag: **********" ;
 	bagContainer->printItems();
 
@@ -264,6 +264,20 @@ void character::wear() {
 	d20Items::Item* itemPicked = bagContainer->at(indexPlusOne-1);
 	wornContainer->add(itemPicked);
 	bagContainer->remove(itemPicked);
+
+}
+
+void character::tackeOffItem() {
+	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
+	wornContainer->printItems();
+
+	cout << endl << "Enter the number of the item you want to put in your bag: ";
+	int indexPlusOne = 0;
+	cin >> indexPlusOne;
+
+	d20Items::Item* itemPicked = wornContainer->at(indexPlusOne-1);
+	bagContainer->add(itemPicked);
+	wornContainer->remove(itemPicked);
 
 }
 

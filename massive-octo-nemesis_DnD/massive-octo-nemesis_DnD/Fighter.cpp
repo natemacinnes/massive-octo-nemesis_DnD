@@ -615,8 +615,12 @@ namespace d20Characters {
 			}
 			returnedFighter = new Fighter(characterParams, 1);
 			return returnedFighter;
+
+			//name, itemType
 		}
 	}
+
+
 
 	//bool Fighter::pickUp(d20Items::Item* item) //before was like this
 	bool Fighter::pickUp(int itVl) 
