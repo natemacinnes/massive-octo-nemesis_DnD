@@ -73,7 +73,7 @@
       <Filter>Source Files\characterDep</Filter>
     </ClInclude>
     <ClInclude Include="UIMap.h">
-      <Filter>Header Files</Filter>  
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Builder.h">
       <Filter>Header Files</Filter>
@@ -172,6 +172,39 @@
     </ClCompile>
     <ClCompile Include="ArenaConstructor.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\Attack.cpp">
+      <Filter>Source Files\characterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\CharacterBuilderAbstract.cpp">
+      <Filter>Source Files\characterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\NimbleFighterBuilder.cpp">
+      <Filter>Source Files\characterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\massive-octo-nemesis_DnD\TankFighterBuilder.cpp">
+      <Filter>Source Files\characterDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\RandomChestBuilder.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\LeveledChestBuilder.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ChestDirector.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\ChestBuilder.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Sword.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Bracers.cpp">
+      <Filter>Source Files\ItemDep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ItemContainer\ItemContainer\Bow.cpp">
+      <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

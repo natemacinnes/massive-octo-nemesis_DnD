@@ -573,8 +573,11 @@ void Map::setMonsterOnVector(int row, int col)
 
 void Map::setMonsterLvl(int lev)
 {
-	monster = new d20Characters::Fighter(0);
-	monster->setLevel(lev);
+	d20Characters::TankFighterBuilder* tankbuilder = new d20Characters::TankFighterBuilder();
+	monster = tankbuilder->getCharacter();
+
+	//monster = new d20Characters::Fighter(0);
+	monster->setLevel(1);
 }
 
 bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 

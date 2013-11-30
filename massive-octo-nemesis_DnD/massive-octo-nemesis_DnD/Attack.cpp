@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Attack.h"
-#include "character.h"
-#include "Fighter.h"
 #include "ItemContainer.h"
 #include "LeveledChestBuilder.h" 
 #include "ChestDirector.h"

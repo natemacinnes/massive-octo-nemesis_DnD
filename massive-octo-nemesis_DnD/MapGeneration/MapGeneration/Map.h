@@ -18,7 +18,7 @@
 #include "character.h"
 #include "Fighter.h"
 #include "UIMap.h"
-
+#include "TankFighterBuilder.h"
 #include "Observer.h"
 
 using namespace std;

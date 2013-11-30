@@ -23,4 +23,4 @@ private:
 
 };
 
-} //d20Items namespace
+} //d20Items namespace 
