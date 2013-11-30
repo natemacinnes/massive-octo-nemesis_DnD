@@ -54,10 +54,8 @@
     <ClInclude Include="character.h">
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="CharacterBuilderAbstract.h">
-    <ClInclude Include="Attack.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
     <ClInclude Include="BullyFighterBuilder.h">
@@ -67,6 +65,9 @@
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
     <ClInclude Include="TankFighterBuilder.h">
+=======
+    <ClInclude Include="Attack.h">
+>>>>>>> Marco
       <Filter>Header Files\characterHs</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,9 +147,8 @@
     <ClCompile Include="Observer.cpp">
       <Filter>Source Files\ItemDep</Filter>
     </ClCompile>
-    </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="CharacterBuilderAbstract.cpp">
-    <ClCompile Include="Attack.cpp">
       <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="BullyFighterBuilder.cpp">
@@ -158,6 +158,9 @@
       <Filter>Source Files\character</Filter>
     </ClCompile>
     <ClCompile Include="TankFighterBuilder.cpp">
+=======
+    <ClCompile Include="Attack.cpp">
+>>>>>>> Marco
       <Filter>Source Files\character</Filter>
     </ClCompile>
   </ItemGroup>
