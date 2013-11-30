@@ -64,19 +64,25 @@ Map::Map (vector<vector<int>> &v,int r, int c) {
 void Map::createOrReloadACharacterBob() {
 	//ask the user if he wants to reload a character previously saved in a file or create a new one:
 	bool isgoodanswer = false;
-	cin.clear();
+	//cin.clear();
 	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
 	
 	string doLoadChar;
-	while(cin >> doLoadChar && !isgoodanswer){
-		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
-		cin.clear();
+	//while(cin >> doLoadChar && isgoodanswer == false){
+		//cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
+		//cin.clear();
 		//TODO: test to see if this loop works. it used to break because of cin.ignore()
 		//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
+	while(!isgoodanswer){
+		cout << "Load a Character from file? (y/n) --> (enter \"n\" to create a new Map)" << endl;
+		string doLoadChar;
+		cin.clear();
+		cin >> doLoadChar;
 		if(doLoadChar == "y") {
 			bob = new d20Characters::Fighter(1);
 			bob = bob->LoadCharacterFromFile(); // TODO this should be static, but works for now.
 			isgoodanswer = true;
+			cout<<"in createOrReloadACharacterBob. 1. "<<endl;
 		} else if(doLoadChar == "n") {
 			bob = new d20Characters::Fighter(1);
 			isgoodanswer = true;
@@ -85,6 +91,8 @@ void Map::createOrReloadACharacterBob() {
 			isgoodanswer = false;
 		}
 	}
+				cout<<"in createOrReloadACharacterBob. 1. "<<endl;
+
 
 
 	//create GUI class that knows what what to do on fighter changes (e.g. refresh screen, but here just re-print):
@@ -92,6 +100,7 @@ void Map::createOrReloadACharacterBob() {
 
 	//plug the two together -- the observer (GUI object) and observable (Fighter object):
 	this->registerToObservable(bob);
+	cout<<"Passed the createOrReloadACharacterBob function" << endl;
 }
 
 //kind of like a factory getInstance -- but it could just be a constructor too.
@@ -1316,7 +1325,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition-1][currentColPosition]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == true ){
+						if( isDead == false ){
 						used[currentRowPosition-1][currentColPosition] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1391,7 +1400,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition][currentColPosition-1]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == true ){
+						if( isDead == false ){
 						used[currentRowPosition][currentColPosition-1] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1470,7 +1479,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition][currentColPosition+1]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == true ){
+						if( isDead == false ){
 						used[currentRowPosition][currentColPosition+1] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1546,7 +1555,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition+1][currentColPosition]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == true ){
+						if( isDead == false ){
 						used[currentRowPosition+1][currentColPosition] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -2289,6 +2298,7 @@ Map* Map::createMapByPromptingUser() {
 	
 	//create a character bob:
 	map->createOrReloadACharacterBob();
+	cout<<"finished createOrReloadACharacterBob. "<<endl;
 	map->bob->printCharacterStats();
 
 	//adds Monster to map

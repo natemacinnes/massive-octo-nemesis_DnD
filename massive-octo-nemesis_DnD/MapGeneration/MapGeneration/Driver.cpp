@@ -32,11 +32,14 @@ int main(int argc, char** argv)
 
 	cout << "ITEM CONTAINER CREATION" << endl;
 
+	//
 	d20Items::ItemContainer *items = new d20Items::ItemContainer();
 
-	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
+	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items); //
 
-	d20Items::Item *item = new d20Items::Shield("Shield of ");
+	d20Items::Item *item = new d20Items::Shield("Shield of "); //name, enchantment type, value
+
+	item->setEnchantment(d20Items::ARMOR_CLASS, 3);
 
 	items->add(item);
 

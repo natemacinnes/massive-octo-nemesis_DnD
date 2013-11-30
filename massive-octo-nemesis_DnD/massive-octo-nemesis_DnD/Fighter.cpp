@@ -466,6 +466,33 @@ namespace d20Characters {
 				//	1 boots
 				myStream << (boots? 1: 0) << endl;
 
+
+				//iter2 = items.begin();
+
+				//while (iter2 != std::end(items)) 
+				for(int i=0; i<wornContainer->getSize(); i++)
+				{
+					//myStream << (*iter2)->getID();
+					//myStream << (*iter2)->getName;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentType;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentValue;
+					myStream << wornContainer->at(i)->getName();
+					myStream << wornContainer->at(i)->getEnchantment().getEnchantmentType();
+					myStream << wornContainer->at(i)->getEnchantment().getEnchantmentType();
+				}
+				for(int i=0; i<bagContainer->getSize(); i++)
+				{
+					//myStream << (*iter2)->getID();
+					//myStream << (*iter2)->getName;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentType;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentValue;
+					myStream << bagContainer->at(i)->getName();
+					myStream << bagContainer->at(i)->getEnchantment().getEnchantmentType();
+					myStream << bagContainer->at(i)->getEnchantment().getEnchantmentType();
+				}
+								
+
+
 				myStream.close();
 			}
 		}
@@ -499,6 +526,30 @@ namespace d20Characters {
 		myStream << (belt? 1: 0) << endl;
 		//	1 boots
 		myStream << (boots? 1: 0) << endl;
+
+		
+				//while (iter2 != std::end(items)) 
+				for(int i=0; i<wornContainer->getSize(); i++)
+				{
+					//myStream << (*iter2)->getID();
+					//myStream << (*iter2)->getName;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentType;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentValue;
+					myStream << wornContainer->at(i)->getName();
+					myStream << wornContainer->at(i)->getEnchantment().getEnchantmentType();
+					myStream << wornContainer->at(i)->getEnchantment().getEnchantmentType();
+				}
+				myStream << "?";
+				for(int i=0; i<bagContainer->getSize(); i++)
+				{
+					//myStream << (*iter2)->getID();
+					//myStream << (*iter2)->getName;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentType;
+					//myStream << (*iter2)->getEnchantment().getEnchantmentValue;
+					myStream << bagContainer->at(i)->getName();
+					myStream << bagContainer->at(i)->getEnchantment().getEnchantmentType();
+					myStream << bagContainer->at(i)->getEnchantment().getEnchantmentType();
+				}
 
 		myStream.close();
 
@@ -596,20 +647,32 @@ namespace d20Characters {
 			}
 			myStream.close();
 
+			std::vector<string> itemsParams;
 			while(true)
 			{
 				cout << "Select a Character Name to Load" << endl;
 				cin >> inputs;
 				CharName = (inputs + "_Character.txt");
 				myStream.open("C:\\massive-octo-nemesis_DnD\\Characters\\" + CharName);
+				int count = 1;
+				
 				if(myStream.good())
 				{
 					int i=0;
 					while(getline(myStream, HS2, '\n'))
 					{
-						//cout << "DERP DERP" << HS2 << endl;
-						characterParams.push_back(stoi(HS2));
+						if(count <= 18) {
+						
+							//cout << "DERP DERP" << HS2 << endl;
+							//cout<<" this is Hs2: "<< HS2 <<endl;
+							characterParams.push_back(stoi(HS2)); //
+
+							
+						} else {
+							itemsParams.push_back(HS2);
+						}
 						i++;
+						count++;
 					}
 					//getline(myStream, HELDSTRING, '\n');
 					//cout << HELDSTRING << endl;
@@ -619,7 +682,106 @@ namespace d20Characters {
 					/*THIS IS WHERE WE GET INFORMATION FOR THE GAME */
 				}
 			}
+			
+			
+			
+			
+			
+			
 			returnedFighter = new Fighter(characterParams, 1);
+			//cout << "Passed all normal variables.  " << endl;
+
+			bool inBagContainer = false;
+			//d20Items::ItemContainer *itemsWorn = new d20Items::ItemContainer();
+			//d20Items::ItemContainer *itemsBag = new d20Items::ItemContainer();
+			int countPropertiesBag = 0;
+			int countPropertiesWorn = 0;
+			for(int i=0; i<itemsParams.size(); i++) {
+				if(itemsParams.at(i) == "?") {
+					inBagContainer=true;
+					continue;
+				}
+				if (inBagContainer) {
+					d20Items::Item *item;
+					//d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items); //
+					d20Items::EnchantmentType tempEnchantment;
+					if(countPropertiesWorn == 0%3) {
+						item = new d20Items::Shield(itemsParams.at(i)); //name, enchantment type, value
+						countPropertiesWorn++;
+					} else if (countPropertiesWorn == 1%3) {
+						
+						//std::string eV = std::to_string(eValue);
+						if(itemsParams.at(i) == "0") {
+							 tempEnchantment = d20Items::ARMOR_CLASS;
+						} else if (itemsParams.at(i) == "1") {
+							tempEnchantment = d20Items::DEXTERITY;
+						}else if (itemsParams.at(i) == "2") {
+							tempEnchantment = d20Items::CONSTITUTION;
+						}else if (itemsParams.at(i) == "3") {
+							tempEnchantment = d20Items::INTELLIGENCE;
+						}else if (itemsParams.at(i) == "4") {
+							tempEnchantment = d20Items::WISDOM;
+						}else if (itemsParams.at(i) == "5") {
+							tempEnchantment = d20Items::CHARISMA;
+						}else if (itemsParams.at(i) == "6") {
+							tempEnchantment = d20Items::ARMOR_CLASS;
+						}else if (itemsParams.at(i) == "7") {
+							tempEnchantment = d20Items::ATTACK_BONUS;
+						}else if (itemsParams.at(i) == "8") {
+							tempEnchantment = d20Items::DAMAGE_BONUS;
+						}else {
+							tempEnchantment = d20Items::DAMAGE_BONUS;
+						}
+						countPropertiesWorn++;
+					} else if(countPropertiesWorn == 2%3) {
+						item->setEnchantment(tempEnchantment, stoi(itemsParams.at(i)));
+						returnedFighter->wornContainer->add(item);
+						countPropertiesWorn++;
+					}
+
+				} else {
+					d20Items::Item *item;
+					//d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items); //
+					d20Items::EnchantmentType tempEnchantment;
+					if(countPropertiesBag == 0%3) {
+						item = new d20Items::Shield(itemsParams.at(i)); //name, enchantment type, value
+						countPropertiesBag++;
+					} else if (countPropertiesBag == 1%3) {
+						
+						//std::string eV = std::to_string(eValue);
+						if(itemsParams.at(i) == "0") {
+							 tempEnchantment = d20Items::ARMOR_CLASS;
+						} else if (itemsParams.at(i) == "1") {
+							tempEnchantment = d20Items::DEXTERITY;
+						}else if (itemsParams.at(i) == "2") {
+							tempEnchantment = d20Items::CONSTITUTION;
+						}else if (itemsParams.at(i) == "3") {
+							tempEnchantment = d20Items::INTELLIGENCE;
+						}else if (itemsParams.at(i) == "4") {
+							tempEnchantment = d20Items::WISDOM;
+						}else if (itemsParams.at(i) == "5") {
+							tempEnchantment = d20Items::CHARISMA;
+						}else if (itemsParams.at(i) == "6") {
+							tempEnchantment = d20Items::ARMOR_CLASS;
+						}else if (itemsParams.at(i) == "7") {
+							tempEnchantment = d20Items::ATTACK_BONUS;
+						}else if (itemsParams.at(i) == "8") {
+							tempEnchantment = d20Items::DAMAGE_BONUS;
+						}else {
+							tempEnchantment = d20Items::DAMAGE_BONUS;
+						}
+						countPropertiesBag++;
+					} else if(countPropertiesBag == 2%3) {
+						item->setEnchantment(tempEnchantment, stoi(itemsParams.at(i)));
+						returnedFighter->wornContainer->add(item);
+						countPropertiesBag++;
+					}
+				}
+			}
+
+			//dont forget to add all the additional items that we read from file
+			//this was done in the loop above.
+			cout << "Character successfully loaded from file.  " << endl;
 			return returnedFighter;
 
 			//name, itemType
