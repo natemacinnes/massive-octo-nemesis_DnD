@@ -23,6 +23,8 @@ public:
 
 	void setName(std::string);
 
+	virtual void setEnchantment(EnchantmentType, int);
+
 	int getID() const;
 
 	virtual Enchantment getEnchantment() const;

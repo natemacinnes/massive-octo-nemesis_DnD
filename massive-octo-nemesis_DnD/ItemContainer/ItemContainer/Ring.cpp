@@ -30,6 +30,12 @@ Ring::~Ring(void)
 {
 }
 
+void Ring::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Ring::getName() const 
 {
 	return this->name;

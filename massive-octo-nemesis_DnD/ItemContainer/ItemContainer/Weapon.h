@@ -15,6 +15,8 @@ public:
 
 	virtual ~Weapon(void);
 
+	virtual void setEnchantment(EnchantmentType eType, int eValue);
+
 	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;

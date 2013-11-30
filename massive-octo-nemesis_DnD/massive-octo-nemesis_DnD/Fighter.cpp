@@ -9,6 +9,7 @@
 #include "Fighter.h"
 #include "character.h"
 #include "Item.h"
+//#include "Attack.h"
 #include <time.h>
 //#include "Map.h"
 #include <stdlib.h>
@@ -333,6 +334,11 @@ namespace d20Characters {
 		}
 		// notify GUI or MAP
 		//notifyAllObservers(); // since this method is a dependent (called by others)
+	}
+
+	void Fighter::setHP(int h)
+	{
+		this->hitPoints = h;
 	}
 
 	//armor class
@@ -698,4 +704,9 @@ namespace d20Characters {
 			this->addWeapon(item);
 		}
 	}
+
+	/*void Fighter::FighterAttack(Fighter &Monster)
+	{
+		Attack myAttack(this, &Monster) 
+	}*/
 } /* namespace d20Characters */

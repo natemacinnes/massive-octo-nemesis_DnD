@@ -15,6 +15,8 @@ public:
 
 	virtual ~Belt(void);
 
+	virtual void setEnchantment(EnchantmentType eType, int eValue);
+
 	std::string getName(void) const;
 
 	virtual Enchantment getEnchantment() const;

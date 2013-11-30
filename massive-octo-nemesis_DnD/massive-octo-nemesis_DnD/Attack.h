@@ -5,9 +5,9 @@
 class Attack
 {
 public:
-	Attack(void);
+	Attack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster);
 	~Attack(void);
-	void whoWon();
+	void whoWon(d20Characters::Fighter*, d20Characters::Fighter*);
 	void PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster);
 	void MonsterAttack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster);
 

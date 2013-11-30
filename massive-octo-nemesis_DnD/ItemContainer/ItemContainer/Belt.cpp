@@ -30,6 +30,12 @@ Belt::~Belt(void)
 
 }
 
+void Belt::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Belt::getName() const 
 {
 	return this->name;

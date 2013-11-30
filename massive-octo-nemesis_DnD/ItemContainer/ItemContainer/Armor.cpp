@@ -34,6 +34,12 @@ Armor::~Armor(void)
 
 }
 
+void Armor::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Armor::getName() const 
 {
 	return this->name;

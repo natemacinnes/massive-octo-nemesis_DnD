@@ -54,7 +54,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_image-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2_mixer-2.0.0\include;C:\Users\Nate\Documents\GitHub\massive-octo-nemesis_DnD\Libraries\SDL2-2.0.1\include;C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)../../massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\Users\vincent\Documents\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD\massive-octo-nemesis_DnD;$(SolutionDir)../../massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../massive-octo-nemesis_DnD;$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)ItemContainer\ItemContainer;$(SolutionDir)MapGeneration\MapGeneration;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>

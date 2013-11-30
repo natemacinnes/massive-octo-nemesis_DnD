@@ -34,6 +34,12 @@ Shield::~Shield(void)
 {
 }
 
+void Shield::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Shield::getName() const 
 {
 	return name;

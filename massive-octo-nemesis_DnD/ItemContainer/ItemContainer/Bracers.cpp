@@ -24,6 +24,12 @@ Bracers::~Bracers(void)
 {
 }
 
+void Bracers::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 Enchantment Bracers::getEnchantment() const 
 {
 	return this->enchantment;

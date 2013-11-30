@@ -56,6 +56,8 @@ public:
 	using character::setHitPoints;
 	virtual void setHitPoints(int h); //(int constitution, int currentLevel);
 
+	virtual void setHP(int h);
+
 	//armor class
 	using character::setArmorClass;
 	virtual void setArmorClass();
@@ -85,6 +87,9 @@ public:
 	bool pickUp(int);
 	std::string identifyItemOnMap(int);
 	void setItemToPla(std::string);
+
+	//Attacks
+	//void FighterAttack(Fighter &Monster);
 };
 
 } /* namespace d20Characters */

@@ -20,6 +20,8 @@ public:
 
 	virtual ~Armor(void);
 
+	virtual void setEnchantment(EnchantmentType, int);
+
 	std::string getName(void) const;
 
 	virtual Enchantment getEnchantment() const;

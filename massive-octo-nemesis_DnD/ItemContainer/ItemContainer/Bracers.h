@@ -13,6 +13,8 @@ public:
 
 	virtual ~Bracers(void);
 
+	virtual void setEnchantment(EnchantmentType eType, int eValue);
+
 	virtual Enchantment getEnchantment() const;
 
 	virtual std::string toString() const;

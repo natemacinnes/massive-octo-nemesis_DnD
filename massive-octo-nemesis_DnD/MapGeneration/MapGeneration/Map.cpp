@@ -13,6 +13,7 @@
 #include "MapObservable.h"
 #include "chracPosition.h"
 #include "SDL_thread.h"
+#include "Attack.h"
 
 // for the loadMap functionality:
 #include <fstream>
@@ -1174,7 +1175,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	{
 		if(monster->getLevel() == 0 ){
 		used[currentRow][currentCol] = 5; //set player new position
-		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+		used[previousRow][previousCol] = 1; //set the position player left with its old value;
 		notify();
 		cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 		cout <<"END OF THE GAME!" << endl;
@@ -1183,21 +1184,26 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 		//return false;
 		}else{
 			used[currentRow][currentCol] = 5; //set player new position
-			used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+			used[previousRow][previousCol] = 1; //set the position player left with its old value;
 			cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
 			return false;
 		}
 						
 	}else if(used[currentRow][currentCol] == 10) {
 		// call Attack method!!!!
+		Attack(bob, monster);
 		cout << "Attack method call!" << endl;
+
+
 		used[currentRow][currentCol] = 5; //set player new position
-		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+		used[previousRow][previousCol] = 1; //set the position player left with its old value;
+
+
 	}
 	else //if(vectorMap[row][col] == 1) //empty cell
 	{
 		used[currentRow][currentCol] = 5; //set player new position
-		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+		used[previousRow][previousCol] = 1; //set the position player left with its old value;
 		return false;
 	}
 	

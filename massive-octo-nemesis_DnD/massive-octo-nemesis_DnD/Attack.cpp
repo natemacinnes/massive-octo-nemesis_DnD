@@ -6,22 +6,49 @@
 #include "ChestBuilder.h"
 #include <iostream>
 
-Attack::Attack(void)
+Attack::Attack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster)
 {
 	std::cout << "Welcome to the attack module, good luck!" << std::endl;
+
+	while((Player->getHitPoints() > 0) && (Monster->getHitPoints() > 0))
+	{
+		std::cout << "Dice rolled" << std::endl;
+		int pDie = rand()%20+1;
+		int mDie = rand()%20+1;
+
+		if(pDie > mDie)
+		{
+			PlayerAttack(Player, Monster);
+			std::cout << std::endl;
+			system("pause");
+			MonsterAttack(Player, Monster);
+			system("pause");
+			
+		}
+		else if(pDie < mDie)
+		{
+			MonsterAttack(Player, Monster);
+			std::cout << std::endl;
+			system("pause");
+			PlayerAttack(Player, Monster);
+			system("pause");
+		}
+		else
+		{
+			std::cout << "You rolled the same number, rerolling!" << std::endl;
+		}
+	}
+	whoWon(Player, Monster);
 }
 
 void Attack::PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster)
 {
-	std::cout << "Welcome to the attack module, prepare for battle!" << std::endl;
 
-	while((Player->getHitPoints() && Monster->getHitPoints())>0) //makes sure one person wins
-	{
+	
 		std::cout << "player is attacking!" << std::endl;
 		playerLevel = Player->getLevel();
-		d8 = rand()%9+1;
-		d20 = rand()%21+1;
-		
+		d8 = rand()%8+1;
+		d20 = rand()%20+1;
 		
 
 		for(aPerR = Player->getNumAttacksPerRound(); aPerR > 0; aPerR--)
@@ -33,8 +60,8 @@ void Attack::PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter
 				std::cout << "You rolled: " << d20 << " and have hit your opponent" << std::endl;
 				damage = playerLevel * d8;
 				monsterHealth = Monster->getHitPoints();
-				monsterHealth-= damage;
-				Monster->setHitPoints(monsterHealth);
+				monsterHealth = monsterHealth - damage;
+				Monster->setHP(monsterHealth);
 
 				std::cout << "You dealt: " << damage << " points of damage" << std::endl;
 				std::cout << "The Monster still has " << monsterHealth << "hit points left." << std::endl;
@@ -44,23 +71,15 @@ void Attack::PlayerAttack(d20Characters::Fighter* Player, d20Characters::Fighter
 				std::cout << "You've missed! and rolled a: " << d20 << std::endl;
 			}
 		}
-		
-
-	}
-
-	whoWon();
 }
 
 void Attack::MonsterAttack(d20Characters::Fighter* Player, d20Characters::Fighter* Monster)
 {
-	std::cout << "Welcome to the attack module, prepare for battle!" << std::endl;
-
-	while((Player->getHitPoints() && Monster->getHitPoints())>0) //makes sure one person wins
-	{
+	
 		std::cout << "monster is attacking" << std::endl;
 		monsterLevel = Monster->getLevel();
-		d8 = rand()%9+1;
-		d20 = rand()%21+1;
+		d8 = rand()%8+1;
+		d20 = rand()%20+1;
 		
 		
 
@@ -73,8 +92,8 @@ void Attack::MonsterAttack(d20Characters::Fighter* Player, d20Characters::Fighte
 				std::cout << "The monster rolled: " << d20 << " and has hit you!" << std::endl;
 				damage = monsterLevel * d8;
 				playerHealth = Player->getHitPoints();
-				playerHealth-= damage;
-				Player->setHitPoints(monsterHealth);
+				playerHealth = playerHealth - damage;
+				Player->setHP(playerHealth);
 
 				std::cout << "You were dealt: " << damage << " points of damage" << std::endl;
 				std::cout << "You still have " << playerHealth << "hit points remaining." << std::endl;
@@ -84,20 +103,16 @@ void Attack::MonsterAttack(d20Characters::Fighter* Player, d20Characters::Fighte
 				std::cout << "He missed! and rolled a: " << d20 << std::endl;
 			}
 		}
-		
-
-	}
-
-	whoWon();
 
 }
 
-void Attack::whoWon()
+void Attack::whoWon(d20Characters::Fighter* Player, d20Characters::Fighter* Monster)
 {
-	if(playerHealth > monsterHealth)
+	if(Player->getHitPoints() > Monster->getHitPoints())
 	{
 		std::cout << "You have defeated the enemy! Congratulations!" << std::endl;
 		
+		Monster->setLevel(0);
 		d20Items::ChestBuilder* IChestBuilder = new d20Items::LeveledChestBuilder(monsterLevel);
 		d20Items::ChestDirector* chestDirector = new d20Items::ChestDirector();
 		chestDirector->setChestBuilder(IChestBuilder);
@@ -113,14 +128,17 @@ void Attack::whoWon()
 			if(userChoice == 1)
 			{
 				std::cout << "congratulations on acquiring a new item!" << std::endl;
+				break;
 			}
 			else if(userChoice == 2)
 			{
 				std::cout << "The item has faded into the darkness, never to be seen again!" << std::endl;
+				break;
 			}
 			else
 			{
 				std::cout << "You have entered an incorrect value, please try again" << std::endl;
+				break;
 			}
 		}
 	}

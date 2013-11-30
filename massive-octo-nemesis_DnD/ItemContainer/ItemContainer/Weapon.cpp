@@ -30,6 +30,12 @@ Weapon::~Weapon(void)
 {
 }
 
+void Weapon::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Weapon::getName() const 
 {
 	return this->name;

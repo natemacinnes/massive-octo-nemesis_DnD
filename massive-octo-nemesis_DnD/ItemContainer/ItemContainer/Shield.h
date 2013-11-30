@@ -17,6 +17,8 @@ public:
 
 	virtual ~Shield(void);
 	
+	virtual void setEnchantment(EnchantmentType, int);
+
 	virtual std::string getName() const;
 
 	virtual Enchantment getEnchantment() const;

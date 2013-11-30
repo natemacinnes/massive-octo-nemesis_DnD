@@ -29,6 +29,12 @@ Helmet::~Helmet(void)
 {
 }
 
+void Helmet::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Helmet::getName() const 
 {
 	return this->name;

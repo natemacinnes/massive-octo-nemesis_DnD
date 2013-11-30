@@ -26,6 +26,8 @@ public:
 
 	void setEnchantmentValue(int);
 
+	void setEnchantmentType(EnchantmentType);
+
 	void setEnchantmentType(const EnchantmentType[], const int size);
 
 	int getEnchantmentValue(void) const;

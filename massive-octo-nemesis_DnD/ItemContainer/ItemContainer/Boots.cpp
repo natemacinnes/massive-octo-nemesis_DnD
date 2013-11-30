@@ -30,6 +30,12 @@ Boots::~Boots(void)
 {
 }
 
+void Boots::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 std::string Boots::getName() const 
 {
 	return this->name;

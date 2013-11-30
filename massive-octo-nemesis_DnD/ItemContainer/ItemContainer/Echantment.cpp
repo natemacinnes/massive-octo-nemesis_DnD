@@ -35,6 +35,11 @@ void Enchantment::setEnchantmentValue(int eVal)
 	eValue = eVal;
 }
 
+void Enchantment::setEnchantmentType(EnchantmentType enchantmentType)
+{
+	eType = enchantmentType;
+}
+
 void Enchantment::setEnchantmentType(const EnchantmentType enchantmentTypes[], const int size) 
 {
 	int _eType = rand() % size;

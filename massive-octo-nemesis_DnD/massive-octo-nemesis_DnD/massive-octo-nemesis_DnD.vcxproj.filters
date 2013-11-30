@@ -1,169 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\characterHs">
-      <UniqueIdentifier>{14e3bd91-fc7a-480d-ab11-10d0c6f290ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\character">
-      <UniqueIdentifier>{f94fbda1-a2fa-4e5d-9cc4-888d8ba9328e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ItemDep">
-      <UniqueIdentifier>{3b5806d4-ccd2-4aab-bdbd-55209c658f7a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MapDep">
-      <UniqueIdentifier>{16b5b8fc-e1b9-4691-b1ff-929e4be1b9c3}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\ItemContainer\ItemContainer\Armor.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Belt.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Boots.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ConsoleOut.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Echantment.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Helmet.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp" />
+    <ClCompile Include="..\ItemContainer\ItemContainer\Weapon.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\chracPosition.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\Display.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\Map.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObservable.cpp" />
+    <ClCompile Include="..\MapGeneration\MapGeneration\MapObserver.cpp" />
+    <ClCompile Include="BullyFighterBuilder.cpp" />
+    <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="character.cpp" />
+    <ClCompile Include="CharacterBuilderAbstract.cpp" />
+    <ClCompile Include="Fighter.cpp" />
+    <ClCompile Include="GUIclass.cpp" />
+    <ClCompile Include="massive-octo-nemesis_DnD.cpp" />
+    <ClCompile Include="NimbleFighterBuilder.cpp" />
+    <ClCompile Include="Observable.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TankFighterBuilder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BullyFighterBuilder.h" />
+    <ClInclude Include="Attack.h" />
+    <ClInclude Include="character.h" />
+    <ClInclude Include="CharacterBuilderAbstract.h" />
+    <ClInclude Include="Fighter.h" />
+    <ClInclude Include="GUIclass.h" />
+    <ClInclude Include="NimbleFighterBuilder.h" />
+    <ClInclude Include="Observable.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TankFighterBuilder.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Character.rc" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="Observable.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIclass.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="Fighter.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterBuilderAbstract.h">
-    <ClInclude Include="Attack.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="BullyFighterBuilder.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="NimbleFighterBuilder.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-    <ClInclude Include="TankFighterBuilder.h">
-      <Filter>Header Files\characterHs</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="massive-octo-nemesis_DnD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Fighter.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIclass.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="Observable.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Shield.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Ring.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemContainer.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Item.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\IItemContainer.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Helmet.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Echantment.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\ConsoleOut.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Boots.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Belt.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Armor.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\Weapon.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ItemContainer\ItemContainer\ItemObserver.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MapGeneration\MapGeneration\MapObserver.cpp">
-      <Filter>Source Files\MapDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MapGeneration\MapGeneration\MapObservable.cpp">
-      <Filter>Source Files\MapDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MapGeneration\MapGeneration\Map.cpp">
-      <Filter>Source Files\MapDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MapGeneration\MapGeneration\chracPosition.cpp">
-      <Filter>Source Files\MapDep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MapGeneration\MapGeneration\Display.cpp">
-      <Filter>Source Files\MapDep</Filter>
-    </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Source Files\ItemDep</Filter>
-    </ClCompile>
-    </ClCompile>
-    <ClCompile Include="CharacterBuilderAbstract.cpp">
-    <ClCompile Include="Attack.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="BullyFighterBuilder.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="NimbleFighterBuilder.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-    <ClCompile Include="TankFighterBuilder.cpp">
-      <Filter>Source Files\character</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Character.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

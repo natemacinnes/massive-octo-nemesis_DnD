@@ -30,6 +30,12 @@ void Item::setEnchantment(int i, const int j)
 }
 */
 
+void Item::setEnchantment(EnchantmentType eType, int eValue)
+{
+	enchantment.setEnchantmentType(eType);
+	enchantment.setEnchantmentValue(eValue);
+}
+
 int Item::getID() const
 {
 	return itemID;

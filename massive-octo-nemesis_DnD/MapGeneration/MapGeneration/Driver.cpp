@@ -4,7 +4,7 @@
 #include "chracPosition.h"
 #include "Item.h"
 #include "ItemContainer.h"
-#include "Helmet.h"
+#include "Shield.h"
 #include "ConsoleOut.h"
 #include "GUIclass.h"
 #include "GUI.h"
@@ -35,7 +35,9 @@ int main(int argc, char** argv)
 
 	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
 
-	d20Items::Item *item = new d20Items::Shield("Shield of ");
+	d20Items::Item *item = new d20Items::Helmet("Shield ");
+
+	item->setEnchantment(d20Items::ARMOR_CLASS, 2);
 
 	items->add(item);
 
