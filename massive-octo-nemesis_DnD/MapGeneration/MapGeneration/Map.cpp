@@ -233,7 +233,8 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				}
 
 				//testing DELETE LATER
-				//cout << item.toString() << "item" <<endl;
+				cout << endl;
+				cout << item.toString() << " item" <<endl;
 			}
 			used[i].push_back(pathChoice);
 		}
@@ -1315,7 +1316,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition-1][currentColPosition]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == false ){
+						if( isDead == true ){
 						used[currentRowPosition-1][currentColPosition] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1390,7 +1391,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition][currentColPosition-1]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == false ){
+						if( isDead == true ){
 						used[currentRowPosition][currentColPosition-1] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1469,7 +1470,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition][currentColPosition+1]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == false ){
+						if( isDead == true ){
 						used[currentRowPosition][currentColPosition+1] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
@@ -1545,7 +1546,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					}else if(actualMap[currentRowPosition+1][currentColPosition]==4){
 					
 						bool isDead = areAllMonstersDead();
-						if( isDead == false ){
+						if( isDead == true ){
 						used[currentRowPosition+1][currentColPosition] = 5; //set player new position
 						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
 						notify();
