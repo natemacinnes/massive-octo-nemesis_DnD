@@ -49,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << endl<< "********** Inventory Pane of Items in Bag: **********";
 	tank->bagContainer->printItems();
 
-	tank->wear();
+	tank->wearItem();
 
 	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
 	tank->wornContainer->printItems();

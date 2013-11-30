@@ -44,40 +44,10 @@ int main(int argc, char** argv)
 	Map* map = Map::createOrReloadAMap();
 
 
+	map->gameLoopOUTER(); // this plays the game and increases the level after each level.
 
+	map->saveCharacterToFile(); // again, although it's done after each level anyway.
 
-	map->gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
-
-
-
-	char end;
-	cout << "Enter any LETTER to finish the program!"<< endl;
-	cin >> end;
-
-	while(isalpha(end)==false){
-		cout << "Not valid input!! You must enter any LETTER to finish the program."<< endl;
-		cin >> end;
-	}
-
-	//TODO: make this a regular Map::method
-	//if we passed this loop: ask to save the character to file:
-	string dosavetofile;
-	cout << "do you want to save your character to file? (y/n)" << endl;
-	cin >> dosavetofile;
-	bool isgoodanswer2 = false;
-	while(!isgoodanswer2) {
-		if(dosavetofile == "y") {
-			//save to file:
-			map->bob->SaveCharacterToFile();
-			isgoodanswer2 = true;
-		} else if (dosavetofile =="n") {
-			//do nothing
-			isgoodanswer2 = true;
-		} else {
-			cout << "Invalid input. " << endl;	
-			isgoodanswer2 = false;
-		}
-	}
 
 	SDL_Quit();
 	//end program:

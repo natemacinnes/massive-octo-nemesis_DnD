@@ -126,6 +126,9 @@ public:
 	static const int myint = 2;
 	int mapLevel;
 
+	void gameLoopOUTER();
+	void saveCharacterToFile();
+
 private:
 	std::vector<d20Characters::character*> listOfObservables_vector;
 	std::vector<d20Characters::character*>::iterator iter;
