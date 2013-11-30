@@ -32,6 +32,9 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
+	//
+
+	item->setEnchantment(d20Items::ARMOR_CLASS, 3);
 	//TODO this should be a form of factory pattern:
 	// a static method that returns an instance of map after prompting the user for the inputs:
 	Map* map = Map::createOrReloadAMap();

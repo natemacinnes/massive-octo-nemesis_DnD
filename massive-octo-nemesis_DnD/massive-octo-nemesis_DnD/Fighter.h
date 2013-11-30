@@ -6,8 +6,11 @@
 *      Author: nick
 */
 
+
+#include <vector>
 #include "character.h"
 #include "Observable.h"
+#include "Item.h"
 
 
 
@@ -90,6 +93,9 @@ public:
 
 	//Attacks
 	//void FighterAttack(Fighter &Monster);
+
+	//iterator
+	std::vector<d20Items::Item*>::iterator iter2;
 };
 
 } /* namespace d20Characters */
