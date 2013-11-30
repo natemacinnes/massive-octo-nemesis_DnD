@@ -21,7 +21,9 @@ void ArenaBuilder::setPlayerOnMap()
 {
 	Map *map = getResultMapBuilder();
 	//chracPosition pos  = map->getPosition();
-	map->setPlayerPos();
+	int r = map->getRowStart();
+	int c = map->getColStart();
+	map->setPlayerPos(r,c);
 
 }
 
@@ -36,7 +38,7 @@ void ArenaBuilder::setMonsterOnMap()
 
 		if(isFree == true)
 		{
-			m->setMonsterLvl(m->bob->getLevel());
+			m->setMonsterLvl(1);
 			i++;
 		}
 		
