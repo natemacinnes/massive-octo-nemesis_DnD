@@ -1652,6 +1652,22 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					cout<<"You cannot move down!"<<endl;
 				}
 		}//end if/else statment for key=='d'
+
+		else if(key=='i'){
+			cout <<endl << "********Inventory Pane of Worn Items: *********" << endl;
+			monster->wornContainer->printItems();
+			cout<< endl<< "*********Inventory Pane of Items in Bag: *********" <<endl;
+			monster->bagContainer->printItems();
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+		}
+		else if(key=='w'){
+			cout << "Wearing Item" <<endl;
+			bob->wearItem();
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+		}
+
 		else
 		{
 			cin.clear();
