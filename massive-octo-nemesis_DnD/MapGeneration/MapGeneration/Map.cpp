@@ -26,6 +26,7 @@ int rowStart;
 int colStart;
 int rowEnd;
 int colEnd;
+int static counter = 1;
 
 Map::Map (void) : used(1,std::vector<int>(1,0))
 {
@@ -232,7 +233,7 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				}
 
 				//testing DELETE LATER
-				cout << item.toString() << "item" <<endl;
+				//cout << item.toString() << "item" <<endl;
 			}
 			used[i].push_back(pathChoice);
 		}
@@ -553,6 +554,13 @@ bool Map::setMonsterPos()
 		return false;
 	}else{
 		setMonsterOnVector(r,c);
+		//chracPosition* pos = new chracPosition(r,c);
+		//monsterLocation.insert(std::pair<int, d20Characters::Fighter*>(counter, monster));
+		//d20Characters::Fighter* pos = monsterLocation.find(counter)->second;
+		//int it = pos->getLevel();
+		//cout << it << " monster level " << endl;
+		//counter++;
+
 		return true;
 	}
 }
@@ -570,6 +578,7 @@ void Map::setMonsterOnVector(int row, int col)
 	////needed to implement for multiple monsters
 	//monsterLocation.insert(std::pair<chracPosition,d20Characters::Fighter*>(monsterPosition, monster));
 	//cout << monsterLocation[monsterPosition] << "monster position saved on map " << endl;
+	
 }
 
 void Map::setMonsterLvl(int lev)
@@ -579,6 +588,9 @@ void Map::setMonsterLvl(int lev)
 
 	//monster = new d20Characters::Fighter(0);
 	monster->setLevel(1);
+	monsterLocation.insert(std::pair<int, d20Characters::Fighter*>(counter, monster));
+		counter++;
+	//cout << monster->getLevel() << "monster level at setMonster" << endl;
 }
 
 bool Map::checkingEndAssigned(int row, int col){//vector < vector <int> > myMap, 
@@ -1148,7 +1160,7 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	{
 
 		//test Line
-		cout << " this is a " << used[currentRow][currentCol] << endl;
+		//cout << " this is a " << used[currentRow][currentCol] << endl;
 		tempItemLoc->setChracterPosition(currentRow, currentCol);
 		//tempBool = bob->pickUp(itemLocation[tempItemLoc]); //before was like this
 		tempBool = bob->pickUp(used[currentRow][currentCol]);
@@ -1173,12 +1185,19 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	}
 	else if(used[currentRow][currentCol] == 4)
 	{
-		if(monster->getLevel() == 0 ){
+		
+		//cout << it << " monster level " << endl;
+		//counter++;
+		bool isDead = areAllMonstersDead();
+		if( isDead == true ){
 		used[currentRow][currentCol] = 5; //set player new position
 		used[previousRow][previousCol] = 1; //set the position player left with its old value;
 		notify();
 		cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 		cout <<"END OF THE GAME!" << endl;
+		//increase player level
+		bob->increaseLevel();
+		cout <<"Figther now is level " << bob->getLevel() << endl;
 		system("pause");
 		exit(0);
 		//return false;
@@ -1211,6 +1230,26 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 
 }
 
+bool Map::areAllMonstersDead()
+{
+	//cout << "entering monsters dead" << endl;
+	for(int i = 1; i <= monsterLocation.size(); i++)
+	{
+		//d20Characters::Fighter* pos = monsterLocation.find(i)->second;
+		d20Characters::Fighter* pos = monsterLocation.find(1)->second;
+		int it = pos->getLevel();
+		//cout << it << " monster level " << endl;
+		//counter++;
+		if(it != 0 )
+		{
+			return false;
+		}
+	
+	}
+	return true;
+
+
+}
 
 void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 {
