@@ -2132,7 +2132,7 @@ Map* Map::createMapByPromptingUser() {
 
 	
 
-	UIMap* UI = new UIMap();
+	//UIMap* UI = new UIMap();
 
 	cout << "Validating Map...." << endl;
 	cout << "The validation was...."<< endl;
