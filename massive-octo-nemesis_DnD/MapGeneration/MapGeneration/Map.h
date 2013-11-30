@@ -97,6 +97,7 @@ public:
 	bool setMonsterPos();
 	void setMonsterOnVector(int,int);
 	d20Items::Item setRandomItemToMap();
+	bool areAllMonstersDead();
 	//};
 	void setPlayerPos();
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
@@ -146,7 +147,7 @@ protected:
 	CharacterLocation characterLocation;
 
 	// hash map of all monster's positions on map
-	typedef map<chracPosition, d20Characters::Fighter*>  MonsterLocation;
+	typedef map<int, d20Characters::Fighter*>  MonsterLocation;
 	MonsterLocation monsterLocation;
 
 
