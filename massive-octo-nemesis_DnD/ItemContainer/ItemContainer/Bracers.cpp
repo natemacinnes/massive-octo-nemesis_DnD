@@ -37,6 +37,6 @@ Enchantment Bracers::getEnchantment() const
 
 
 std::string Bracers::toString() const {
-	return this->getName() + " " + enchantment.toString();
+	return this->getName() + ", " + enchantment.toString();
 }
 } // d20Items namespace

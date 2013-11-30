@@ -128,6 +128,8 @@ void Attack::whoWon(d20Characters::Fighter* Player, d20Characters::Fighter* Mons
 			if(userChoice == 1)
 			{
 				std::cout << "congratulations on acquiring a new item!" << std::endl;
+				Player->addItem(leveledChest->at(0));
+				std::cout << std::endl << leveledChest->at(0)->toString() << std::endl;
 				break;
 			}
 			else if(userChoice == 2)

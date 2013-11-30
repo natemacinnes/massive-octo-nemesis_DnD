@@ -65,6 +65,11 @@ int character::getAttackBonus() {
 }
 
 // items:
+void character::addItem(d20Items::Item* i)
+{
+	getItemType(i);
+}
+
 void character::addHelmet(d20Items::Item* h) {
 	
 
@@ -76,7 +81,7 @@ void character::addHelmet(d20Items::Item* h) {
 		bagContainer->add(h);
 	} else {
 		wornContainer->add(h);
-
+		addEnchantment(h);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		helmet = true; //h;
 	} 
@@ -88,7 +93,7 @@ void character::addRing(d20Items::Item* r) {
 	if (rings == false) {
 
 		wornContainer->add(r);
-
+		addEnchantment(r);
 		rings = true;
 		// notify GUI or MAP
 		notifyAllObservers();
@@ -125,7 +130,7 @@ void character::addWeapon(d20Items::Item* w) {
 		bagContainer->add(w);
 	} else {
 		wornContainer->add(w);
-
+		addEnchantment(w);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		weapon = true; //h;
 	} 
@@ -142,7 +147,7 @@ void character::addShield(d20Items::Item* s) {
 		bagContainer->add(s);
 	} else {
 		wornContainer->add(s);
-
+		addEnchantment(s);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		weapon = true; //h;
 	} 
@@ -160,11 +165,11 @@ void character::addArmor(d20Items::Item* a) {
 		bagContainer->add(a);
 	} else {
 		wornContainer->add(a);
-
+		addEnchantment(a);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		armor = true; //h;
 	} 
-	setArmorClass();
+	//setArmorClass();
 	// notify GUI or MAP
 	notifyAllObservers();
 }
@@ -177,7 +182,7 @@ void character::addBelt(d20Items::Item* b) {
 		bagContainer->add(b);
 	} else {
 		wornContainer->add(b);
-
+		addEnchantment(b);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		belt = true; //h;
 	} 	
@@ -193,11 +198,23 @@ void character::addBoots(d20Items::Item* b) {
 		bagContainer->add(b);
 	} else {
 		wornContainer->add(b);
-
+		addEnchantment(b);
 		// since we can't get items easily after putting them in the bag, keep a boolean:
 		belt = true; //h;
 	} 	
 	// notify GUI or MAP
+	notifyAllObservers();
+}
+
+void character::addBracers(d20Items::Item* b) 
+{
+	if(bracers == true) {
+		cout << "You are already wearing boots. Adding to bag instead." << endl;
+		bagContainer->add(b);
+	} else {
+		wornContainer->add(b);
+		addEnchantment(b);
+	}
 	notifyAllObservers();
 }
 
@@ -263,9 +280,17 @@ void character::wearItem() {
 
 	d20Items::Item* itemPicked = bagContainer->at(indexPlusOne-1);
 	wornContainer->add(itemPicked);
+	addEnchantment(itemPicked);
 	bagContainer->remove(itemPicked);
 
 }
+
+void character::wearItem(d20Items::Item* item) 
+{
+	wornContainer->add(item);
+	addEnchantment(item);
+}
+
 
 void character::tackeOffItem() {
 	cout <<endl<< "********** Inventory Pane of Worn Items: **********" ;
@@ -278,8 +303,125 @@ void character::tackeOffItem() {
 	d20Items::Item* itemPicked = wornContainer->at(indexPlusOne-1);
 	bagContainer->add(itemPicked);
 	wornContainer->remove(itemPicked);
+	removeEnchantment(itemPicked);
+}
+
+void character::addEnchantment(d20Items::Item* item)
+{
+	d20Items::EnchantmentType eType = item->getEnchantment().getEnchantmentType();
+	int eValue = item->getEnchantment().getEnchantmentValue();
+	switch(eType)
+	{
+	case 0: 
+		//return "Strength +" + eV;
+		this->strength = this->strength + eValue;
+		break;
+	case 1: 
+		//return "Dexterity +" + eV;
+		this->dexterity = this->dexterity + eValue;
+	case 2: 
+		//return "Constition +" + eV;
+		this->constitution = this->constitution + eValue;
+		break;
+	case 3:
+		//return "Intelligence +" + eV;
+		this->intelligence = this->intelligence + eValue;
+		break;
+	case 4:
+		//return "Wisdom +" + eV;
+		this->wisdom = this->wisdom + eValue;
+		break;
+	case 5:
+		//return "Charisma +" + eV;
+		this->charisma = this->charisma + eValue;
+		break;
+	case 6:
+		//return "Armor Class +" + eV;
+		this->armorClass = this->armorClass + eValue;
+		break;
+	case 7:
+		//return "Attack Bonus +" + eV;
+		this->attackBonus = this->attackBonus + eValue;
+		break;
+	case 8:
+		//return "Damage Bonus +" + eV;
+		this->damageBonus = this->damageBonus + eValue;
+		break;
+	default: 
+		//return "";
+		break;
+	}
 
 }
+
+void character::removeEnchantment(d20Items::Item* item)
+	{
+	d20Items::EnchantmentType eType = item->getEnchantment().getEnchantmentType();
+	int eValue = item->getEnchantment().getEnchantmentValue();
+	switch(eType)
+	{
+	case 0: 
+		//return "Strength +" + eV;
+		this->strength = this->getStrength() - eValue;
+		break;
+	case 1: 
+		//return "Dexterity +" + eV;
+		this->dexterity = this->getDexterity() - eValue;
+	case 2: 
+		//return "Constition +" + eV;
+		this->constitution = this->getConstitution() - eValue;
+		break;
+	case 3:
+		//return "Intelligence +" + eV;
+		this->intelligence = this->getIntelligence() - eValue;
+		break;
+	case 4:
+		//return "Wisdom +" + eV;
+		this->wisdom = this->getWisdom() - eValue;
+		break;
+	case 5:
+		//return "Charisma +" + eV;
+		this->charisma = this->getCharisma() - eValue;
+		break;
+	case 6:
+		//return "Armor Class +" + eV;
+		this->armorClass = this->getArmorClass() - eValue;
+		break;
+	case 7:
+		//return "Attack Bonus +" + eV;
+		this->attackBonus = this->getAttackBonus() - eValue;
+		break;
+	case 8:
+		//return "Damage Bonus +" + eV;
+		this->damageBonus = this->getDamageBonus() - eValue;
+		break;
+	default: 
+		//return "";
+		break;
+	}
+}
+
+void character::getItemType(d20Items::Item* item) {
+	if(item->getName() == "Armor of ")
+		addArmor(item);
+	if(item->getName() == "Belt of ")
+		addBelt(item);
+	if(item->getName() == "Boots of ")
+		addBoots(item);
+	if(item->getName() == "Bow of ")
+		addWeapon(item);
+	if(item->getName() == "Bracers of ")
+		addBracers(item);
+	if(item->getName() == "Helmet of ")
+		addHelmet(item);
+	if(item->getName() == "Ring of ")
+		addRing(item);
+	if(item->getName() == "Shield of ")
+		addShield(item);
+	if(item->getName() == "Sword of ")
+		addWeapon(item);
+}
+
 
 //void character unwear() {
 //

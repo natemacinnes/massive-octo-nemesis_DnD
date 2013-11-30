@@ -9,6 +9,10 @@
 #include "ConsoleOut.h"
 #include "GUIclass.h"
 #include "GUI.h"
+#include "ChestBuilder.h"
+//#include "IChestBuilder.h"
+#include "LeveledChestBuilder.h"
+#include "ChestDirector.h"
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -28,18 +32,6 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	cout << "ITEM CONTAINER CREATION" << endl;
-
-	d20Items::ItemContainer *items = new d20Items::ItemContainer();
-
-	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
-
-	d20Items::Item *item = new d20Items::Shield("Shield of ");
-
-	items->add(item);
-
 	//TODO this should be a form of factory pattern:
 	// a static method that returns an instance of map after prompting the user for the inputs:
 	Map* map = Map::createOrReloadAMap();
@@ -49,9 +41,6 @@ int main(int argc, char** argv)
 
 	map->saveCharacterToFile(); // again, although it's done after each level anyway.
 
-
-
-	SDL_Quit();
 	//end program:
 	return 0;
 }

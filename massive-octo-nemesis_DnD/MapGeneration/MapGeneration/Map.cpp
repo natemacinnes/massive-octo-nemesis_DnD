@@ -14,6 +14,7 @@
 #include "chracPosition.h"
 #include "SDL_thread.h"
 #include "Attack.h"
+#include "Sword.h"
 
 // for the loadMap functionality:
 #include <fstream>
@@ -66,7 +67,8 @@ void Map::createOrReloadACharacterBob() {
 	bool isgoodanswer = false;
 	cin.clear();
 	//cin.ignore((numeric_limits<streamsize>::max)(), '\n' ); //ignores whatever apeared after the previous input
-	
+	d20Items::Item* sword = new d20Items::Sword();
+		
 	string doLoadChar;
 	while(cin >> doLoadChar && !isgoodanswer){
 		cout << "Load a character from file? (y/n) --> (enter \"n\" to create a new character)" << endl;
@@ -79,6 +81,15 @@ void Map::createOrReloadACharacterBob() {
 			isgoodanswer = true;
 		} else if(doLoadChar == "n") {
 			bob = new d20Characters::Fighter(1);
+			
+			cout << "BOOM";
+			
+			bob->printCharacterStats();
+			
+			bob->addWeapon(sword);
+			
+			sword->toString();
+			
 			isgoodanswer = true;
 		} else {
 			cout << "Invalid input." << endl;
@@ -216,19 +227,19 @@ vector < vector<int> >& Map::fillUpMap(){//(vector<vector <int>> &m, int row, in
 				//selects an item to add to the map 
 				d20Items::Item item = setRandomItemToMap();
 				string itemName = item.getName();
-				if(itemName == "Armor"){
+				if(itemName == "Armor of "){
 					pathChoice = 13; //13 refers to Armor Item
-				}else if(itemName == "Belt"){
+				}else if(itemName == "Belt of "){
 					pathChoice = 14; //14 refers to Belt Item
-				}else if(itemName == "Boots"){
+				}else if(itemName == "Boots of "){
 					pathChoice = 15; //15 refers to Boots Item
-				}else if(itemName == "Helmet"){
+				}else if(itemName == "Helmet of "){
 					pathChoice = 16;//16 refers to Helmet Item 
-				}else if(itemName == "Ring"){
+				}else if(itemName == "Ring of "){
 					pathChoice = 17; //17 refers to Ring Item
-				}else if(itemName == "Shield"){
+				}else if(itemName == "Shield of "){
 					pathChoice = 18; //18 refers to Shield Item
-				}else if(itemName == "Weapon"){
+				}else if(itemName == "Weapon of "){
 					pathChoice = 19; //19 refers to Weapon Item
 				}
 
@@ -328,19 +339,19 @@ d20Items::Item Map::setRandomItemToMap()
 	switch(randVal)
 	{
 	case 1:
-		return d20Items::Item("Armor");
+		return d20Items::Item("Armor of ");
 	case 2:
-		return d20Items::Item("Belt");
+		return d20Items::Item("Belt of ");
 	case 3:
-		return d20Items::Item("Boots");
+		return d20Items::Item("Boots of ");
 	case 4:
-		return d20Items::Item("Helmet");
+		return d20Items::Item("Helmet of ");
 	case 5:
-		return d20Items::Item("Ring");
+		return d20Items::Item("Ring of ");
 	case 6:
-		return d20Items::Item("Shield");
+		return d20Items::Item("Shield of ");
 	case 7:
-		return d20Items::Item("Weapon");
+		return d20Items::Item("Weapon of ");
 	}
 
 }

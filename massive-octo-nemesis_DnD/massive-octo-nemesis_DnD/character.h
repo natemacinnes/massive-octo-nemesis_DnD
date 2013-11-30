@@ -16,6 +16,7 @@
 #include "Armor.h"
 #include "Belt.h"
 #include "Boots.h"
+#include "Item.h"
 
 namespace d20Characters {
 
@@ -59,6 +60,8 @@ public:
 	int getDamageBonus();
 
 	//items: simple accessors, don't need to be redefined in subclass fighter
+	
+	void addItem(d20Items::Item* i);
 	void addHelmet(d20Items::Item* h);
 	void addRing(d20Items::Item* r);
 	void removeRing();
@@ -68,11 +71,15 @@ public:
 	void addArmor(d20Items::Item* a);
 	void addBelt(d20Items::Item* b);
 	void addBoots(d20Items::Item* b);
+	void addBracers(d20Items::Item* b);
 
 	d20Items::ItemContainer* wornContainer;
 	d20Items::ItemContainer* bagContainer;
 
 	void wearItem();
+
+	void wearItem(d20Items::Item*);
+
 	void tackeOffItem();
 
 
@@ -100,6 +107,12 @@ protected:
 	//damage bonus
 	virtual void setDamageBonus(int d) = 0; //(int strength) = 0;
 	virtual void setDamageBonus() = 0;
+
+	void addEnchantment(d20Items::Item*);
+
+	void removeEnchantment(d20Items::Item*);
+
+	void getItemType(d20Items::Item*);
 
 	//level
 	int level;// = 1;
@@ -145,6 +158,8 @@ protected:
 	bool rings;// = 0;
 	//	1 weapon,
 	bool weapon;// = false;
+	// 1 sword,
+	bool sword; // = false;
 	//	1 shield,
 	bool shield;// = false;
 	//	1 armor,
@@ -153,6 +168,8 @@ protected:
 	bool belt;// = false;
 	//	1 boots
 	bool boots;// = false;
+
+	bool bracers;
 
 
 };

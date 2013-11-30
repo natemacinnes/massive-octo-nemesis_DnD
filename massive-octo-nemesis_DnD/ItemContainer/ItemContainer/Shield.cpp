@@ -10,7 +10,7 @@ const EnchantmentType Shield::ENCHANTMENTS[SIZE] = {ARMOR_CLASS};
 
 Shield::Shield(void)
 {
-	//Item("Shield of ");
+	Item("Shield of ");
 	enchantment.setEnchantmentType(ENCHANTMENTS,SIZE);
 	enchantment.setEnchantmentValue();
 	modifier = 1 + (rand() % 8);
