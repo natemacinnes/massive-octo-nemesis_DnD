@@ -98,8 +98,9 @@ public:
 	void setMonsterOnVector(int,int);
 	d20Items::Item setRandomItemToMap();
 	bool areAllMonstersDead();
+	Map* mapGameSequence(int);
 	//};
-	void setPlayerPos();
+	void setPlayerPos(int,int);
 	d20Characters::Fighter *bob; // TODO: make a public getter instead ... no big deal.
 	//change to monster
 	d20Characters::Fighter *monster;

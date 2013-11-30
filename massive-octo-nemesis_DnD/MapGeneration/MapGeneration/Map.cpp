@@ -27,7 +27,7 @@ int rowStart;
 int colStart;
 int rowEnd;
 int colEnd;
-int static counter = 1;
+int static counter = 0;
 
 Map::Map (void) : used(1,std::vector<int>(1,0))
 {
@@ -155,9 +155,10 @@ chracPosition Map::getPosition()
 }
 
 //sets player on map on its initial position
-void Map::setPlayerPos()
+void Map::setPlayerPos(int r, int c)
 {
-	used[rowStart][colStart] = 5; 
+	//used[rowStart][colStart] = 5; 
+	used[r][c] = 5; 
 }
 
 void Map::setMapLvl()
@@ -600,8 +601,9 @@ void Map::setMonsterLvl(int lev)
 
 	//monster = new d20Characters::Fighter(0);
 	monster->setLevel(1);
-	monsterLocation.insert(std::pair<int, d20Characters::Fighter*>(counter, monster));
+	//monsterLocation.insert(std::pair<int, d20Characters::Fighter*>(counter, monster));
 		counter++;
+		cout << counter << " counter on set" << endl;
 	//cout << monster->getLevel() << "monster level at setMonster" << endl;
 }
 
@@ -1224,7 +1226,8 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 	else if(used[currentRow][currentCol] == 10) {
 		// call Attack method!!!!
 		Attack(bob, monster);
-		cout << "Attack method call!" << endl;
+		counter = counter - 1;
+		//cout << "Attack method call!" << endl;
 
 
 		used[currentRow][currentCol] = 5; //set player new position
@@ -1243,21 +1246,26 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 
 bool Map::areAllMonstersDead()
 {
+	//counter = counter-1;
+	//cout << counter << " counter " << endl;
 	//cout << "entering monsters dead" << endl;
-	for(int i = 1; i <= monsterLocation.size(); i++)
-	{
+	//for(int i = 1; i <= monsterLocation.size(); i++)
+	//{
 		//d20Characters::Fighter* pos = monsterLocation.find(i)->second;
-		d20Characters::Fighter* pos = monsterLocation.find(i)->second;
-		int it = pos->getLevel();
+		//d20Characters::Fighter* pos = monsterLocation.find(i)->second;
+		//int it = pos->getLevel();
 		//cout << it << " monster level " << endl;
 		//counter++;
-		if(it != 0 )
-		{
-			return false;
-		}
+		//if(it != 0 )
+		//{
+			//return false;
+	//	}
 	
+//	}
+	if(counter == 0 ){
+		return true;
 	}
-	return true;
+	return false;
 
 
 }
@@ -1281,6 +1289,7 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	int previousValCol;
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;// = false;
+	//CharacterLocation characterLocation;
 
 	//Map nMap(used,currentRowPosition,currentColPosition);
 	//if(//moveInMap() == true){
@@ -1334,12 +1343,22 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 						cout <<"END OF THE GAME!" << endl;
 						//increase player level
+						//currentPosition.setChracterPosition(rowStart,colStart);
+						//characterLocation.at(bob) = currentPosition;
 						bob->increaseLevel();
 						cout <<"Figther now is level " << bob->getLevel() << endl;
 						return;
 						
 						}else{
 						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cout <<"Press Q to quit the game!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+						cin>>key;
+							if(key=='q'){
+							system("pause");
+							exit(0);
+						}
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						}
@@ -1408,6 +1427,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						notify();
 						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 						cout <<"END OF THE GAME!" << endl;
+						//currentPosition.setChracterPosition(rowStart,colStart);
+						//characterLocation.at(bob) = currentPosition;
 						//increase player level
 						bob->increaseLevel();
 						cout <<"Figther now is level " << bob->getLevel() << endl;
@@ -1415,6 +1436,14 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						
 						}else{
 						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+							cout <<"Press Q to quit the game!" << endl;
+							cin.clear();
+							cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+							cin>>key;
+							if(key=='q'){
+							system("pause");
+							exit(0);
+						}
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						}
@@ -1488,12 +1517,22 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 						cout <<"END OF THE GAME!" << endl;
 						//increase player level
+						//currentPosition.setChracterPosition(rowStart,colStart);
+						//characterLocation.at(bob) = currentPosition;
 						bob->increaseLevel();
 						cout <<"Figther now is level " << bob->getLevel() << endl;
 						return;
 						
 						}else{
 						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cout <<"Press Q to quit the game!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+							cin>>key;
+						if(key=='q'){
+							system("pause");
+							exit(0);
+						}
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						}
@@ -1563,6 +1602,8 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						notify();
 						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
 						cout <<"END OF THE GAME!" << endl;
+						//currentPosition.setChracterPosition(rowStart,colStart);
+						//characterLocation.at(bob) = currentPosition;
 						//increase player level
 						bob->increaseLevel();
 						cout <<"Figther now is level " << bob->getLevel() << endl;
@@ -1570,6 +1611,14 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						
 						}else{
 						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cout <<"Press Q to quit the game!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+							cin>>key;
+						if(key=='q'){
+							system("pause");
+							exit(0);
+						}
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 						}
@@ -1614,6 +1663,22 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 					cout<<"You cannot move down!"<<endl;
 				}
 		}//end if/else statment for key=='d'
+
+		else if(key=='i'){
+			cout <<endl << "********Inventory Pane of Worn Items: *********" << endl;
+			monster->wornContainer->printItems();
+			cout<< endl<< "*********Inventory Pane of Items in Bag: *********" <<endl;
+			monster->bagContainer->printItems();
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+		}
+		else if(key=='w'){
+			cout << "Wearing Item" <<endl;
+			bob->wearItem();
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+		}
+
 		else
 		{
 			cin.clear();
@@ -2327,11 +2392,114 @@ Map* Map::createMapByPromptingUser() {
 	cout<<"  e  "<<endl;
 	cout<<"s d f"<<endl;
 	//Display();
-
+	map->gameLoop();
 	// ... end create map by user interaction.
 
 	return map;
 
+
+}
+
+Map* Map::mapGameSequence(int bobNewLevel)
+{
+		//create map by user interaction:
+	vector< vector <int> > used_;
+	vector< vector <int> > zeroMap1;
+	int numRows0_ = 0, numCols1_ = 0;
+
+	//Prompts the user to enter the size of the map he/she wants
+	//Take the input enterd and set as arguments of the function mapGenerator();
+	cout << "Please enter the size of your map!" << endl;
+	cout << "Enter the number of rows: \n";
+	cin >> numRows0_; 
+	//int temRow =  Map::validateRowInput(numRows0_);
+	//numRows0 = temRow;
+
+	cout << "Enter the number of Columns: \n";
+	cin >> numCols1_;
+	//int temCol = Map::validateColInput(numCols1_); // will be put in the constructor
+	//numCols1 = temCol;
+
+	//filling up msp with empty spaces
+	vector<int> columns;
+	for (int i = 0; i < numRows0_; i++) {
+		zeroMap1.push_back(columns);
+		for (int j = 0; j < numCols1_; j++) {
+			zeroMap1[i].push_back('X');
+		}
+	}
+
+	//displays the empty map
+	Map emptyMap11(zeroMap1, numRows0_, numCols1_);
+	cout<<"Empty Map"<<endl;
+	emptyMap11.mapDesign();//zeroMap, numRows0, numCols1
+
+	//map that will hod the custom map built by the user
+	Map newMap1(used_,numRows0_, numCols1_);
+
+	//Creates a 2D vector with the specifications (Row and Col) given
+	used_ = newMap1.fillUpMap();//vMap, numRows0, numCols1
+	
+
+	Map* map1 = new Map(used_,numRows0_,numCols1_);
+	Display* display = new Display(map1);
+		//create a character bob:
+	//map->createOrReloadACharacterBob();
+	//map->bob->setLevel(bobNewLevel);
+	
+
+	//UIMap* UI = new UIMap();
+
+	cout << "Validating Map...." << endl;
+	cout << "The validation was...."<< endl;
+
+
+	bool isValid = map1->validatingMap();//used, numRows0, numCols1
+
+	while(isValid != true){
+		cout << "MAP not valid. Do it again!" << endl;
+		vector< vector <int> > nMap;
+		map1 = new Map(nMap,numRows0_,numCols1_);
+		nMap = map1->fillUpMap();//newMap, numRows0, numCols1
+		isValid = map1->validatingMap();//newMap, numRows0, numCols1
+		used_= nMap;
+	}
+
+	//	char exit1;
+	bool isChanged = map1->setCell( numRows0_, numCols1_);//used,
+	while(isChanged != true){
+		cout << "Change not valid. Do it again!" << endl;
+		isChanged = map1->setCell(numRows0_, numCols1_);
+	}
+	
+	//create a character bob:
+	map1->createOrReloadACharacterBob();
+	map1->bob->setLevel(bobNewLevel);
+	map1->bob->printCharacterStats();
+
+	//adds Monster to map
+	//int i = 1;
+	//while(i <= map->bob->getLevel())
+	//{
+		//map->setMonsterPos();
+		//i++;
+//	}
+
+	//should add to the created map: monster, map level and cestLevel
+	ArenaConstructor arenaConstructor;
+	ArenaBuilder* arenaBuilder = new ArenaBuilder;
+	arenaConstructor.setBuilder(arenaBuilder);
+	arenaBuilder->createMap(map1);
+	//arenaBuilder->setPlayerOnMap();
+	
+	arenaConstructor.construct();
+	// ... end create map by user interaction.
+	cout<<"Let's play !! " << endl;
+	cout<<"Controls are: "<<endl;
+	cout<<"  e  "<<endl;
+	cout<<"s d f"<<endl;
+	map1->gameLoop();
+	return map1;
 
 }
 
@@ -2340,9 +2508,6 @@ void Map::gameLoopOUTER() {
 	string userWantsNextLevel = "y";
 	while(userWantsNextLevel == "y" && userWantsNextLevel != "n") {
 		
-		gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
-
-		saveCharacterToFile();
 
 		cout << "Do you want to play the next level? (y/n) -- Enter \"n\" to end the game.";
 		cin >> userWantsNextLevel;
@@ -2351,6 +2516,26 @@ void Map::gameLoopOUTER() {
 			cout << "Not valid input!! You must enter \"n\" to finish the program."<< endl;
 			cin >> userWantsNextLevel;
 		}
+
+		int lev = bob->getLevel();
+		
+		cout << lev << " carhacter level" << endl;
+		Map*  map1 = new Map();
+		mapLevel = lev;
+		
+		
+	     //CharacterLocation characterLocation1;
+		 	//position object holding row and collumn value
+		// currentPosition.setChracterPosition(map1->getMapRow(),map1->getColStart());
+
+	//saving charcater current position on map
+	//characterLocation1.insert(CharacterLocation::value_type(bob, currentPosition));
+		 
+		map1->mapGameSequence(lev);
+		//bob->setLevel(lev);
+		//gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
+
+		saveCharacterToFile();
 
 	}
 
