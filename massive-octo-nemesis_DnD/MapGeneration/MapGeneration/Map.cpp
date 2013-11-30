@@ -1147,12 +1147,12 @@ bool Map::validatingMap() { //(vector < vector <int> >& myMap, int row, int col)
 
 */
 
-bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previousCol, int previousVal)
+bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previousCol, int previousVl)
 {
 	//location of 
 	chracPosition *tempItemLoc = new chracPosition();
 	bool tempBool;
-	//int static previousVal =  previousV;
+	int static previousVal =  1;
 
 	if(used[currentRow][currentCol] == 13 || used[currentRow][currentCol] == 14 || used[currentRow][currentCol] == 15
 		|| used[currentRow][currentCol] == 16 || used[currentRow][currentCol] == 17 || used[currentRow][currentCol] == 18 || used[currentRow][currentCol] == 19)
@@ -1180,40 +1180,41 @@ bool Map::moveInMap(int currentRow, int currentCol,int previousRow, int previous
 			
 			cin.clear();
 			cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
-			return true;
-	}
-	else if(used[currentRow][currentCol] == 4)
-	{
-		
-		//cout << it << " monster level " << endl;
-		//counter++;
-		bool isDead = areAllMonstersDead();
-		if( isDead == true ){
-		used[currentRow][currentCol] = 5; //set player new position
-		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
-		notify();
-		cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
-		cout <<"END OF THE GAME!" << endl;
-		//increase player level
-		bob->increaseLevel();
-		cout <<"Figther now is level " << bob->getLevel() << endl;
-		system("pause");
-		exit(0);
-		//return false;
-		}else{
-			used[currentRow][currentCol] = 5; //set player new position
-			used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
-			cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
 			return false;
-		}
-						
-	}else if(used[currentRow][currentCol] == 10) {
+	}
+	//else if(used[currentRow][currentCol] == 4)
+	//{
+		
+		////cout << it << " monster level " << endl;
+		////counter++;
+		//bool isDead = areAllMonstersDead();
+		//if( isDead == true ){
+		//used[currentRow][currentCol] = 5; //set player new position
+		//used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
+		//notify();
+		//cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
+		//cout <<"END OF THE GAME!" << endl;
+		////increase player level
+		//bob->increaseLevel();
+		//cout <<"Figther now is level " << bob->getLevel() << endl;
+		//system("pause");
+		////exit(0);// call nicks function to replay
+		//return true;
+		//}else{
+		//	//used[currentRow][currentCol] = 4; //set player new position
+		//	//used[previousRow][previousCol] = 5; //set the position player left with its old value;
+		//	cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+		//	return false;
+		//}
+		//				
+	//}
+	else if(used[currentRow][currentCol] == 10) {
 		// call Attack method!!!!
 		cout << "Attack method call!" << endl;
 		used[currentRow][currentCol] = 5; //set player new position
 		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
 	}
-	else //if(vectorMap[row][col] == 1) //empty cell
+	else //if(vectorMap[row][col] == ) //empty cell
 	{
 		used[currentRow][currentCol] = 5; //set player new position
 		used[previousRow][previousCol] = previousVal; //set the position player left with its old value;
@@ -1230,7 +1231,7 @@ bool Map::areAllMonstersDead()
 	for(int i = 1; i <= monsterLocation.size(); i++)
 	{
 		//d20Characters::Fighter* pos = monsterLocation.find(i)->second;
-		d20Characters::Fighter* pos = monsterLocation.find(1)->second;
+		d20Characters::Fighter* pos = monsterLocation.find(i)->second;
 		int it = pos->getLevel();
 		//cout << it << " monster level " << endl;
 		//counter++;
@@ -1263,10 +1264,13 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 	int previousValRow;
 	int previousValCol;
 	chracPosition *tempItemLoc = new chracPosition();
-	bool tempBool;
+	bool tempBool;// = false;
 
 	//Map nMap(used,currentRowPosition,currentColPosition);
-
+	//if(//moveInMap() == true){
+		//cout << " leaving game loop" << endl;
+		//return ;
+//	}
 	
 	//position object holding row and collumn value
 	currentPosition.setChracterPosition(currentRowPosition,currentColPosition);
@@ -1304,6 +1308,26 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cout<<"Sorry you cannot move there. There is a wall 2!"<<endl;
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+					}else if(actualMap[currentRowPosition-1][currentColPosition]==4){
+					
+						bool isDead = areAllMonstersDead();
+						if( isDead == false ){
+						used[currentRowPosition-1][currentColPosition] = 5; //set player new position
+						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
+						notify();
+						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
+						cout <<"END OF THE GAME!" << endl;
+						//increase player level
+						bob->increaseLevel();
+						cout <<"Figther now is level " << bob->getLevel() << endl;
+						return;
+						
+						}else{
+						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+						}
+
 					}
 					else
 					{
@@ -1359,6 +1383,26 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+					}else if(actualMap[currentRowPosition][currentColPosition-1]==4){
+					
+						bool isDead = areAllMonstersDead();
+						if( isDead == false ){
+						used[currentRowPosition][currentColPosition-1] = 5; //set player new position
+						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
+						notify();
+						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
+						cout <<"END OF THE GAME!" << endl;
+						//increase player level
+						bob->increaseLevel();
+						cout <<"Figther now is level " << bob->getLevel() << endl;
+						return;
+						
+						}else{
+						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+						}
+
 					}
 					else
 					{
@@ -1418,6 +1462,26 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
 					
+					}else if(actualMap[currentRowPosition][currentColPosition+1]==4){
+					
+						bool isDead = areAllMonstersDead();
+						if( isDead == false ){
+						used[currentRowPosition][currentColPosition+1] = 5; //set player new position
+						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
+						notify();
+						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
+						cout <<"END OF THE GAME!" << endl;
+						//increase player level
+						bob->increaseLevel();
+						cout <<"Figther now is level " << bob->getLevel() << endl;
+						return;
+						
+						}else{
+						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+						}
+
 					}
 					else
 					{
@@ -1474,6 +1538,26 @@ void Map::gameLoop() //(vector<vector<int>>& used, int row, int col)
 						cout<<"Sorry you cannot move there. There is a wall!"<<endl;
 						cin.clear();
 						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+					}else if(actualMap[currentRowPosition+1][currentColPosition]==4){
+					
+						bool isDead = areAllMonstersDead();
+						if( isDead == false ){
+						used[currentRowPosition+1][currentColPosition] = 5; //set player new position
+						used[previousValRow][previousValCol] = 1; //set the position player left with its old value;
+						notify();
+						cout << "YOU HAVE REACHED THE END OF THE MAP!!" << endl;
+						cout <<"END OF THE GAME!" << endl;
+						//increase player level
+						bob->increaseLevel();
+						cout <<"Figther now is level " << bob->getLevel() << endl;
+						return;
+						
+						}else{
+						cout <<"Not all Monsters were defeated! You cannot exit the map!" << endl;
+						cin.clear();
+						cin.ignore((numeric_limits<streamsize>::max)(), '\n' );
+						}
+
 					}
 					else
 					{
