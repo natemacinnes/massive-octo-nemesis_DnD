@@ -2323,3 +2323,48 @@ Map* Map::createMapByPromptingUser() {
 
 
 }
+
+void Map::gameLoopOUTER() {
+
+	string userWantsNextLevel = "y";
+	while(userWantsNextLevel == "y" && userWantsNextLevel != "n") {
+		
+		gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
+
+		saveCharacterToFile();
+
+		cout << "Do you want to play the next level? (y/n) -- Enter \"n\" to end the game.";
+		cin >> userWantsNextLevel;
+
+		while(userWantsNextLevel != "y" || userWantsNextLevel != "y"){
+			cout << "Not valid input!! You must enter \"n\" to finish the program."<< endl;
+			cin >> userWantsNextLevel;
+		}
+
+	}
+
+}
+
+
+void Map::saveCharacterToFile() {
+
+	//if we passed the loop: ask to save the character to file:
+	string dosavetofile;
+	cout << "do you want to save your character to file? (y/n)" << endl;
+	cin >> dosavetofile;
+	bool isgoodanswer2 = false;
+	while(!isgoodanswer2) {
+		if(dosavetofile == "y") {
+			//save to file:
+			bob->SaveCharacterToFile();
+			isgoodanswer2 = true;
+		} else if (dosavetofile =="n") {
+			//do nothing
+			isgoodanswer2 = true;
+		} else {
+			cout << "Invalid input. " << endl;	
+			isgoodanswer2 = false;
+		}
+	}
+
+}
