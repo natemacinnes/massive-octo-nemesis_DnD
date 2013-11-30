@@ -4,10 +4,15 @@
 #include "chracPosition.h"
 #include "Item.h"
 #include "ItemContainer.h"
+#include "Helmet.h"
 #include "Shield.h"
 #include "ConsoleOut.h"
 #include "GUIclass.h"
 #include "GUI.h"
+#include "ChestBuilder.h"
+//#include "IChestBuilder.h"
+#include "LeveledChestBuilder.h"
+#include "ChestDirector.h"
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -27,20 +32,24 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
+<<<<<<< HEAD
+=======
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	cout << "ITEM CONTAINER CREATION" << endl;
 
+	//
 	d20Items::ItemContainer *items = new d20Items::ItemContainer();
 
-	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items);
+	d20Items::ConsoleOut *output  = new d20Items::ConsoleOut(items); //
 
-	d20Items::Item *item = new d20Items::Helmet("Shield ");
+	d20Items::Item *item = new d20Items::Shield("Shield of "); //name, enchantment type, value
 
-	item->setEnchantment(d20Items::ARMOR_CLASS, 2);
+	item->setEnchantment(d20Items::ARMOR_CLASS, 3);
 
 	items->add(item);
 
+>>>>>>> origin/nick4
 	//TODO this should be a form of factory pattern:
 	// a static method that returns an instance of map after prompting the user for the inputs:
 	Map* map = Map::createOrReloadAMap();
@@ -50,44 +59,6 @@ int main(int argc, char** argv)
 
 	map->saveCharacterToFile(); // again, although it's done after each level anyway.
 
-<<<<<<< HEAD
-	map->gameLoop();//(Map::used, Map::numRows0,Map::numCols1); // this is basically: enter play mode, it's a loop until the player exits or wins.
-
-
-
-
-	char end;
-	cout << "Enter any LETTER to finish the program!"<< endl;
-	cin >> end;
-
-	while(isalpha(end)==false){
-		cout << "Not valid input!! You must enter any LETTER to finish the program."<< endl;
-		cin >> end;
-	}
-
-	//TODO: make this a regular Map::method
-	//if we passed this loop: ask to save the character to file:
-	string dosavetofile;
-	cout << "do you want to save your character to file? (y/n)" << endl;
-	cin >> dosavetofile;
-	bool isgoodanswer2 = false;
-	while(!isgoodanswer2) {
-		if(dosavetofile == "y") {
-			//save to file:
-			map->bob->SaveCharacterToFile();
-			isgoodanswer2 = true;
-		} else if (dosavetofile =="n") {
-			//do nothing
-			isgoodanswer2 = true;
-		} else {
-			cout << "Invalid input. " << endl;	
-			isgoodanswer2 = false;
-		}
-	}
-=======
->>>>>>> origin/nick3
-
-	SDL_Quit();
 	//end program:
 	return 0;
 }
